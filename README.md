@@ -1,2 +1,0 @@
-# webproject
-CS518s
