@@ -1,6 +1,11 @@
-<?php include "session.php"; ?>	
+<?php 
+session_start();
+include "session.php";
+      
+?>	
 
 <?php
+
 
 $Invalid=" ";
 if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password'])){
@@ -8,12 +13,13 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
 		$password = $_POST['password'];
 		$email = mysqli_real_escape_string($connection,$email);
 		$password = mysqli_real_escape_string($connection,$password);	
-		$query = "SELECT * from users where email='$email' and password='$password'";
+		$query = "SELECT * from users where email='$email' and password='$password' ";
 		$result = mysqli_query($connection,$query) or die("Failed to query database".mysqli_error());
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        echo $row;
 			if ($result->num_rows > 0){
+                $_SESSION['email']= $row['email'];
 				header('Location:home.php');
+                
 				}
 			else{
 	 			$Invalid= "Invalid email or password!"; 
@@ -157,8 +163,12 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                  
                  </div>
 
+
              
 -->
+                 
+                 
+              
              </div>
              
              
