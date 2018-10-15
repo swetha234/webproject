@@ -1,7 +1,7 @@
 <!--Code to connect to database-->
 <?php 
 	//session_start();
-	$connection =mysqli_connect("localhost","root","bidoo","pet_finder") or die("Connection Failed");
+	$connection =mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
         
         //function for getting topics
         function getTopics(){
