@@ -29,7 +29,6 @@ if(!isset($_SESSION['email'])){
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Members</a></li>
-                    <strong>Topics:</strong>
                 <li><a href="logout.php">Logout</a></li>
                     
                 </ul>

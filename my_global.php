@@ -74,7 +74,7 @@ include "session.php";
                 <form action="my_global.php" method="post" id="f" >
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" rows="4" name="content" placeholder="Write a descripntion"></textarea><br/>
+                    <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
                     <select name="topic">
                         <option>Select Topic</option>
                         <?php getTopics(); 
