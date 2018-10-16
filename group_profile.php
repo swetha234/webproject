@@ -67,7 +67,9 @@ include "session.php";
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
                     <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
-                    <input type="text" name="topic" style="display:none;"  value ="<?php echo $topic_id;?>"/>
+                    <input type="text" name="topic" style="display:none;"  value ="<?php echo $topic_id;
+                    $global = "NULL"; 
+                    ?>"/>
                        
                     <input type="submit" name="sub" value="Post to Timeline" /> 
                      
@@ -81,7 +83,7 @@ include "session.php";
                     <br>
                     <br>
                 </form>
-                <?php insertPost(); ?>
+                <?php insertPost($global); ?>
                 
                      <br><br>
                 

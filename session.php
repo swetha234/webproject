@@ -19,7 +19,7 @@
          }
         }
 //function for inserting posts
-function insertPost(){
+function insertPost($global){
     
     if (isset($_POST['sub'])){
         global $connection; 
@@ -27,7 +27,7 @@ function insertPost(){
         $title = htmlspecialchars(addslashes($_POST['title']));
         $content = htmlspecialchars(addslashes($_POST['content']));
         $topic = $_POST['topic'];
-        $insert = "insert into posts(users_id,topic_id,post_title,post_content,post_date) values ('$users_id','$topic','$title','$content',NOW())";
+        $insert = "insert into posts(users_id,topic_id,post_title,post_content,post_date,global) values ('$users_id','$topic','$title','$content',NOW(),$global)";
         
         #$run = mysqli_query($connection,$insert);
         #$row2=mysqli_fetch_array($run);
@@ -57,30 +57,23 @@ function get_globalposts(){
        $users_id = $row_posts['users_id'];
        
      //getting the user who has posted the thread
-    $user= "select * from posts order by post_date DESC";
+    $user_posts= "select * from posts where global is not NULL order by post_date DESC";
     
-        $run_user= mysqli_query($connection,$user);
+        $run_user= mysqli_query($connection,$user_posts);
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
-         $post_id = $row_user['post_id'];
-        $topic_id = $row_user['topic_id'];
-        $users_id = $row_user['users_id'];
-        $post_title = $row_user['post_title'];
-        $content= $row_user['post_content'];
-        $post_date = $row_user['post_date'];
-    
-          $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
-    $run_post_title = mysqli_query($connection,$topic_title_query);
-            
+             $post_id = $row_user['post_id'];
+            $topic_id = $row_user['topic_id'];
+            $users_id = $row_user['users_id'];
+            $post_title = $row_user['post_title'];
+            $content= $row_user['post_content'];
+            $post_date = $row_user['post_date'];
+            $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
+            $run_post_title = mysqli_query($connection,$topic_title_query);
+
     while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
         
         $topic_title = $row_post_title['topic_title'];
-        
-        
-    
-            
-            
-            
-            $user_details = "select last_name from users where users_id='$users_id'";
+        $user_details = "select last_name from users where users_id='$users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
             
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
@@ -104,7 +97,7 @@ function get_globalposts(){
         }
         }
     }
-    include("pagenation.php");
+//    include("pagenation.php");
 }
 function get_groups($users_id){
     #echo $users_id;
@@ -135,7 +128,7 @@ function get_groups($users_id){
         <div id='groups'>
         <form action="my_groups.php" method ="get">
       <input type="checkbox" name="vehicle1" id="myCheck" value="<?php echo $topic_title ?> ">
-        <h3><a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title  ?></a></h3>
+        <h3><a href='group_profile.php?topic_id=<?php echo $topic_id; ?>'><?php echo $topic_title  ?></a></h3>
             
 <br>
             </form>
@@ -262,7 +255,7 @@ function get_user_posts(){
         }
         }
     }
-    include("pagenation.php");
+//    include("pagenation.php");
 }
 function get_group_name($topic_id){
      global $connection;
@@ -296,7 +289,7 @@ function get_group_posts($topic_id){
        $users_id = $row_posts['users_id'];
     
      //getting the user who has posted the thread
-    $user= "select * from posts where topic_id='$topic_id' order by post_date DESC";
+    $user= "select * from posts where topic_id='$topic_id' and global is null order by post_date DESC";
     
         $run_user= mysqli_query($connection,$user);
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){

@@ -72,21 +72,8 @@ if(!isset($_SESSION['email'])){
             </div>
         
             <div id= "content_timeline">
-                <form action="home.php?id=<?php echo $users_id;?>" method="post" id="f" >
-                <h2> What's on your mind..?</h2>
-                    <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" rows="4" name="content" placeholder="Write a descripntion"></textarea><br/>
-                    <select name="topic">
-                        <option>Select Topic</option>
-                        <?php getTopics(); ?>     
-                    </select>
-                    <input type="submit" name="sub" value="Post to Timeline" /> 
-                  
-                </form>
-                <?php insertPost(); ?>
-                
                      <br><br>
-                    <h3>Most Recent Discussions..!</h3>
+                    <h3>My Most Recent Discussions..!</h3>
                     <?php get_user_posts(); ?>
                 
             </div>

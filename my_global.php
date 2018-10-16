@@ -29,7 +29,6 @@ include "session.php";
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Members</a></li>
-                    <strong>Topics:</strong>
                 <li><a href="logout.php">Logout</a></li>
                     
                 </ul>
@@ -78,15 +77,16 @@ include "session.php";
                     <textarea cols="71" rows="4" name="content" placeholder="Write a descripntion"></textarea><br/>
                     <select name="topic">
                         <option>Select Topic</option>
-                        <?php getTopics(); ?>     
+                        <?php getTopics(); 
+                        $global = '1';?>     
                     </select>
                     <input type="submit" name="sub" value="Post to Timeline" />
                     
+                    
                 </form>
-                
                      <br>
                      <br>
-                <?php insertPost(); ?>
+                <?php insertPost($global); ?>
                 
                     
                     <h3>Most Recent Discussions..!</h3>
