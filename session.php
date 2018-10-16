@@ -1,7 +1,7 @@
 <!--Code to connect to database-->
 <?php 
 	//session_start();
-	$connection =mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
+	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
         
         //function for getting topics
         function getTopics(){
@@ -24,26 +24,19 @@ function insertPost(){
     if (isset($_POST['sub'])){
         global $connection; 
         global $users_id;
-        $title = addslashes($_POST['title']);
-        $content = addslashes($_POST['content']);
+        $title = htmlspecialchars(addslashes($_POST['title']));
+        $content = htmlspecialchars(addslashes($_POST['content']));
         $topic = $_POST['topic'];
         $insert = "insert into posts(users_id,topic_id,post_title,post_content,post_date) values ('$users_id','$topic','$title','$content',NOW())";
         
         #$run = mysqli_query($connection,$insert);
         #$row2=mysqli_fetch_array($run);
-
         if(mysqli_query($connection,$insert)){
             
             echo "<h3>posted to timeline</h3>";
         }
     }
 }
-
-
-
-
-
-
 function get_globalposts(){
     global $connection;
     $per_page=10;
@@ -113,9 +106,6 @@ function get_globalposts(){
     }
     include("pagenation.php");
 }
-
-
-
 function get_groups($users_id){
     #echo $users_id;
     global $connection;
@@ -165,7 +155,6 @@ function insert_join(){
         global $connection; 
         global $users_id;
         $insert_join = "insert into user_group(users_id,topic_id) values ('$users_id','$topic_id')";
-
         if(mysqli_query($connection,$insert_join)){
             
             echo "Success!";
@@ -209,15 +198,8 @@ function get_my_groups($users_id){
         ";
         }
         }
-
     
 }
-
-
-
-
-
-
 function get_user_posts(){
     global $connection;
     $per_page=5;
@@ -256,12 +238,7 @@ function get_user_posts(){
         
         $topic_title = $row_post_title['topic_title'];
         
-        
-    
-            
-            
-            
-            $user_details = "select last_name from users where users_id='$users_id'";
+        $user_details = "select last_name from users where users_id='$users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
             
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
@@ -287,10 +264,18 @@ function get_user_posts(){
     }
     include("pagenation.php");
 }
-
-
-
-
+function get_group_name($topic_id){
+     global $connection;
+    $get_name= "select topic_title from topics where topic_id='$topic_id'"; 
+     $run_posts = mysqli_query($connection,$get_name);
+     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
+         
+         $topic_title = $row_posts['topic_title'];
+        return ($topic_title);
+     }
+    
+    
+}
 function get_group_posts($topic_id){
     global $connection;
     $per_page=5;
@@ -309,7 +294,7 @@ function get_group_posts($topic_id){
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
     
        $users_id = $row_posts['users_id'];
-       
+    
      //getting the user who has posted the thread
     $user= "select * from posts where topic_id='$topic_id' order by post_date DESC";
     
@@ -328,20 +313,14 @@ function get_group_posts($topic_id){
     while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
         
         $topic_title = $row_post_title['topic_title'];
-        
-        
-    
-            
-            
-            
-            $user_details = "select last_name from users where users_id='$users_id'";
+        $user_details = "select last_name from users where users_id='$users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
             
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
         
         $last_name = $row_user_details['last_name'];
         
-        
+    }
     //now displaying all at once
         
         echo "<div id='posts'>
@@ -354,11 +333,10 @@ function get_group_posts($topic_id){
         
         </div></br>
         ";
-    }
+    
         }
         }
     }
-    include("pagenation.php");
+//    include("pagenation.php");
 }
-
 ?>	
