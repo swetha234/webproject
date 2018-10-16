@@ -61,9 +61,7 @@ include "session.php";
                     <p><a href='my_global.php'> Global Group </a> </p>
                      <p><a href='my_posts.php'> My Posts </a> </p>
                      <p><a href='my_groups.php'> My Groups </a> </p>
-                     
-                     <p><a href='my_findgroup.php'> Find a group</a> 
-                     </p>
+                     <p><a href='my_findgroup.php'> Find a group</a>  </p>
                      <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
                     </div>";
                     ?>
@@ -74,7 +72,7 @@ include "session.php";
                 <form action="home.php?id=<?php echo $users_id;?>" method="post" id="f" >
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" rows="4" name="content" placeholder="Write a descripntion"></textarea><br/>
+                    <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
                     <select name="topic">
                         <option>Select Topic</option>
                         <?php getTopics(); ?>     

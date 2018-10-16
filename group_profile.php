@@ -28,7 +28,7 @@ include "session.php";
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Members</a></li>
-                    <strong>Topics:</strong>
+                   
                 <li><a href="logout.php">Logout</a></li>
                     
                 </ul>
@@ -45,7 +45,8 @@ include "session.php";
                 <div id="user_details">
                     <?php
                     $user = $_SESSION['email'];
-                  
+                    $topic_id=$_GET['topic_id'];
+                    
                     $get_user = "select * from users where email = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
                     $row=mysqli_fetch_array($run_user);
@@ -59,6 +60,7 @@ include "session.php";
                     <div id='user_mention'>
                     <p><strong>Name : </strong> $last_name</p> 
                     <p><a href='my_global.php'> Global Group </a> </p>
+                     <p><a href='my_groups.php'> My Groups </a> </p>
                      <p><a href='my_posts.php'> My Posts </a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>
                      <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
@@ -66,15 +68,16 @@ include "session.php";
                     ?>
                 </div>
             </div>
-        
             <div id= "content_timeline">
-                <form action="home.php?id=<?php echo $users_id;?>" method="post" id="f" >
+                <form action="group_profile.php?topic_id=<?php echo $topic_id;?>" method="post" id="f" >
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" rows="4" name="content" placeholder="Write a descripntion"></textarea><br/>
-                    
+                    <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
+                    <input type="text" name="topic" style="display:none;"  value ="<?php echo $topic_id;?>"/>
                        
                     <input type="submit" name="sub" value="Post to Timeline" /> 
+                     
+                     
                   <br>
                     <br>
                     <br>
@@ -88,7 +91,7 @@ include "session.php";
                 
                      <br><br>
                 
-                    <?php get_group_posts($_GET['topic_id']); ?>
+                    <?php get_group_posts($topic_id); ?>
                 
             </div>
         </div>
