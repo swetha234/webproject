@@ -29,7 +29,6 @@ if(!isset($_SESSION['email'])){
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Members</a></li>
-                    <strong>Topics:</strong>
                 <li><a href="logout.php">Logout</a></li>
                     
                 </ul>
@@ -75,7 +74,7 @@ if(!isset($_SESSION['email'])){
                 <form action="home.php?id=<?php echo $users_id;?>" method="post" id="f" >
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" rows="4" name="content" placeholder="Write a descripntion"></textarea><br/>
+                    <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
                     <select name="topic">
                         <option>Select Topic</option>
                         <?php getTopics(); ?>     
