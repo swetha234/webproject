@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 15, 2018 at 03:13 AM
+-- Generation Time: Oct 16, 2018 at 02:26 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -37,23 +37,29 @@ CREATE TABLE `posts` (
   `topic_id` int(11) NOT NULL,
   `post_title` text NOT NULL,
   `post_content` text NOT NULL,
-  `post_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `post_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `global` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_content`, `post_date`) VALUES
-(22, 3, 2, 'Labrador', 'I am looking to buy a puppy.', '2018-10-14 21:51:00'),
-(23, 4, 2, 'Maltese', 'Maltese is a cute dog.', '2018-10-14 21:51:59'),
-(24, 2, 2, 'Look at my Pug', 'Isn\'t he adorable ?', '2018-10-14 21:52:27'),
-(25, 1, 1, 'Persian Cats', 'I have cute pair of these cats.', '2018-10-14 21:54:04'),
-(26, 3, 1, 'Lazy companion', 'Feed him food. He will be happy.', '2018-10-14 21:54:46'),
-(27, 3, 1, 'Catty ', 'Shines always !! ', '2018-10-15 00:45:32'),
-(30, 4, 5, 'Piggy', 'Pouts Perfectly !!!', '2018-10-15 00:54:19'),
-(31, 3, 6, 'Fishyy', 'It lives in water', '2018-10-15 00:58:03'),
-(32, 3, 4, 'Tortoiseee', 'Slow ', '2018-10-15 00:59:52');
+INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_content`, `post_date`, `global`) VALUES
+(22, 3, 2, 'Labrador', 'I am looking to buy a puppy.', '2018-10-14 21:51:00', NULL),
+(23, 4, 2, 'Maltese', 'Maltese is a cute dog.', '2018-10-14 21:51:59', NULL),
+(24, 2, 2, 'Look at my Pug', 'Isn\'t he adorable ?', '2018-10-16 11:31:03', 1),
+(25, 1, 1, 'Persian Cats', 'I have cute pair of these cats.', '2018-10-14 21:54:04', NULL),
+(26, 3, 1, 'Lazy companion', 'Feed him food. He will be happy.', '2018-10-16 11:28:33', 1),
+(27, 3, 1, 'Catty ', 'Shines always !! ', '2018-10-15 00:45:32', NULL),
+(30, 4, 5, 'Piggy', 'Pouts Perfectly !!!', '2018-10-15 00:54:19', NULL),
+(31, 3, 6, 'Fishyy', 'It lives in water', '2018-10-15 00:58:03', NULL),
+(32, 3, 4, 'Tortoiseee', 'Slow ', '2018-10-15 00:59:52', NULL),
+(77, 2, 1, 'tests cats', 'I m a cat', '2018-10-16 11:28:48', 1),
+(79, 1, 5, 'Post on Pigs', 'Pigs are cute !!', '2018-10-16 11:59:11', 1),
+(80, 1, 3, 'Pigeon', 'Many of them !!', '2018-10-16 12:03:24', 1),
+(86, 1, 4, 'Turtle', '', '2018-10-16 12:11:27', NULL),
+(87, 1, 6, 'Post on fish', 'Fishesss', '2018-10-16 12:12:33', 1);
 
 -- --------------------------------------------------------
 
@@ -128,7 +134,7 @@ INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 (2, 3, 2),
 (3, 2, 3),
 (4, 2, 2),
-(17, 1, 2),
+(17, 1, 4),
 (18, 1, 1),
 (19, 4, 5),
 (20, 4, 2),
@@ -172,7 +178,7 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `topics`
