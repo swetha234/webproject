@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 16, 2018 at 02:26 PM
+-- Generation Time: Oct 23, 2018 at 06:58 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -59,7 +59,9 @@ INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_cont
 (79, 1, 5, 'Post on Pigs', 'Pigs are cute !!', '2018-10-16 11:59:11', 1),
 (80, 1, 3, 'Pigeon', 'Many of them !!', '2018-10-16 12:03:24', 1),
 (86, 1, 4, 'Turtle', '', '2018-10-16 12:11:27', NULL),
-(87, 1, 6, 'Post on fish', 'Fishesss', '2018-10-16 12:12:33', 1);
+(87, 1, 6, 'Post on fish', 'Fishesss', '2018-10-16 12:12:33', 1),
+(88, 1, 1, 'heyy', 'cdcw', '2018-10-16 17:43:09', NULL),
+(89, 1, 4, '', 'helllooo', '2018-10-16 17:44:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -98,19 +100,24 @@ CREATE TABLE `users` (
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `user_image` varchar(256) NOT NULL
+  `user_image` varchar(256) NOT NULL,
+  `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`) VALUES
-(3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg'),
-(5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen\r\n', 'default.jpeg'),
-(1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'default.jpeg'),
-(2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg'),
-(4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg');
+INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`, `status`) VALUES
+(15, 'Gutti', 'hima Swetha', 'himaswetha234@gmail.com', 'hello123', 'default.jpeg', 'unverified'),
+(17, 'Gutti', 'Carrera', 'horhhnet@rsprings.gov', '@doc', 'default.jpeg', 'unverified'),
+(14, 'Gutti', 'csacd', 'horjhjjhknet@rsprings.gov', '@doc', 'default.jpeg', 'unverified'),
+(16, '', 'nbj', 'hornet@rsprikjkngs.gov', '', 'default.jpeg', 'unverified'),
+(3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg', ''),
+(5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen', 'default.jpeg', ''),
+(1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'default.jpeg', ''),
+(2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg', ''),
+(4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg', '');
 
 -- --------------------------------------------------------
 
@@ -178,7 +185,7 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `topics`
@@ -190,7 +197,7 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `users_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_group`
