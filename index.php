@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include "session.php";
+
       
 ?>	
 
@@ -22,8 +23,8 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                 
 				}
 			else{
-	 			$Invalid= "Invalid email or password!"; 
-                #echo $Invalid;
+	 			$Invalid= "Invalid email or password!";
+                               #echo $Invalid;
 	 		}
 			mysqli_close($connection);
 		}
@@ -59,7 +60,7 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
          </style>
     
     
-<body >
+<body>
                  
     <h1> Pet Finder </h1>
       <!--container starts-->   
@@ -88,20 +89,25 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
              </div>
              <!--Head wrap starts-->
              
-             
+             <!-- content area starts -->
+
              <div id="content">
              
              <div>
                  
-                 <img src= "images/blacklab.jpg"  style="float:left; margin-right:40px; width:1450px">
+                 <img src= "images/blacklab.jpg"  style="float:left;  width:600px; height:600px">
                  
-                 
+               
                  
                  </div>
+                 <?php 
+                    include "function.php";
+                 ?>
 
-<!--
-                <div class ="a">
+                <div id="form2">
                       <form action = "" method="post">
+                        <h2>Sign Up Here</h2>
+                          
                  <table>
                      <tr>
                          <td align= "right">First Name:</td>
@@ -125,12 +131,14 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                          </td>
                      </tr>
                      <tr>
-                         <td align= "right">Passowrd:</td>
+                         <td align= "right">Password:</td>
                          
                          <td>
-                         <input type="password" name= "u_pass" placeholder= "********"/>
+                         <input type="password" name= "u_password" placeholder= "********"/>
                          </td>
                      </tr>
+                     
+<!--
                       <tr>
                          <td align= "right">Confirm Passowrd:</td>
                          
@@ -138,12 +146,16 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                          <input type="text" name= "u_confirmpass" placeholder= "********"/>
                          </td>
                      </tr>
+
+-->
+                    
                     
                      
                      
                      <tr>
+                
                      
-                     <td>
+                     <td colspan="6">
                          
                          <button name= "signup"> Sign Up</button>
                          </td>
@@ -153,42 +165,19 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                           
                           </table>
                           
+                          
+                          
                      </form>
+                    <?php InsertUser(); ?>
 
-                    
-                    
-                     
-
-                     
-                 
-                 </div>
-
-
+                </div>
+            </div>
+              <!-- content area ends --> 
              
--->
-                 
-                 
-              
-             </div>
-             
-             
-    </div> 
-    
-    
+        </div> 
     <!-- container ends-->
          
-         
-         
-         
          </body>
-    
-    
-    
-    
-    
-    
-    
-    
     </head>
 
 </html>

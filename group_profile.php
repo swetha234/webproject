@@ -64,14 +64,17 @@ include "session.php";
             </div>
             <div id= "content_timeline">
                 <form action="group_profile.php?topic_id=<?php echo $topic_id;?>" method="post" id="f" >
+                    
+
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
                     <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
                     <input type="text" name="topic" style="display:none;"  value ="<?php echo $topic_id;
                     $global = "NULL"; 
                     ?>"/>
+
                        
-                    <input type="submit" name="sub" value="Post to Timeline" /> 
+                    <input type="submit" name="sub" value="Post to Timeline" />
                      
                      
                   <br>

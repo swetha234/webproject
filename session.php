@@ -2,6 +2,7 @@
 <?php 
 	//session_start();
 	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
+
         
         //function for getting topics
         function getTopics(){
@@ -37,6 +38,31 @@ function insertPost($global){
         }
     }
 }
+
+//function get_posts(){
+//    global $con;
+//    $get_posts = "select * from posts ORDER by 1 DESC LIMIT";
+//    $run_posts = mysqliquery ($connection ,  $get_posts);
+//    while (row_posts = mysqli_fetch_array(run_posts)){
+//        
+//        $post_id = $row_posts['post_id'];
+//         $users_id = $row_posts['user_id'];
+//        $post_title= $row['post_title'];
+//        $content = $row_posts['post_content'];
+//        $post_date = $row_posts['post_date'];
+//        
+//        $user = "select * from users where users_id ='$users_id' AND posts= 'YES'";
+//        $run_user=mysqli_query($connection,$user);
+//        $row_user=mysqli_fetch_array($run_user);
+//        $user_name = $row_user['user_name'];
+//        $user_image=
+//        
+//    }
+    
+    
+    
+    
+
 function get_globalposts(){
     global $connection;
     $per_page=10;
@@ -73,18 +99,22 @@ function get_globalposts(){
     while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
         
         $topic_title = $row_post_title['topic_title'];
-        $user_details = "select last_name from users where users_id='$users_id'";
+//        $user_image =$row_user['user_image'];
+        $user_details = "select * from users where users_id='$users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
-            
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
         
         $last_name = $row_user_details['last_name'];
+  
+             $user_image =$row_user_details['user_image']; 
+        
         
         
     //now displaying all at once
         
         echo "<div id='posts'>
-        <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'> $topic_title</a></h3>
+        <p> <img src='user/user_images/$user_image' width='50', height='50' ></p>
+ <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'> $topic_title</a></h3>
         <p>Username: <a href='user_profile.php?topic_id=$users_id'> $last_name</a></p>
         <p>Topic: $post_title</p>
         <p>Content : $content</p>
@@ -134,7 +164,7 @@ function get_groups($users_id){
             </form>
         </div> 
             
-<?php 
+<?php
       }    
    
     

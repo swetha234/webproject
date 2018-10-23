@@ -73,6 +73,7 @@ if(!isset($_SESSION['email'])){
             <div id= "content_timeline">
                      <br><br>
                     <h3>My Most Recent Discussions..!</h3>
+<!--                   -->
                     <?php get_user_posts(); ?>
                 
             </div>

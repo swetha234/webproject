@@ -90,3 +90,35 @@ body {
     background-color: skyblue;
     color : white;
 }
+#content {
+    
+    width: 1000px;
+    height: 1000px;
+    margin: 0 auto;
+}
+#form2{
+    
+   float: right;
+/*    margin-top: 40px;*/
+    
+}
+#form2 input{
+    
+    width: 250px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+#form2 button {
+    width:250px;
+    padding 10px;
+ margin-left: 127px;
+}
+#form h2 {
+    
+    padding: 20px;
+    margin-left: 100px;
+}
+
+
