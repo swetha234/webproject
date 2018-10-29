@@ -38,12 +38,9 @@ body {
     overflow: hidden;
     margin:0;
     padding: 0;
+    
   
-}
-
-    
-    
-    
+}   
 
 #head_wrap{
     
@@ -155,6 +152,17 @@ body {
 /*    width: 280px;*/
     padding: 10px;
 }
+/*
+#content_timeline h2{
+    
+    position: static;
+     position: relative;
+    left: 30px;
+}
+*/
+.ff input{
+    margin:5px;
+}
 #f input{
     float: left;
     padding: 10px;
@@ -171,6 +179,7 @@ body {
     font-weight: bolder;
 
 }
+
 #f input:hover {
     
     background-color: beige;
@@ -216,10 +225,57 @@ body {
     text-align: justify;
     
 }
+#reply input {
 
+/*    float: left;*/
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-weight: bolder;
+
+}
+
+#reply textarea{
+
+    float: left;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-weight: bolder;
+
+}
+#reply input:hover{
+
+   
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-weight: bolder;
+    background: wheat;
+
+}
+
+#comments {
+    
+    background: #D8D8D8;
+    padding: 5px;
+    width:500px;
+    border-bottom : 1px solid black;
+}
+#comments span{
+    color:#8A2908;
+}
+#comments p{
+    
+    line-height: 20px;
+    font-size: 16px;
+}
 #pagenation a:hover{
     
-    
+     padding: 10px;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-weight: bolder;
     color: saddlebrown;
     font-weight: bold;
     
@@ -231,3 +287,14 @@ body {
     background-color: skyblue;
     color : white;
 }
+
+.fff input{
+    text-align: center;
+    float: left;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-weight: bolder;
+}
+
+

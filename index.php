@@ -38,6 +38,7 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
          
           <title> PET Finder</title>
     <link rel = "stylesheet" href = "style/style.css" media ="all"/>
+        
     <style>
          
          h1{
@@ -138,16 +139,7 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                          </td>
                      </tr>
                      
-<!--
-                      <tr>
-                         <td align= "right">Confirm Passowrd:</td>
-                         
-                         <td>
-                         <input type="text" name= "u_confirmpass" placeholder= "********"/>
-                         </td>
-                     </tr>
 
--->
                     
                     
                      

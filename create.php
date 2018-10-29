@@ -16,8 +16,6 @@ if(!isset($_SESSION['email'])){
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
 <body>
 
@@ -36,14 +34,7 @@ if(!isset($_SESSION['email'])){
                 </ul>
             </div>
         </div>
-<!--
-                <form method="get" action="results.php" id="form1">
-                
-                <input type = "text" name = "user_query" placeholder = "search a topic"/>
-                <input type = "submit" name = "search" value="Search">
-                </form>
--->
-                    
+                  
         <div class = "content">
             <div id= "user_timeline">
                 <div id="user_details">
@@ -75,11 +66,65 @@ if(!isset($_SESSION['email'])){
             </div>
         
             <div id= "content_timeline">
-                     <br><br>
-                    <h3>My Most Recent Discussions..!</h3>
-<!--                   -->
-                    <?php get_user_posts(); ?>
+                 
+          <div id="form2">
+                <form action = "" class="fff" method="post" style=" top-margin:30px; text-align :center; ">
+                    
+               
+                    <table>
+                     <tr >
+                     
+                         <td colspan="6"><h2 align= "left">Create a Group</h2></td> <br/>
+                     </tr>
+                     <tr>
+                         <td>Group name:</td>
+                         
+                         <td>
+                         <input align= "left" type="text" value="" name= "u_groupname"/>
+                         </td>
+                     </tr> 
+                        
+                     <tr>
+                         <td>Select:</td>
+                         
+                         <td>
+<input type="radio" name="choose" value="private"> Private
+                         </td>
+                         <td>
+                           <input type="radio" name="choose" value="public"> Public
+                         </td>
+                     </tr>
+                        <tr>
+                         <td>Invite:</td>
+                         
+                         <td>
+                         <input align= "left" type="text" value="" name= "u_invite"/>
+                         </td>
+                     </tr>
+                         <tr align="center">
+                         <td colspan="6">
+                         <input type="submit" name="create" value="Create">
+                         </td>
+                     
+                     
+                     </tr>
+                        
+                     
+<!--
+                     <tr>
+                         <td align= "right">First Name:</td>
+                         
+                         <td>
+                         <input type="text" name= "u_firstname" required="required" value=""/>
+                         </td>
+                     </tr>
+-->
+                    </table>
                 
+                </form>
+              <?php   create_group($users_id); ?>
+              </div>
+        
             </div>
         </div>
     </div> 

@@ -57,13 +57,13 @@ include "session.php";
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
                     echo "
-                    <center><img src='images/$user_image' width='200' height='200'/></center>
+                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
                     <p><strong>Name : </strong> $last_name</p> 
                     <p><a href='my_global.php'> Global Group </a> </p>
-                     <p><a href='my_posts.php'> My Posts </a> </p>
+                    <p><a href='my_groups.php'> My Groups</a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>
-                     <p><a href='my_groups.php'> My Groups</a> </p>
+                     
                      <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
                     </div>";
                     ?>

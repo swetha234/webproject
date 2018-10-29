@@ -16,8 +16,6 @@ if(!isset($_SESSION['email'])){
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
 <body>
 
@@ -36,13 +34,11 @@ if(!isset($_SESSION['email'])){
                 </ul>
             </div>
         </div>
-<!--
                 <form method="get" action="results.php" id="form1">
                 
                 <input type = "text" name = "user_query" placeholder = "search a topic"/>
                 <input type = "submit" name = "search" value="Search">
                 </form>
--->
                     
         <div class = "content">
             <div id= "user_timeline">
@@ -76,9 +72,9 @@ if(!isset($_SESSION['email'])){
         
             <div id= "content_timeline">
                      <br><br>
-                    <h3>My Most Recent Discussions..!</h3>
+                 
 <!--                   -->
-                    <?php get_user_posts(); ?>
+                    <?php single_post(); ?>
                 
             </div>
         </div>
