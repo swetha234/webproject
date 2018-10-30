@@ -127,7 +127,7 @@ function get_globalposts(){
     $run_posts = mysqli_query($connection,$get_posts);
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
     
-       $users_id = $row_posts['users_id'];
+       $users_id_global = $row_posts['users_id'];
        
      //getting the user who has posted the thread
     $user_posts= "select * from posts where global is not NULL order by post_date DESC";
@@ -135,8 +135,9 @@ function get_globalposts(){
         $run_user= mysqli_query($connection,$user_posts);
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
              $post_id = $row_user['post_id'];
-            $users_id=$row_user['users_id'];
+           
             $topic_id = $row_user['topic_id'];
+            $users_id= $row_user['users_id'];
             $post_title = $row_user['post_title'];
             $content= $row_user['post_content'];
             $post_date = $row_user['post_date'];
@@ -147,7 +148,7 @@ function get_globalposts(){
         
         $topic_title = $row_post_title['topic_title'];
 //        $user_image =$row_user['user_image'];
-        $user_details = "select * from users where users_id='$users_id'";
+        $user_details = "select * from users where users_id='$users_id_global'";
     $run_user_details = mysqli_query($connection,$user_details);
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
         
@@ -166,13 +167,13 @@ function get_globalposts(){
         <p>Content :<?php echo $content; ?></p>
         <p>Posted Date:<?php echo $post_date; ?></p>
         <!-- if user likes post, style button differently -->
-       <i <?php if (userLiked($post_id,$users_id)): ?>
+       <i <?php if (userLiked($post_id,$users_id_global)): ?>
        class='fa fa-thumbs-up like-btn'
       	  <?php else: ?>
       		  class='fa fa-thumbs-o-up like-btn'
       	  <?php endif ?>
       	  data-id='<?php echo $post_id; ?>'
-          data-id1 = '<?php echo $users_id; ?>'></i>
+          data-id1 = '<?php echo $users_id_global; ?>'></i>
             
           <span class='likes'><?php echo getLikes($post_id); ?></span>
       	
@@ -180,13 +181,13 @@ function get_globalposts(){
 
 	    <!-- if user dislikes post, style button differently -->
       	<i 
-      	  <?php if (userDisliked($post_id, $users_id)): ?>
+      	  <?php if (userDisliked($post_id, $users_id_global)): ?>
       		  class='fa fa-thumbs-down dislike-btn'
       	  <?php else: ?>
       		  class='fa fa-thumbs-o-down dislike-btn'
       	  <?php endif ?>
       	  data-id='<?php echo $post_id; ?>'
-           data-id1 = '<?php echo $users_id; ?>'></i>
+           data-id1 = '<?php echo $users_id_global; ?>'></i>
       	<span class='dislikes'><?php echo getDislikes($post_id); ?></span>
             <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>  
         </div><br>
