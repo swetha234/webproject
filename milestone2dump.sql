@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 23, 2018 at 06:58 PM
+-- Generation Time: Oct 30, 2018 at 03:58 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -23,6 +23,29 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `pet_finder` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `pet_finder`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `comment_authur` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `post_id`, `users_id`, `comment`, `date`, `comment_authur`) VALUES
+(42, 94, 3, 'hello', '2018-10-29 20:30:34', 'Hudson');
 
 -- --------------------------------------------------------
 
@@ -55,13 +78,30 @@ INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_cont
 (30, 4, 5, 'Piggy', 'Pouts Perfectly !!!', '2018-10-15 00:54:19', NULL),
 (31, 3, 6, 'Fishyy', 'It lives in water', '2018-10-15 00:58:03', NULL),
 (32, 3, 4, 'Tortoiseee', 'Slow ', '2018-10-15 00:59:52', NULL),
-(77, 2, 1, 'tests cats', 'I m a cat', '2018-10-16 11:28:48', 1),
 (79, 1, 5, 'Post on Pigs', 'Pigs are cute !!', '2018-10-16 11:59:11', 1),
-(80, 1, 3, 'Pigeon', 'Many of them !!', '2018-10-16 12:03:24', 1),
-(86, 1, 4, 'Turtle', '', '2018-10-16 12:11:27', NULL),
-(87, 1, 6, 'Post on fish', 'Fishesss', '2018-10-16 12:12:33', 1),
-(88, 1, 1, 'heyy', 'cdcw', '2018-10-16 17:43:09', NULL),
-(89, 1, 4, '', 'helllooo', '2018-10-16 17:44:07', NULL);
+(80, 1, 3, 'Pigeon', 'Many of them !!', '2018-10-16 12:03:24', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating`
+--
+
+DROP TABLE IF EXISTS `rating`;
+CREATE TABLE `rating` (
+  `users_id` int(100) NOT NULL,
+  `post_id` int(100) NOT NULL,
+  `rating_action` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`users_id`, `post_id`, `rating_action`) VALUES
+(1, 79, 'like'),
+(1, 80, 'like'),
+(2, 24, 'dislike');
 
 -- --------------------------------------------------------
 
@@ -72,20 +112,24 @@ INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_cont
 DROP TABLE IF EXISTS `topics`;
 CREATE TABLE `topics` (
   `topic_id` int(11) NOT NULL,
-  `topic_title` text NOT NULL
+  `topic_title` text NOT NULL,
+  `choose` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `topics`
 --
 
-INSERT INTO `topics` (`topic_id`, `topic_title`) VALUES
-(1, 'Cats'),
-(2, 'Dogs'),
-(3, 'Birds'),
-(4, 'Tortise'),
-(5, 'Pigs'),
-(6, 'Fishes');
+INSERT INTO `topics` (`topic_id`, `topic_title`, `choose`) VALUES
+(1, 'Cats', 'public'),
+(2, 'Dogs', 'public'),
+(3, 'Birds', 'public'),
+(4, 'Tortise', 'public'),
+(5, 'Pigs', 'public'),
+(6, 'Fishes', 'public'),
+(17, 'Puppies', 'private'),
+(18, 'Gunnie pig', 'public'),
+(19, 'Swetha', 'private');
 
 -- --------------------------------------------------------
 
@@ -109,14 +153,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`, `status`) VALUES
-(15, 'Gutti', 'hima Swetha', 'himaswetha234@gmail.com', 'hello123', 'default.jpeg', 'unverified'),
-(17, 'Gutti', 'Carrera', 'horhhnet@rsprings.gov', '@doc', 'default.jpeg', 'unverified'),
 (14, 'Gutti', 'csacd', 'horjhjjhknet@rsprings.gov', '@doc', 'default.jpeg', 'unverified'),
-(16, '', 'nbj', 'hornet@rsprikjkngs.gov', '', 'default.jpeg', 'unverified'),
 (3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg', ''),
 (5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen', 'default.jpeg', ''),
 (1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'default.jpeg', ''),
 (2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg', ''),
+(18, 'Gutti', 'Swetha', 'swetha@gmail.com', 'Bidoo', 'IMG_9026.JPG', 'unverified'),
 (4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg', '');
 
 -- --------------------------------------------------------
@@ -146,17 +188,42 @@ INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 (19, 4, 5),
 (20, 4, 2),
 (21, 5, 1),
-(22, 5, 6);
+(22, 5, 6),
+(24, 3, 12),
+(29, 3, 14),
+(30, 18, 14),
+(31, 3, 15),
+(32, 18, 15),
+(33, 3, 15),
+(34, 18, 15),
+(35, 3, 17),
+(36, 18, 17),
+(37, 3, 18),
+(38, 15, 18),
+(40, 18, 19),
+(46, 3, 6);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `rating`
+--
+ALTER TABLE `rating`
+  ADD UNIQUE KEY `users_id` (`users_id`,`post_id`);
 
 --
 -- Indexes for table `topics`
@@ -182,28 +249,34 @@ ALTER TABLE `user_group`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `users_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
