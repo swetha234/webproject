@@ -1,5 +1,7 @@
-<!--Code to connect to database-->
+
 <?php 
+
+
 	//session_start();
 	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
 
@@ -19,6 +21,59 @@
             
          }
         }
+
+
+
+// if user clicks like or dislike button
+if (isset($_POST['action'])) {
+  $post_id = $_POST['post_id'];
+  $action = $_POST['action'];   
+$users_id = $_POST['users_id'];
+  switch ($action) {
+  	case 'like':
+         $sql="INSERT INTO rating (users_id, post_id, rating_action) 
+         	   VALUES ($users_id, $post_id, 'like') 
+         	   ON DUPLICATE KEY UPDATE rating_action='like'";
+         break;
+  	case 'dislike':
+          $sql="INSERT INTO rating (users_id, post_id, rating_action) 
+               VALUES ($users_id, $post_id, 'dislike') 
+         	   ON DUPLICATE KEY UPDATE rating_action='dislike'";
+         break;
+  	case 'unlike':
+	      $sql="DELETE FROM rating WHERE user_id=$users_id AND post_id=$post_id";
+	      break;
+  	case 'undislike':
+      	  $sql="DELETE FROM rating WHERE user_id=$users_id AND post_id=$post_id";
+      break;
+  	default:
+  		break;
+  }
+
+  // execute query to effect changes in the database ...
+  mysqli_query($connection, $sql);
+  echo getRating($post_id);
+  exit(0);
+}
+
+
+
+function inserttopic($topic_id){
+    if (isset($_POST['join'])){
+        global $connection; 
+        global $users_id;
+        $insertintotopic = "INSERT INTO user_group(users_id, topic_id) VALUES ('$users_id','$topic_id')";
+        $run_insertintotopic = mysqli_query($connection,$insertintotopic);
+        
+        echo "<h2>You have been joined!  </h2>"; 
+    }
+    
+    
+}
+
+
+
+
 //function for inserting posts
 function insertPost($global){
     
@@ -99,32 +154,44 @@ function get_globalposts(){
         $last_name = $row_user_details['last_name'];
   
              $user_image =$row_user_details['user_image']; 
+           
         
+        ?>
         
-        
-    //now displaying all at once
-        
-        echo "<div id='posts'>
-        <p> <img src='user/user_images/$user_image' width='50', height='50' ></p>
- <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'> $topic_title</a></h3>
-        <p>Username: <a href='user_profile.php?topic_id=$users_id'> $last_name</a></p>
-        <p>Topic: $post_title</p>
-        <p>Content : $content</p>
-        <p>Posted Date: $post_date</p>
-            <a href='single.php?post_id=$post_id' style='float:right;'><button> See Replies or Reply to this</button></a>
-        
-        </div></br>
-       
-        <button >
-     <span class='post-like'><i class='glyphicon glyphicon-thumbs-up'></i></span>
-     <span class='count' >0</span>
- </button>
-    &nbsp;
- <button  >
-     <span class='post-dislike' >0</span>
-     <span class='like'><i class='glyphicon glyphicon-thumbs-down'></i></span>
-</button>
-       ";
+       <div id='posts'>
+        <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p>
+ <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
+        <p>Username: <a href='user_profile.php?topic_id=$users_id'><?php echo $last_name; ?></a></p>
+        <p>Topic:<?php echo $post_title; ?></p>
+        <p>Content :<?php echo $content; ?></p>
+        <p>Posted Date:<?php echo $post_date; ?></p>
+        <!-- if user likes post, style button differently -->
+       <i <?php if (userLiked($post_id,$users_id)): ?>
+       class='fa fa-thumbs-up like-btn'
+      	  <?php else: ?>
+      		  class='fa fa-thumbs-o-up like-btn'
+      	  <?php endif ?>
+      	  data-id='<?php echo $post_id; ?>'
+          data-id1 = '<?php echo $users_id; ?>'></i>
+            
+          <span class='likes'><?php echo getLikes($post_id); ?></span>
+      	
+      	&nbsp;&nbsp;&nbsp;&nbsp;
+
+	    <!-- if user dislikes post, style button differently -->
+      	<i 
+      	  <?php if (userDisliked($post_id, $users_id)): ?>
+      		  class='fa fa-thumbs-down dislike-btn'
+      	  <?php else: ?>
+      		  class='fa fa-thumbs-o-down dislike-btn'
+      	  <?php endif ?>
+      	  data-id='<?php echo $post_id; ?>'
+           data-id1 = '<?php echo $users_id; ?>'></i>
+      	<span class='dislikes'><?php echo getDislikes($post_id); ?></span>
+            <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>  
+        </div><br>
+
+       <?php
     
         }
         }
@@ -133,6 +200,84 @@ function get_globalposts(){
 }
 }
 
+
+
+// Get total number of likes for a particular post
+function getLikes($post_id)
+{
+  global $connection;
+  $sql = "SELECT COUNT(*) FROM rating 
+  		  WHERE post_id = $post_id AND rating_action='like'";
+  $rs = mysqli_query($connection, $sql);
+  $result = mysqli_fetch_array($rs);
+  return $result[0];
+}
+
+
+
+
+// Get total number of dislikes for a particular post
+function getDislikes($post_id)
+{
+  global $connection;
+  $sql = "SELECT COUNT(*) FROM rating 
+  		  WHERE post_id = $post_id AND rating_action='dislike'";
+  $rs = mysqli_query($connection, $sql);
+  $result = mysqli_fetch_array($rs);
+  return $result[0];
+}
+
+// Get total number of likes and dislikes for a particular post
+function getRating($post_id)
+{
+  global $connection;
+  $rating = array();
+  $likes_query = "SELECT COUNT(*) FROM rating WHERE post_id = $post_id AND rating_action='like'";
+  $dislikes_query = "SELECT COUNT(*) FROM rating 
+		  			WHERE post_id = $post_id AND rating_action='dislike'";
+  $likes_rs = mysqli_query($connection, $likes_query);
+  $dislikes_rs = mysqli_query($connection, $dislikes_query);
+  $likes = mysqli_fetch_array($likes_rs);
+  $dislikes = mysqli_fetch_array($dislikes_rs);
+  $rating = [
+  	'likes' => $likes[0],
+  	'dislikes' => $dislikes[0]
+  ];
+  return json_encode($rating);
+}
+
+
+
+function userLiked($post_id, $users_id)
+{
+ echo $post_id;
+  global $connection;
+  $sql = "SELECT * FROM rating WHERE users_id=$users_id 
+  		  AND post_id=$post_id AND rating_action='like'";
+    
+  $result = mysqli_query($connection, $sql);
+  if (mysqli_num_rows($result) > 0) {
+  	return true;
+  }else{
+  	return false;
+  }
+}
+
+
+
+// Check if user already dislikes post or not
+function userDisliked($post_id, $users_id)
+{
+  global $connection;
+  $sql = "SELECT * FROM rating WHERE users_id=$users_id 
+  		  AND post_id=$post_id AND rating_action='dislike'";
+  $result = mysqli_query($connection, $sql);
+  if (mysqli_num_rows($result) > 0) {
+  	return true;
+  }else{
+  	return false;
+  }
+}
 
 
 
@@ -154,10 +299,9 @@ function get_groups($users_id){
         $topic_title = $row_topic_name['topic_title'];
             ?>
         <div id='groups'>
-        <form action='my_groups.php' method ='get'>
-      <input type='checkbox' name='vehicle1' id='myCheck' value='<?php echo $topic_title; ?>'>
+        <form action='join.php' method ='get'>
     
-        <h3><a href='group_profile.php?topic_id=<?php echo $topic_id; ?>'><?php echo $topic_title;  ?></a></h3>
+        <h3><a href='join.php?topic_id=<?php echo $topic_id; ?>&topic_title=<?php echo $topic_title; ?>'><?php echo $topic_title;  ?></a></h3>
               
 <br>
             </form>
@@ -166,16 +310,17 @@ function get_groups($users_id){
  
       }  
  
-       } 
- echo "<button onclick='insert_join()'>Join</button>";
+       }
  }
 
 
 
 
- function insert_join(){   
+ function insert_join(){  
+     global $connection; 
     if (isset($_POST['join_submit'])){
-        global $connection; 
+        
+        
         global $users_id;
         $insert_join = "insert into user_group(users_id,topic_id) values ('$users_id','$topic_id')";
         if(mysqli_query($connection,$insert_join)){
@@ -184,6 +329,7 @@ function get_groups($users_id){
         }
     
         }
+     
      
                       }
 function get_my_groups($users_id){
@@ -302,7 +448,7 @@ function get_group_name($topic_id){
     
     
 }
-function get_group_posts($topic_id){
+function get_group_posts($topic_id,$users_id){
     global $connection;
     $per_page=5;
      $user = $_SESSION['email'];
@@ -339,28 +485,55 @@ function get_group_posts($topic_id){
     while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
         
         $topic_title = $row_post_title['topic_title'];
-        $user_details = "select last_name from users where users_id='$users_id'";
+        $user_details = "select * from users where users_id='$users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
             
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
         
         $last_name = $row_user_details['last_name'];
        
-        
+          $user_image =$row_user_details['user_image']; 
+           
     }
     //now displaying all at once
         
-        echo "<div id='posts'>
+         ?>
         
-        <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'> $topic_title</a></h3>
-        <p>Username: <a href='user_profile.php?topic_id=$users_id'> $last_name</a></p>
-        <p>Topic: $post_title</p>
-        <p>Content : $content</p>
-        <p>Posted Date: $post_date</p>
-            <a href='single.php? post_id=$post_id' style='float:right;'><button> See Replies or Reply to this</button></a>
-        
-        </div></br>
-        ";
+       <div id='posts'>
+        <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p>
+ <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
+        <p>Username: <a href='user_profile.php?topic_id=$users_id'><?php echo $last_name; ?></a></p>
+        <p>Topic:<?php echo $post_title; ?></p>
+        <p>Content :<?php echo $content; ?></p>
+        <p>Posted Date:<?php echo $post_date; ?></p>
+        <!-- if user likes post, style button differently -->
+       <i <?php if (userLiked($post_id,$users_id)): ?>
+       class='fa fa-thumbs-up like-btn'
+      	  <?php else: ?>
+      		  class='fa fa-thumbs-o-up like-btn'
+      	  <?php endif ?>
+      	  data-id='<?php echo $post_id; ?>'
+          data-id1 = '<?php echo $users_id; ?>'></i>
+            
+          <span class='likes'><?php echo getLikes($post_id); ?></span>
+      	
+      	&nbsp;&nbsp;&nbsp;&nbsp;
+
+	    <!-- if user dislikes post, style button differently -->
+      	<i 
+      	  <?php if (userDisliked($post_id, $users_id)): ?>
+      		  class='fa fa-thumbs-down dislike-btn'
+      	  <?php else: ?>
+      		  class='fa fa-thumbs-o-down dislike-btn'
+      	  <?php endif ?>
+      	  data-id='<?php echo $post_id; ?>'
+           data-id1 = '<?php echo $users_id; ?>'></i>
+      	<span class='dislikes'><?php echo getDislikes($post_id); ?></span>
+            <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>  
+        </div><br>
+
+       <?php
+    
     
         }
         }

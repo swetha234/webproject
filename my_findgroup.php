@@ -2,11 +2,7 @@
 session_start();
 include "session.php";
 
-//if(!isset($_SESSION['email'])){
-//    
-//    header("location: login.php");
-//    
-//}
+
 
     
     
@@ -95,6 +91,6 @@ include "session.php";
         </div>
     </div> 
    
-    
+   
 </body>
 </html>

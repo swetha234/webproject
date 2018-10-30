@@ -297,4 +297,13 @@ body {
     font-weight: bolder;
 }
 
+.fa {
+  font-size: 1.2em;
+}
+.fa-thumbs-down, .fa-thumbs-o-down {
+  transform:rotateY(180deg);
+}
 
+i {
+  color: blue;
+}

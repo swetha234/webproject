@@ -2,11 +2,7 @@
 session_start();
 include "session.php";
 
-//if(!isset($_SESSION['email'])){
-//    
-//    header("location: login.php");
-//    
-//}
+ 
 
     
     
@@ -54,6 +50,7 @@ include "session.php";
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
+                    
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
