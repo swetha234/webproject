@@ -1,5 +1,6 @@
 <?php 
 
+   global $connection;
     $get_id =$_GET['post_id'];
     $get_com="select * from comments where post_id='$get_id' ORDER by 1 DESC";
     $run_com = mysqli_query($connection,$get_com);

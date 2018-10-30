@@ -98,7 +98,7 @@ if(!isset($_SESSION['email'])){
                          <td>Invite:</td>
                          
                          <td>
-                         <input align= "left" type="text" value="Search" name= "u_search"/>
+                         <input align= "left" type="text" name='u_invite'/>
                          </td>
                      </tr>
                          <tr align="center">
