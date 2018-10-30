@@ -8,7 +8,7 @@ if(!isset($_SESSION['email'])){
     
 }
 
-    
+else{    
     
 ?>
 <!DOCTYPE html>
@@ -87,3 +87,4 @@ if(!isset($_SESSION['email'])){
     
 </body>
 </html>
+<?php } ?>
