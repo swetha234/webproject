@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2018 at 03:58 AM
+-- Generation Time: Oct 30, 2018 at 07:46 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -45,7 +45,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`comment_id`, `post_id`, `users_id`, `comment`, `date`, `comment_authur`) VALUES
-(42, 94, 3, 'hello', '2018-10-29 20:30:34', 'Hudson');
+(45, 80, 1, 'Hello', '2018-10-30 13:54:41', 'Hudson');
 
 -- --------------------------------------------------------
 
@@ -101,7 +101,19 @@ CREATE TABLE `rating` (
 INSERT INTO `rating` (`users_id`, `post_id`, `rating_action`) VALUES
 (1, 79, 'like'),
 (1, 80, 'like'),
-(2, 24, 'dislike');
+(2, 24, 'dislike'),
+(3, 22, 'like'),
+(3, 23, 'like'),
+(3, 24, 'like'),
+(3, 26, 'like'),
+(3, 31, 'like'),
+(3, 79, 'like'),
+(3, 80, 'like'),
+(4, 23, 'like'),
+(18, 22, 'like'),
+(18, 79, 'like'),
+(18, 80, 'dislike'),
+(18, 95, 'like');
 
 -- --------------------------------------------------------
 
@@ -126,10 +138,7 @@ INSERT INTO `topics` (`topic_id`, `topic_title`, `choose`) VALUES
 (3, 'Birds', 'public'),
 (4, 'Tortise', 'public'),
 (5, 'Pigs', 'public'),
-(6, 'Fishes', 'public'),
-(17, 'Puppies', 'private'),
-(18, 'Gunnie pig', 'public'),
-(19, 'Swetha', 'private');
+(6, 'Fishes', 'public');
 
 -- --------------------------------------------------------
 
@@ -153,12 +162,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`, `status`) VALUES
-(14, 'Gutti', 'csacd', 'horjhjjhknet@rsprings.gov', '@doc', 'default.jpeg', 'unverified'),
 (3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg', ''),
 (5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen', 'default.jpeg', ''),
 (1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'default.jpeg', ''),
 (2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg', ''),
-(18, 'Gutti', 'Swetha', 'swetha@gmail.com', 'Bidoo', 'IMG_9026.JPG', 'unverified'),
 (4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg', '');
 
 -- --------------------------------------------------------
@@ -197,11 +204,7 @@ INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 (33, 3, 15),
 (34, 18, 15),
 (35, 3, 17),
-(36, 18, 17),
-(37, 3, 18),
-(38, 15, 18),
-(40, 18, 19),
-(46, 3, 6);
+(36, 18, 17);
 
 --
 -- Indexes for dumped tables
@@ -252,19 +255,19 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -276,7 +279,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,8 +6,8 @@
     
 while($row=mysqli_fetch_array($run_com)){
 
-    $com= $row['comment'];
-    $com_user_name= $row['comment_authur'];
+    $com= htmlspecialchars(addslashes(mysqli_real_escape_String($connection,$row['comment'])));
+    $com_user_name= htmlspecialchars(addslashes($row['comment_authur']));
     $date= $row['date'];
     
     echo "

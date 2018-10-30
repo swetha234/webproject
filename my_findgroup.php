@@ -57,7 +57,7 @@ include "session.php";
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong>Name : </strong> $last_name</p> 
+                    <p><strong>Name : </strong><a href='#'> $last_name</a></p> 
                     <p><a href='my_global.php'> Global Group </a> </p>
                     <p><a href='my_groups.php'> My Groups </a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>

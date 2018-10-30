@@ -95,7 +95,7 @@ if(!isset($_SESSION['email'])){
                      <tr>
                          <td align= "right">Photo:</td>
                          <td>
-                         <input type="file" name= "u_image" required="required"/>
+                         <input type="file" name= "u_image"   />
                          </td>
                      </tr>
                      
@@ -148,14 +148,17 @@ if(!isset($_SESSION['email'])){
                         $u_email= $_POST['u_email'];
                         $u_image= $_FILES['u_image']["name"];
                         $image_tmp= $_FILES['u_image']["tmp_name"];
-                        echo $image_tmp;
-                        echo $u_image;
- 
+                       if ($u_image == ''){
+                            $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email' where users_id='$users_id'";
+                        }
+                        else
+                        {
+                            $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email',
+                        user_image='$u_image' where users_id='$users_id'";
+                        }
 move_uploaded_file($image_tmp,"user/user_images/$u_image");
                         
-                        $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email',
-                        user_image='$u_image' where users_id='$users_id'";
-                        
+                       
                         echo $update;
                         $run = mysqli_query($connection, $update);
                         
