@@ -8,8 +8,7 @@ if(!isset($_SESSION['email'])){
     
 }
 
-else{    
-    
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -86,4 +85,4 @@ else{
     
 </body>
 </html>
-<?php } ?>
+s

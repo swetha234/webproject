@@ -45,15 +45,20 @@ include "session.php";
                 <div id="user_details">
                     <?php
                     $user = $_SESSION['email'];
-                  
+                 
+                    
                     $get_user = "select * from users where email = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
                     $row=mysqli_fetch_array($run_user);
-                     
+                    
+                
+                    
+
                     $users_id = $row['users_id'];
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
+                    
                     
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
@@ -89,7 +94,10 @@ include "session.php";
                 
                     
                     <h3>Most Recent Discussions..!</h3>
-                    <?php get_globalposts(); ?>
+                    <?php 
+                          get_globalposts(); 
+                          
+                        ?>
                 
             </div>
         </div>

@@ -41,10 +41,10 @@ $users_id = $_POST['users_id'];
          	   ON DUPLICATE KEY UPDATE rating_action='dislike'";
          break;
   	case 'unlike':
-	      $sql="DELETE FROM rating WHERE user_id=$users_id AND post_id=$post_id";
+	      $sql="DELETE FROM rating WHERE users_id=$users_id AND post_id=$post_id";
 	      break;
   	case 'undislike':
-      	  $sql="DELETE FROM rating WHERE user_id=$users_id AND post_id=$post_id";
+      	  $sql="DELETE FROM rating WHERE users_id=$users_id AND post_id=$post_id";
       break;
   	default:
   		break;
@@ -136,7 +136,6 @@ function get_globalposts(){
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
              $post_id = $row_user['post_id'];
             $topic_id = $row_user['topic_id'];
-            $users_id = $row_user['users_id'];
             $post_title = $row_user['post_title'];
             $content= $row_user['post_content'];
             $post_date = $row_user['post_date'];
@@ -250,7 +249,6 @@ function getRating($post_id)
 
 function userLiked($post_id, $users_id)
 {
- echo $post_id;
   global $connection;
   $sql = "SELECT * FROM rating WHERE users_id=$users_id 
   		  AND post_id=$post_id AND rating_action='like'";
@@ -474,7 +472,6 @@ function get_group_posts($topic_id,$users_id){
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
          $post_id = $row_user['post_id'];
         $topic_id = $row_user['topic_id'];
-        $users_id = $row_user['users_id'];
         $post_title = $row_user['post_title'];
         $content= $row_user['post_content'];
         $post_date = $row_user['post_date'];
@@ -588,7 +585,7 @@ function single_post(){
        
         include("comment.php");
         echo "
-        <form action='' method='post' id='reply'>
+        <form action='single.php?post_id=$post_id' method='post' id='reply'>
         <textarea cols='76' rows='5' name='comment' placeholder='Please type your comment here..'></textarea>
         </br></br></br></br></br></br>
         <input id = 'help' type='submit' name='reply' value='Reply to This'/></br>
