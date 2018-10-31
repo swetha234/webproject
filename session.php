@@ -135,9 +135,8 @@ function get_globalposts(){
         $run_user= mysqli_query($connection,$user_posts);
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
              $post_id = $row_user['post_id'];
-           
-            $topic_id = $row_user['topic_id'];
             $users_id= $row_user['users_id'];
+            $topic_id = $row_user['topic_id'];
             $post_title = $row_user['post_title'];
             $content= $row_user['post_content'];
             $post_date = $row_user['post_date'];
@@ -148,7 +147,7 @@ function get_globalposts(){
         
         $topic_title = $row_post_title['topic_title'];
 //        $user_image =$row_user['user_image'];
-        $user_details = "select * from users where users_id='$users_id_global'";
+        $user_details = "select * from users where users_id='$users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
         
