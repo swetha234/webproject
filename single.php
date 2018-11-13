@@ -30,6 +30,7 @@ if(!isset($_SESSION['email'])){
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Members</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                    <li><a href="help.php">Help</a></li>
                     
                 </ul>
             </div>
@@ -57,7 +58,7 @@ if(!isset($_SESSION['email'])){
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong>Name : </strong> $last_name</p> 
+                     <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
                     
                      <p><a href='my_groups.php'> My Groups </a> </p>

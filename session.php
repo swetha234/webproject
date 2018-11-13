@@ -119,42 +119,66 @@ function insertPost($global){
     
 
 function get_globalposts(){
+//    var_dump("im in get global posts function");
     global $connection;
     
+    $per_page=5;
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    }
+    else{
+        $page =1;
+    }
+//    var_dump("<br>")
+//    var_dump($page);
+    
+    $start_from= ($page-1) * $per_page;
     $user = $_SESSION['email'];
-   
-    $get_posts="select users_id from users where email='$user'";
+//    var_dump($user);
+    
+    $get_posts="select users_id from users where email='$user' ";
     $run_posts = mysqli_query($connection,$get_posts);
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
     
        $users_id_global = $row_posts['users_id'];
+//       var_dump($users_id_global);
        
-     //getting the user who has posted the thread
-    $user_posts= "select * from posts where global is not NULL order by post_date DESC";
+        //getting the user who has posted the thread
+        $user_posts= "select * from posts where global is not NULL order by post_date DESC LIMIT $start_from,$per_page ";
     
         $run_user= mysqli_query($connection,$user_posts);
-        while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
+        while($row_user=mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
+//            echo ("<br>");
+//            echo ("<br>");
+//            var_dump($row_user);
              $post_id = $row_user['post_id'];
             $users_id= $row_user['users_id'];
             $topic_id = $row_user['topic_id'];
             $post_title = $row_user['post_title'];
             $content= $row_user['post_content'];
             $post_date = $row_user['post_date'];
+            //to get topic title
             $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
             $run_post_title = mysqli_query($connection,$topic_title_query);
 
-    while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
+                while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){
+                    $topic_title = $row_post_title['topic_title'];
+//                    echo ("<br>");
+//                    var_dump($topic_title);
+//                    echo ("<br>");
+//                    var_dump($users_id);
         
-        $topic_title = $row_post_title['topic_title'];
-//        $user_image =$row_user['user_image'];
-        $user_details = "select * from users where users_id='$users_id'";
-    $run_user_details = mysqli_query($connection,$user_details);
-    while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
-        
-        $last_name = $row_user_details['last_name'];
-  
-             $user_image =$row_user_details['user_image']; 
-           
+                    $user_details = "select * from users where users_id='$users_id'";
+                    $run_user_details = mysqli_query($connection,$user_details);
+                    while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
+
+                        $last_name = $row_user_details['last_name'];
+//                        echo ("<br>");
+//                        var_dump($last_name);
+                        $user_image =$row_user_details['user_image']; 
+
+//                        echo ("<br>");
+//                        var_dump($user_image);
         
         ?>
         
@@ -192,9 +216,12 @@ function get_globalposts(){
         </div><br>
 
        <?php
-    
+        
+           
+        
         }
-        }
+        
+    }
     
         }
 }
@@ -283,11 +310,19 @@ function userDisliked($post_id, $users_id)
 function get_groups($users_id){
     #echo $users_id;
     global $connection;
+//    $per_page=5;
+//    if (isset($_GET['page'])) {
+//        $page = $_GET['page'];
+//    }
+//    else{
+//        $page =1;
+//    }
+//    $start_from= ($page-1) * $per_page;
    
     $get_groups="select topic_id from topics where choose='public' and topic_id not in (select topic_id from user_group where users_id = '$users_id')";
     $run_groups = mysqli_query($connection,$get_groups);
     
-    while($row_groups = mysqli_fetch_array($run_groups,MYSQLI_ASSOC) ){
+    while($row_groups = mysqli_fetch_array($run_groups) ){
     
         $topic_id = $row_groups['topic_id'];
         $get_topic_name="select topic_title from topics where topic_id = '$topic_id'";
@@ -305,9 +340,11 @@ function get_groups($users_id){
 <br>
             </form>
         </div> 
+
 <?php
  
       }  
+//        include("pagination.php");
  
        }
  }
@@ -334,16 +371,16 @@ function get_groups($users_id){
 function get_my_groups($users_id){
     #echo $users_id;
     global $connection;
-    $per_page=5;
-     $user = $_SESSION['email'];
-    if(isset($_GET['page'])) {
-        
-        $page = $_GET['page'];
-        }
-    else {
-        $page=1;
-    }
-    $start_from =($page-1) * $per_page;
+//    $per_page=5;
+//     $user = $_SESSION['email'];
+//    if(isset($_GET['page'])) {
+//        
+//        $page = $_GET['page'];
+//        }
+//    else {
+//        $page=1;
+//    }
+//    $start_from =($page-1) * $per_page;
     $get_groups="select topic_id from user_group where users_id = '$users_id'";
     $run_groups = mysqli_query($connection,$get_groups);
     
@@ -366,22 +403,23 @@ function get_my_groups($users_id){
         </div></br>
         ";
         }
+//        include("pagination.php");
         }
     
 }
 function get_user_posts(){
     global $connection;
-    $per_page=5;
-     $user = $_SESSION['email'];
-    if(isset($_GET['page'])) {
-        
-        $page = $_GET['page'];
-        }
-    else {
-        $page=1;
-    }
+//    $per_page=5;
+//     $user = $_SESSION['email'];
+//    if(isset($_GET['page'])) {
+//        
+//        $page = $_GET['page'];
+//        }
+//    else {
+//        $page=1;
+//    }
     $user = $_SESSION['email'];
-    $start_from =($page-1) * $per_page;
+
     $get_posts="select users_id from users where email='$user'";
     $run_posts = mysqli_query($connection,$get_posts);
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
@@ -426,6 +464,7 @@ function get_user_posts(){
         <p>Topic: $post_title</p>
         <p>Content : $content</p>
         <p>Posted Date: $post_date</p>
+
            
         
         </div></br>
@@ -434,7 +473,7 @@ function get_user_posts(){
         }
         }
     }
-//    include("pagenation.php");
+    
 }
 function get_group_name($topic_id){
      global $connection;
@@ -450,6 +489,7 @@ function get_group_name($topic_id){
 }
 function get_group_posts($topic_id,$users_id){
     global $connection;
+   
     $per_page=5;
      $user = $_SESSION['email'];
     if(isset($_GET['page'])) {
@@ -459,8 +499,9 @@ function get_group_posts($topic_id,$users_id){
     else {
         $page=1;
     }
+    $start_from= ($page-1) * $per_page;
     $user = $_SESSION['email'];
-    $start_from =($page-1) * $per_page;
+   
     $get_posts="select users_id from users where email='$user'";
     $run_posts = mysqli_query($connection,$get_posts);
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
@@ -468,7 +509,7 @@ function get_group_posts($topic_id,$users_id){
        $users_id = $row_posts['users_id'];
     
      //getting the user who has posted the thread
-    $user= "select * from posts where topic_id='$topic_id' and global is null order by post_date DESC";
+    $user= "select * from posts where topic_id='$topic_id' and global is NULL order by post_date DESC LIMIT $start_from,$per_page ";
     
         $run_user= mysqli_query($connection,$user);
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
@@ -479,6 +520,7 @@ function get_group_posts($topic_id,$users_id){
         $post_date = $row_user['post_date'];
     
           $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
+            
     $run_post_title = mysqli_query($connection,$topic_title_query);
             
     while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
@@ -535,15 +577,24 @@ function get_group_posts($topic_id,$users_id){
     
     
         }
+            
         }
     }
-//    include("pagenation.php");
+     
 }
 
 function single_post(){
     
     if(isset($_GET['post_id'])){
     global $connection; 
+//        $per_page=5;
+//    if (isset($_GET['page'])) {
+//        $page = $_GET['page'];
+//    }
+//    else{
+//        $page =1;
+//    }
+//    $start_from= ($page-1) * $per_page;
     $get_id=$_GET['post_id'];
     
      $get_posts="select * from posts where post_id='$get_id'";
@@ -605,12 +656,10 @@ function single_post(){
         
         
     }
-         
+      
     }
-   
     
-    
-    }
+}
 
 function create_group($users_id){
      global $connection;

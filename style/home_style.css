@@ -270,15 +270,22 @@ body {
     line-height: 20px;
     font-size: 16px;
 }
+#pagenation{
+    
+    margin-top: 20px;
+}
+#pagenation a {
+    
+    color: blue;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 5px;
+    
+}
 #pagenation a:hover{
     
-     padding: 10px;
-    border: 1px solid black;
-    border-radius: 2px;
-    font-weight: bolder;
-    color: saddlebrown;
+    color: brown;
     font-weight: bold;
-    
 }
 
 
@@ -306,4 +313,15 @@ body {
 
 i {
   color: blue;
+}
+#myProgress {
+    margin-left: 80px;
+    width: 100%;
+    background-color: grey;
+}
+#myBar {
+   
+    width: 1%;
+    height: 30px;
+    background-color: green;
 }

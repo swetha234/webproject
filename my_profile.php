@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "session.php";
+
 if(!isset($_SESSION['email'])){
     
     header("location: index.php");
@@ -8,23 +9,23 @@ if(!isset($_SESSION['email'])){
 }
 
 
-
-    
-
-    
-    
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
+    <meta charset="utf-8">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     </head>
 <body>
 
 
     <!-- container starts-->
-    <div class='container'>
+    <div class='container' >
        
 
         <div id= "head_wrap">
@@ -32,24 +33,25 @@ if(!isset($_SESSION['email'])){
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Members</a></li>
-                  
                 <li><a href="logout.php">Logout</a></li>
-                    <li><a href="help.php">Help</a></li>
                     
                 </ul>
             </div>
         </div>
-                <form method="post" action="my_findgroup.php" id="form1">
+<!--
+                <form method="get" action="results.php" id="form1">
                 
                 <input type = "text" name = "user_query" placeholder = "search a topic"/>
-                    <input type = "submit" name = "search" value="Search">
-                    <a href='create.php'> Create a group</a> 
-                    
+                <input type = "submit" name = "search" value="Search">
                 </form>
-                
+-->
+<!--
+-->
         <div class = "content">
             <div id= "user_timeline">
+                
                 <div id="user_details">
+                    
                     <?php
                     $user = $_SESSION['email'];
                   
@@ -64,41 +66,43 @@ if(!isset($_SESSION['email'])){
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
+                    <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p> 
                     <p><a href='my_global.php'> Global Group </a> </p>
-                    <p><a href='my_groups.php'> My Groups </a> </p>
-                     <p><a href='my_findgroup.php'> Find a group</a> </p>
+                    
+                     <p><a href='my_groups.php'> My Groups </a> </p>
                      
-                     
-                     <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
+                     <p><a href='my_findgroup.php'> Find a group</a> 
+                     </p>
+                     <p><a href='my_editprofile.php?u_id=$users_id'> Edit My Profile </a> </p>
                     </div>";
                     ?>
-                    
                 </div>
+                
             </div>
+            
+                    <div id="myProgress">
+                        <br>
+  <div id="myBar"></div>
+                       
+</div>
+        <br>
+<button onclick="move()">Click Me</button> 
+        <script>
+function move() {
+  
+}
+</script>
         
-                    <div id= "content_timeline">
-                
-                     <br>
-                     <br>
-                        
-                        
-                    <?php 
-                        
-                     if(isset($_POST['search'])){
-                        get_search_results($users_id);
-                         
-                     }
-                        else{
-                        get_groups($users_id); 
-                        }
-                
-                
-                ?>
-            </div>
+          
         </div>
+        
+                   
+                
     </div> 
+    
+                
    
-   
+    
 </body>
 </html>
+

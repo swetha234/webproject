@@ -34,6 +34,7 @@ if(!isset($_SESSION['email'])){
                 <li><a href="members.php">Members</a></li>
                    
                 <li><a href="logout.php">Logout</a></li>
+                    <li><a href="help.php">Help</a></li>
                     
                 </ul>
             </div>
@@ -50,6 +51,7 @@ if(!isset($_SESSION['email'])){
                     <?php
                     $user = $_SESSION['email'];
                     $topic_id=$_GET['topic_id'];
+                   
                     
                     $get_user = "select * from users where email = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
@@ -62,7 +64,7 @@ if(!isset($_SESSION['email'])){
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong>Name : </strong> $last_name</p> 
+                    <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
                      <p><a href='my_groups.php'> My Groups </a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>
@@ -99,7 +101,48 @@ if(!isset($_SESSION['email'])){
                 
                      <br><br>
                 
-                    <?php get_group_posts($topic_id,$users_id); ?>
+                    <?php get_group_posts($topic_id,$users_id);
+               
+                    
+    $per_page=5;
+    
+    if(isset($_GET['page'])) {
+        
+        $page = $_GET['page'];
+        }
+    else {
+        $page=1;
+    }
+    $start_from=($page-1) * $per_page;
+    
+
+        
+
+        $query = "select * from posts where global is  NULL ";
+        $result = mysqli_query($connection,$query);
+        $total_posts= mysqli_num_rows($result);
+        $total_pages = ceil($total_posts / $per_page);
+               
+        
+
+    
+ echo"
+    <center>
+    <div id='pagenation'>
+    <a href='?page=1'>First Page</a>
+    ";
+    
+    for ($i=1; $i<=$total_pages; $i++){
+        echo"<a href='?page=$i&topic_id=$topic_id'>$i</a>";
+    }
+    echo "<a href='?page=$total_pages&topic_id=$topic_id'>Last Page</a></center></div>";
+    
+    
+ 
+
+
+  
+                ?>
                 
             </div>
         </div>
