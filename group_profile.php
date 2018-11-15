@@ -85,7 +85,7 @@ if(!isset($_SESSION['email'])){
                     ?>"/>
 
                        
-                    <input type="submit" name="sub" value="Post to Timeline" />
+                    <input type="submit" name="sub" class="sub-group" value="Post to Timeline" />
                      
                      
                   <br>

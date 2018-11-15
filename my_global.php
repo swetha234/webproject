@@ -117,7 +117,7 @@ if(!isset($_SESSION['email'])){
                         <?php getTopics(); 
                         $global = '1';?>     
                     </select>
-                    <input type="submit" id="sub" value="Post to Timeline" />
+                    <input type="submit" id="sub" class="sub-post" value="Post to Timeline" />
                     
                     
                 </form>

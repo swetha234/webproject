@@ -5,6 +5,7 @@
 	//session_start();
 	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
 
+
         
         //function for getting topics
         function getTopics(){
@@ -213,7 +214,21 @@ function get_globalposts(){
            data-id1 = '<?php echo $users_id_global; ?>'></i>
       	<span class='dislikes'><?php echo getDislikes($post_id); ?></span>
             <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>  
-        </div><br>
+        
+    <!-- for deleting -->
+     <?php       
+      if ($users_id_global== 21){
+                
+                
+            
+                  echo "<i class='fa fa-trash delete' data-id='$post_id' style='font-size:24px; color:black; float:right;'> </i>";
+                
+        }
+                        
+                        ?>
+      	
+</div><br>
+
 
        <?php
         
@@ -398,15 +413,30 @@ function get_my_groups($users_id){
         echo "<div id='groups'>
         
      
-        <h3><a href='group_profile.php?topic_id=$topic_id'> $topic_title</a></h3>
-        
-        </div></br>
-        ";
+        <h3><a href='group_profile.php?topic_id=$topic_id'> $topic_title          </a>";
+            if ($users_id== 21){
+                
+                if(archive($topic_id)== true){
+                  
+                    
+            echo " <i class='fa fa-key arch' data-id='$topic_id' style='font-size:24px; color:black; float:right;'></i>";
+                    
+                }
+                else{
+                  echo "<i class='fa fa-lock arch' data-id='$topic_id' style='font-size:24px; color:black; float:right;'> </i>";
+                }
+        }
+            
+        echo "</h3></div></br>";
+                
+     
+                        
         }
 //        include("pagination.php");
         }
-    
 }
+    
+
 function get_user_posts(){
     global $connection;
 //    $per_page=5;
@@ -509,7 +539,7 @@ function get_group_posts($topic_id,$users_id){
        $users_id = $row_posts['users_id'];
     
      //getting the user who has posted the thread
-    $user= "select * from posts where topic_id='$topic_id' and global is NULL order by post_date DESC LIMIT $start_from,$per_page ";
+    $user= "select * from posts JOIN archive_info where posts.topic_id='$topic_id' and global is NULL and archive_info.topic_id = posts.topic_id order by posts.post_date DESC LIMIT $start_from,$per_page ";
     
         $run_user= mysqli_query($connection,$user);
         while($row_user= mysqli_fetch_array($run_user,MYSQLI_ASSOC)){
@@ -518,6 +548,7 @@ function get_group_posts($topic_id,$users_id){
         $post_title = $row_user['post_title'];
         $content= $row_user['post_content'];
         $post_date = $row_user['post_date'];
+        $archive_action = $row_user['archive_action'];
     
           $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
             
@@ -548,11 +579,25 @@ function get_group_posts($topic_id,$users_id){
         <p>Content :<?php echo $content; ?></p>
         <p>Posted Date:<?php echo $post_date; ?></p>
         <!-- if user likes post, style button differently -->
-       <i <?php if (userLiked($post_id,$users_id)): ?>
+           
+       <i <?php 
+            if($archive_action == "unarchive"):
+        
+        if (userLiked($post_id,$users_id)): ?>
        class='fa fa-thumbs-up like-btn'
       	  <?php else: ?>
       		  class='fa fa-thumbs-o-up like-btn'
       	  <?php endif ?>
+            <?php else: 
+                if (userLiked($post_id, $users_id)): ?>
+      		  class='fa fa-thumbs-up'
+      	  <?php else: ?>
+      		  class='fa fa-thumbs-o-up'
+      	  <?php endif ?>
+           
+            
+            <?php endif ?>
+          
       	  data-id='<?php echo $post_id; ?>'
           data-id1 = '<?php echo $users_id; ?>'></i>
             
@@ -562,16 +607,41 @@ function get_group_posts($topic_id,$users_id){
 
 	    <!-- if user dislikes post, style button differently -->
       	<i 
-      	  <?php if (userDisliked($post_id, $users_id)): ?>
+      	  <?php
+            if($archive_action == "unarchive"):
+        
+           if (userDisliked($post_id, $users_id)): ?>
       		  class='fa fa-thumbs-down dislike-btn'
       	  <?php else: ?>
       		  class='fa fa-thumbs-o-down dislike-btn'
       	  <?php endif ?>
+           
+             <?php else: 
+                if (userDisliked($post_id, $users_id)): ?>
+      		  class='fa fa-thumbs-down'
+      	  <?php else: ?>
+      		  class='fa fa-thumbs-o-down'
+      	  <?php endif ?>
+           
+            
+            <?php endif ?>
+           
       	  data-id='<?php echo $post_id; ?>'
            data-id1 = '<?php echo $users_id; ?>'></i>
       	<span class='dislikes'><?php echo getDislikes($post_id); ?></span>
             <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>  
-        </div><br>
+        
+<?php
+          if ($users_id== 21){
+                
+                
+            
+                  echo "<i class='fa fa-trash delete' data-id='$post_id' style='font-size:24px; color:black; float:right;'> </i>";
+                
+        }
+        ?>
+           </div><br>
+                        
 
        <?php
     
@@ -744,6 +814,35 @@ function get_search_results($users_id){
 }
         
 }
+
+function archive($topic_id)
+{
+    global $connection;
+    $sql = "SELECT * FROM archive_info WHERE topic_id=$topic_id AND archive_action='archive'";
+  $result = mysqli_query($connection,$sql);
+   if (mysqli_num_rows($result) > 0) {
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+function delete($post_id)
+{
+     global $connection;
+    $sql = "delete  FROM posts WHERE post_id=$post_id";
+  $result = mysqli_query($connection,$sql);
+   if (mysqli_num_rows($result) > 0) {
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+    
+
+
 
 
 

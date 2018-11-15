@@ -21,6 +21,9 @@ if(!isset($_SESSION['email'])){
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     </head>
 <body>
 
@@ -86,7 +89,7 @@ if(!isset($_SESSION['email'])){
             </div>
         </div>
     </div> 
-   
+   <script src="scripts.js"></script>
     
 </body>
 </html>

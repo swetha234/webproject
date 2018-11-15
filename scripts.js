@@ -80,7 +80,87 @@ $('.dislike-btn').on('click', function(){
 
 });
     
+  ///for archiving
     
+    $(document).on('click','.arch', function(e){ 
+
+  var topic_id = $(this).data('id');
+  $clicked_btn = $(this);
+
+   if ($clicked_btn.hasClass('fa-lock')) {
+    action = 'archive';
+    $(".sub-group").attr('disabled', 'disabled');
+    $('.like-btn').prop('disabled', true);
+    $('.dislike-btn').prop('disabled', true);
+//    $(".submit_cmt").attr('disabled', 'disabled');
+     
+  } 
+  else if($clicked_btn.hasClass('fa-key')){
+    action = 'unarchive';
+//    $(".submit_post").removeAttr("disabled");
+    $('.like-btn').prop('disabled', false);
+    $('.dislike-btn').prop('disabled', false);
+//    $(".submit_cmt").removeAttr('disabled');
+
+   
+  }
+
+   $.ajax({
+    url: 'archive.php',
+    type: 'get',
+    data: {
+      'action': action,
+      'topic_id': topic_id
+    },
+    success: function(data){
+     console.log(data);
+      if (action == "archive") {
+        $clicked_btn.removeClass('fa-lock');
+        $clicked_btn.addClass('fa-key');
+        
+        
+        // $(".dislike-btn").prop('disabled', true);
+        
+
+
+      } else if(action == "unarchive") {
+        $clicked_btn.removeClass('fa-key');
+        $clicked_btn.addClass('fa-lock');
+         
+         // $('.like-btn').prop('disabled', false);
+         
+
+      }
+     
+   }
+  });
+});
+    ///for deleting
+    $(document).on('click','.delete', function(e){ 
+  var post_id = $(this).data('id');
+  
+  
+  $.ajax({
+    url:'delete.php',
+    type: 'post',
+    data:{ 'del':post_id},
+    dataType: 'text',
+    success: function(data){
+      console.log(data);
+//      $("#dis"+post_id).remove();
+
+    }
+
+  });
+
+      
+});
+
+
+
+
+
+  
 
 
 });
