@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2018 at 09:27 PM
+-- Generation Time: Nov 15, 2018 at 08:06 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -23,6 +23,30 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `pet_finder` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `pet_finder`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archive_info`
+--
+
+DROP TABLE IF EXISTS `archive_info`;
+CREATE TABLE `archive_info` (
+  `archive_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `archive_action` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `archive_info`
+--
+
+INSERT INTO `archive_info` (`archive_id`, `topic_id`, `archive_action`) VALUES
+(1, 1, 'unarchive'),
+(3, 3, 'unarchive'),
+(6, 4, 'unarchive'),
+(7, 2, 'unarchive'),
+(8, 5, 'unarchive');
 
 -- --------------------------------------------------------
 
@@ -80,7 +104,12 @@ INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_cont
 (31, 3, 6, 'Fishyy', 'It lives in water', '2018-10-15 00:58:03', NULL),
 (32, 3, 4, 'Tortoiseee', 'Slow ', '2018-10-15 00:59:52', NULL),
 (79, 1, 5, 'Post on Pigs', 'Pigs are cute !!', '2018-10-16 11:59:11', 1),
-(80, 1, 3, 'Pigeon', 'Many of them !!', '2018-10-16 12:03:24', 1);
+(80, 1, 3, 'Pigeon', 'Many of them !!', '2018-10-16 12:03:24', 1),
+(327, 3, 3, 'hey', 'heyyyy', '2018-11-15 03:20:30', 1),
+(331, 21, 4, '', 'hey', '2018-11-15 07:00:25', NULL),
+(332, 21, 4, '', 'hrey', '2018-11-15 07:00:46', NULL),
+(333, 21, 4, '', 'fff', '2018-11-15 07:01:10', NULL),
+(334, 21, 5, '', 'helloo', '2018-11-15 07:03:52', 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +150,11 @@ INSERT INTO `rating` (`users_id`, `post_id`, `rating_action`) VALUES
 (18, 95, 'like'),
 (19, 80, 'like'),
 (19, 98, 'like'),
-(20, 144, 'dislike');
+(20, 144, 'dislike'),
+(21, 32, 'like'),
+(21, 327, 'like'),
+(21, 329, 'like'),
+(21, 330, 'dislike');
 
 -- --------------------------------------------------------
 
@@ -175,7 +208,7 @@ INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`,
 (20, 'Sai', 'Karteel', 'karteek@gmail.com', '1234', 'default.jpeg', 'unverified'),
 (1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'chick.png', ''),
 (2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg', ''),
-(19, 'swetha', 'gutii', 'swetha@gmail.com', '1234', 'default.jpeg', 'unverified'),
+(19, 'admin', 'gutii', 'swetha@gmail.com', '1234', 'default.jpeg', 'unverified'),
 (4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg', '');
 
 -- --------------------------------------------------------
@@ -209,11 +242,19 @@ INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 (54, 3, 4),
 (58, 3, 5),
 (60, 2, 5),
-(63, 2, 5);
+(63, 2, 5),
+(72, 21, 3),
+(73, 21, 4);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `archive_info`
+--
+ALTER TABLE `archive_info`
+  ADD PRIMARY KEY (`archive_id`);
 
 --
 -- Indexes for table `comments`
@@ -259,6 +300,12 @@ ALTER TABLE `user_group`
 --
 
 --
+-- AUTO_INCREMENT for table `archive_info`
+--
+ALTER TABLE `archive_info`
+  MODIFY `archive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
@@ -268,7 +315,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=327;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
 
 --
 -- AUTO_INCREMENT for table `topics`
@@ -286,7 +333,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Constraints for dumped tables
