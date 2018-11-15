@@ -128,7 +128,7 @@ if(!isset($_SESSION['email'])){
                 <div class="panel-body">
                      <h4><span class="label label-primary">Answer</span>
 
-                    <p><br>AnswersKart allows you to answer/upvote/downvote any question you would like to. Also you can see the recent questions uploaded irrespective of the programming language. You can mark a question so as to make that question a part of top Questions(the question with highest marks will be a top question and next questions are organized based upon the  next highest marks).   qwq </p></h4>
+                    <p><br>   qwq </p></h4>
                 </div>
             </div>
         </div>
