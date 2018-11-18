@@ -39,11 +39,13 @@ if(!isset($_SESSION['email'])){
                 </ul>
             </div>
         </div>
+<!--
                 <form method="get" action="results.php" id="form1">
                 
                 <input type = "text" name = "user_query" placeholder = "search a topic"/>
                 <input type = "submit" name = "search" value="Search">
                 </form>
+-->
                     
         <div class = "content">
             <div id= "user_timeline">
@@ -64,7 +66,7 @@ if(!isset($_SESSION['email'])){
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
+                    <p><strong><a href='my_profile.php'>Name :  $last_name </a></strong> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
                      <p><a href='my_groups.php'> My Groups </a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>
@@ -74,9 +76,11 @@ if(!isset($_SESSION['email'])){
                 </div>
             </div>
             <div id= "content_timeline">
+                
+              
                 <form action="group_profile.php?topic_id=<?php echo $topic_id;?>" method="post" id="f" >
                     
-
+                 
                 <h2> What's on your mind..?</h2>
                     <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
                     <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
@@ -96,6 +100,8 @@ if(!isset($_SESSION['email'])){
                     
                     <br>
                     <br>
+                     <div id="group_posts">
+                    </div>
                 </form>
                 <?php insertPost($global); ?>
                 
@@ -145,7 +151,14 @@ if(!isset($_SESSION['email'])){
                 ?>
                 
             </div>
-        </div>
+           
+            <div id="members_div" >
+            
+            <h3 >Members: </h3>
+                <?php members_list($topic_id,$users_id); ?>
+              
+            </div>
+         </div>
     </div> 
   <script src="scripts.js"></script>  
     

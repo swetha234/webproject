@@ -41,6 +41,7 @@ $('.like-btn').on('click', function(){
   });		
 
 });
+    });
 
 // if the user clicks on the dislike button ...
 $('.dislike-btn').on('click', function(){
@@ -138,29 +139,122 @@ $('.dislike-btn').on('click', function(){
     ///for deleting
     $(document).on('click','.delete', function(e){ 
   var post_id = $(this).data('id');
-  
-  
   $.ajax({
     url:'delete.php',
     type: 'post',
     data:{ 'del':post_id},
     dataType: 'text',
     success: function(data){
-      console.log(data);
-//      $("#dis"+post_id).remove();
-
+//      console.log(data);
+      $("#posts").remove();
+        e.preventDefault() 
     }
 
   });
 
       
 });
-
-
-
-
-
+    
   
 
 
-});
+
+  ///for searching names
+    $(document).ready(function(){
+  $("#search_text").on("keyup", function() {
+   var txt = $(this).val();
+      if(txt != '')
+          {
+            
+          $.ajax({
+              url:"search.php",
+              method:"post",
+              data:{search:txt},
+              dataType:"text",
+              success:function(data)
+              {
+                  $('#result').html(data);
+              }  
+          });
+          }
+      else
+      {
+          
+                  $('#result').html(data);
+              }
+          });
+      });
+
+
+//appending posts to global
+
+$(document).ready(function (){
+        
+        $('#sub').click(function(e){ 
+            e.preventDefault();
+            $.ajax({
+                method:"POST",
+                url: "postg.php",
+                data:$('form').serialize(),
+                dataType:"text",
+                success: function(data){
+//                     var obj = JSON.parse(data);
+                    
+                  console.log(data);
+//                     str= "";
+//                    obj['message'].forEach(function(e){
+//                         str+= "<p>hi</p>";
+//                        
+//                        
+//                  
+//                    
+//                    });
+                    
+                      
+//                    $title=$("#title").val();
+//                    $content=$("#content").val();
+//                    $('#global_posts').html(" <div id='posts'> <p> <img src='user/user_images/' width='50', height='50' ></p><h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'></a></h3><p>Username:"+e['first_name']+" <a href='user_profile.php?topic_id=$users_id'></a><p>Topic: "+$title+"</p><p>Topic: "+$title+"</p><p>Content : "+$content+"</p><p>Posted Date:</p><br>")
+                    
+                    $('#global_posts').html(data);
+                    
+                }
+            }) ;
+            
+        });
+    });
+//appending posts to private groups
+
+$(document).ready(function (){
+        
+        $('.sub-group').click(function(e){ 
+            e.preventDefault();
+            $.ajax({
+                method:"POST",
+                url: "postgroup.php",
+                data:$('form').serialize(),
+                dataType:"text",
+                success: function(data){
+//                     var obj = JSON.parse(data);
+                    
+                  console.log(data);
+//                     str= "";
+//                    obj['message'].forEach(function(e){
+//                         str+= "<p>hi</p>";
+//                        
+//                        
+//                  
+//                    
+//                    });
+                    
+                      
+//                    $title=$("#title").val();
+//                    $content=$("#content").val();
+//                    $('#global_posts').html(" <div id='posts'> <p> <img src='user/user_images/' width='50', height='50' ></p><h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'></a></h3><p>Username:"+e['first_name']+" <a href='user_profile.php?topic_id=$users_id'></a><p>Topic: "+$title+"</p><p>Topic: "+$title+"</p><p>Content : "+$content+"</p><p>Posted Date:</p><br>")
+                    
+                    $('#group_posts').html(data);
+                    
+                }
+            }) ;
+            
+        });
+    });

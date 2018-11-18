@@ -66,6 +66,20 @@ function inserttopic($topic_id){
         $insertintotopic = "INSERT INTO user_group(users_id, topic_id) VALUES ('$users_id','$topic_id')";
         $run_insertintotopic = mysqli_query($connection,$insertintotopic);
         
+         if ($users_id== 21){
+                
+                if(archive($topic_id)== true){
+                  
+                    
+            echo " <i class='fa fa-key arch' data-id='$topic_id' style='font-size:24px; color:black; float:right;'></i>";
+                    
+                }
+                else{
+                  echo "<i class='fa fa-lock arch' data-id='$topic_id' style='font-size:24px; color:black; float:right;'> </i>";
+                }
+        }
+            
+//        
         echo "<h2>You have been joined!  </h2>"; 
     }
     
@@ -186,7 +200,7 @@ function get_globalposts(){
        <div id='posts'>
         <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p>
  <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
-        <p>Username: <a href='user_profile.php?topic_id=$users_id'><?php echo $last_name; ?></a></p>
+        <p>Username: <a href='my_profile.php?id=<?php echo $users_id; ?>'><?php echo $last_name; ?></a></p>
         <p>Topic:<?php echo $post_title; ?></p>
         <p>Content :<?php echo $content; ?></p>
         <p>Posted Date:<?php echo $post_date; ?></p>
@@ -427,7 +441,7 @@ function get_my_groups($users_id){
                 }
         }
             
-        echo "</h3></div></br>";
+       echo "</h3></div></br>";
                 
      
                         
@@ -828,18 +842,52 @@ function archive($topic_id)
   }
 }
 
-function delete($post_id)
-{
+//function delete($post_id)
+//{
+//     global $connection;
+//    $sql = "delete  FROM posts WHERE post_id=$post_id";
+//  $result = mysqli_query($connection,$sql);
+//   if (mysqli_num_rows($result) > 0) {
+//    return true;
+//  }
+//  else{
+//    return false;
+//  }
+//}
+
+function members_list($topic_id,$users_id){
+    
      global $connection;
-    $sql = "delete  FROM posts WHERE post_id=$post_id";
-  $result = mysqli_query($connection,$sql);
-   if (mysqli_num_rows($result) > 0) {
-    return true;
-  }
-  else{
-    return false;
-  }
+    
+    $sql= "SELECT ug.users_id,first_name,last_name,user_image FROM `users` as u,user_group as ug where ug.users_id=u.users_id and ug.topic_id=$topic_id";
+     $result = mysqli_query($connection,$sql);
+    while($row_members = mysqli_fetch_array($result,MYSQLI_ASSOC) ){
+     $first_name = $row_members['first_name'];
+           $last_name = $row_members['last_name'];
+           $user_image = $row_members['user_image'];
+            $members_user_id = $row_members['users_id'];
+        
+    echo"<br>
+    <p>
+    <img src='user/user_images/$user_image' width='25' height='25'/> &nbsp&nbsp&nbsp&nbsp
+    <strong><a href='my_profile.php?id=$members_user_id'> $last_name </a></strong>   ";
+        
+    
+       
+      if ($users_id== 21){
+                  echo "<i class='fa fa-trash delete' data-id='$members_user_id' style='font-size:24px; color:black; float:right;'> </i></p> ";
+                
+        }
+                        
+                       
+        
+        
+    
+                        
+                        
+    }
 }
+    
     
 
 

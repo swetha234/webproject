@@ -53,9 +53,9 @@ if(!isset($_SESSION['email'])){
                 <div id="user_details">
                     
                     <?php
-                    $user = $_SESSION['email'];
+                    $user = $_GET['id'];
                   
-                    $get_user = "select * from users where email = '$user'";
+                    $get_user = "select * from users where users_id = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
                     $row=mysqli_fetch_array($run_user);
                      
@@ -79,28 +79,23 @@ if(!isset($_SESSION['email'])){
                 </div>
                 
             </div>
-            
-                    <div id="myProgress">
-                        <br>
-  <div id="myBar"></div>
-                       
-</div>
-        <br>
-<button onclick="move()">Click Me</button> 
-        <script>
-function move() {
-  
-}
-</script>
-        
-          
-        </div>
-        
-                   
+             <div id= "content_timeline">
+                <?php
+                    echo "
+                    <h1> Profile page: </h1>
+                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
+                    <div id='user_mention'>
+                     <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
+                 </div>"
+              
+        ?>
+                 </div>       
                 
-    </div> 
+   </div> 
     
-                
+            </div>  
+    
+   
    
     
 </body>

@@ -18,42 +18,22 @@ if(!isset($_SESSION['email'])){
 <!--    <script type="text/javascript" src="js/jquery-1.11.3.js"></script>-->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
    
-    <script type="text/javascript">
-    $(document).ready(function (){
-        
-        $('#sub').click(function(event){ 
-            event.preventDefault();
-            $.ajax({
-                method:"POST",
-                url: "postg.php",
-                data:$('form').serialize(),
-                dataType:"text",
-                success: function(strpost){
-//                    var obj = JSON.parse(data);
-//                    obj['message'].forEach(function(e){
-//                         $name = e['first_name']
-//                        
-//                        
-//                    });
-                    $title=$("#title").val();
-                    $content=$("#content").val();
-                    $('#global_posts').html(" <div id='posts'> <p> <img src='user/user_images/' width='50', height='50' ></p><h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'></a></h3><p>Username: <a href='user_profile.php?topic_id=$users_id'></a><p>Topic: "+$title+"</p><p>Topic: "+$title+"</p><p>Content : "+$content+"</p><p>Posted Date:</p><br>")
-                }
-            }) ;
-            
-        });
-    });
+    <script type="scripts.js"></script>
     
     
-    </script>
+    
+   
     </head>
 <body>
+         
 
 
     <!-- container starts-->
     <div class='container'>
        
-
+            
+               
+                
         <div id= "head_wrap">
             <div id="header">
                 <ul id="menu">
@@ -66,13 +46,20 @@ if(!isset($_SESSION['email'])){
                 </ul>
             </div>
         </div>
-                <form method="get" action="results.php" id="form1">
-                
-                <input type = "text" name = "user_query" placeholder = "search a topic"/>
-                <input type = "submit" name = "search" value="Search">
-                </form>
+        
+   <form method="get" action="search.php" id="form1">
+                <span class="input-group-addon">Search</span>
+                <input type = "text" name = "search_text" id = "search_text"  placeholder = "search for names..."/>
+<!--                <input type = "submit" name = "search" value="Go">-->
+                    <br>
                     
+                    <div id="result"></div>
+            
+              </form>     
         <div class = "content">
+
+            
+          
             <div id= "user_timeline">
                 <div id="user_details">
                     <?php
@@ -107,8 +94,8 @@ if(!isset($_SESSION['email'])){
             </div>
         
             <div id= "content_timeline">
-               
-                <form   id="f" >
+              
+                <form id="f" >
                 <h2> What's on your mind..?</h2>
                     <input type="text" id="title" name="title" placeholder="Write a Title" size="73"/><br/>
                     <textarea cols="71" id="content" rows="4" name="content" placeholder="Write a description"></textarea><br/>

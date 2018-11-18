@@ -98,7 +98,7 @@ body {
 }
 .content{
     
-    width:1000px;
+    width:10000px;
     margin: 0 auto;
 }
 #user_timeline{
@@ -148,9 +148,9 @@ body {
 }
 #content_timeline{
     
-    float: right;
+    float: left;
 /*    width: 280px;*/
-    padding: 10px;
+    padding: 30px;
 }
 /*
 #content_timeline h2{
@@ -324,4 +324,11 @@ i {
     width: 1%;
     height: 30px;
     background-color: green;
+}
+#members_div {
+     width: 320px;
+    float: right;
+    padding: 40px;
+    border: 2px solid black;
+    margin: 25px;
 }

@@ -28,7 +28,8 @@
 
 
 //to insert data 
-   $insert = "insert into posts(users_id,topic_id,post_title,post_content,post_date,global) values ('$users_id_global','$topic','$title','$content',NOW(),'1')";
+//    $global="NULL";
+   $insert = "insert into posts(users_id,topic_id,post_title,post_content,post_date,global) values ('$users_id_global','$topic','$title','$content',NOW(),NULL)";
 
 $run_insert = mysqli_query($connection,$insert);
   
@@ -43,7 +44,7 @@ $row_result= mysqli_fetch_array($run_get_topictitle);
 $topic_title = $row_result['topic_title'];
 
 //to get all other user data 
-$user_posts= "select * from posts INNER JOIN users where global is not NULL and users.users_id = posts.users_id order by post_id DESC LIMIT 1";
+$user_posts= "select * from posts INNER JOIN users where global is NULL and users.users_id = posts.users_id order by post_id DESC LIMIT 1";
  $run_user_posts = mysqli_query($connection,$user_posts);
 //$row_groups = mysqli_fetch_array($run_user_posts,MYSQLI_ASSOC);
     
