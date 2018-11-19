@@ -6,30 +6,55 @@ if(!isset($_SESSION['email'])){
     header("location: index.php");
     
 }
-
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Welcome</title>
+    
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!--    <script type="text/javascript" src="js/jquery-1.11.3.js"></script>-->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
-   
-    <script type="scripts.js"></script>
+<!--    font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!--  bootstrap css-->
+<!--    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">-->
+<!--jquery-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<!--bootstrap js-->
+<!--    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
+<!--summernote css-->
+<!--<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">-->
+<!--summernote js-->
+<!--    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>-->
+    
+<!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>  
     
     
+
     
-   
+<script type="scripts.js"></script>    
+   <script>
+	$(document).ready(function() {
+        
+		$('#summernote').summernote({
+            linkTargetBlank: false,
+  			height: 200,
+  			width: 400,                 // set editor height
+  			minHeight: 100,             // set minimum height of editor
+  			maxHeight: 600,             // set maximum height of editor
+  			focus: true                    // set focus to editable area after initializing summernote
+        
+		});
+    });
+</script>
     </head>
 <body>
          
 
 
     <!-- container starts-->
-    <div class='container'>
+    <div class='container' style="width:100%;">
        
             
                
@@ -47,8 +72,8 @@ if(!isset($_SESSION['email'])){
             </div>
         </div>
         
-   <form method="get" action="search.php" id="form1">
-                <span class="input-group-addon">Search</span>
+   <form method="get" action="search.php" id="form1" style="float:right;width: 200px;">
+<!--                <span class="input-group-addon">Search</span>-->
                 <input type = "text" name = "search_text" id = "search_text"  placeholder = "search for names..."/>
 <!--                <input type = "submit" name = "search" value="Go">-->
                     <br>
@@ -72,7 +97,6 @@ if(!isset($_SESSION['email'])){
                     
                 
                     
-
                     $users_id = $row['users_id'];
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
@@ -94,12 +118,12 @@ if(!isset($_SESSION['email'])){
             </div>
         
             <div id= "content_timeline">
-              
-                <form id="f" >
+              <div>
+                <form id="postform" >
                 <h2> What's on your mind..?</h2>
-                    <input type="text" id="title" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" id="content" rows="4" name="content" placeholder="Write a description"></textarea><br/>
-                    <select name="topic">
+                    <input type="text" id="title" name="title" placeholder="Write a Title" size="73"/>
+                    <textarea id="summernote" name="summernote"></textarea>
+                    <select id="topicname" name="topic">
                         <option>Select Topic</option>
                         <?php getTopics(); 
                         $global = '1';?>     
@@ -108,6 +132,7 @@ if(!isset($_SESSION['email'])){
                     
                     
                 </form>
+                  </div>
                      <br>
 
                 

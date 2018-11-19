@@ -1,7 +1,6 @@
 <?php 
 	session_start();
 	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
-
    global $connection; 
 $output='';
 $sql= "select first_name,last_name, users_id from users where first_name like '%".$_POST["search"]."%' or last_name like '%".$_POST["search"]."%'";
@@ -22,5 +21,4 @@ else
 {
     echo 'data not found';
 }
-
 ?>

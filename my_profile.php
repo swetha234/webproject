@@ -45,14 +45,7 @@ if(!isset($_SESSION['email'])){
                 <input type = "submit" name = "search" value="Search">
                 </form>
 -->
-<!--
--->
-        <div class = "content">
-            <div id= "user_timeline">
-                
-                <div id="user_details">
-                    
-                    <?php
+  <?php
                     $user = $_GET['id'];
                   
                     $get_user = "select * from users where users_id = '$user'";
@@ -63,22 +56,10 @@ if(!isset($_SESSION['email'])){
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
-                    echo "
-                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
-                    <div id='user_mention'>
-                    <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p> 
-                    <p><a href='my_global.php'> Global Group </a> </p>
-                    
-                     <p><a href='my_groups.php'> My Groups </a> </p>
-                     
-                     <p><a href='my_findgroup.php'> Find a group</a> 
-                     </p>
-                     <p><a href='my_editprofile.php?u_id=$users_id'> Edit My Profile </a> </p>
-                    </div>";
+                   
                     ?>
                 </div>
-                
-            </div>
+
              <div id= "content_timeline">
                 <?php
                     echo "
@@ -89,13 +70,11 @@ if(!isset($_SESSION['email'])){
                  </div>"
               
         ?>
-                 </div>       
-                
-   </div> 
+                  
     
-            </div>  
+         
     
-   
+    </div>
    
     
 </body>

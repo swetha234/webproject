@@ -136,7 +136,7 @@ $('.dislike-btn').on('click', function(){
    }
   });
 });
-    ///for deleting
+    ///for deleting posts
     $(document).on('click','.delete', function(e){ 
   var post_id = $(this).data('id');
   $.ajax({
@@ -147,6 +147,25 @@ $('.dislike-btn').on('click', function(){
     success: function(data){
 //      console.log(data);
       $("#posts").remove();
+        e.preventDefault() 
+    }
+
+  });
+
+      
+});
+
+///for deleting users
+    $(document).on('click','.delete', function(e){ 
+  var members_user_id = $(this).data('id');
+  $.ajax({
+    url:'deleteusers.php',
+    type: 'get',
+    data:{ 'del':members_user_id},
+    dataType: 'text',
+    success: function(data){
+//      console.log(data);
+      $("#members").remove();
         e.preventDefault() 
     }
 
@@ -169,10 +188,11 @@ $('.dislike-btn').on('click', function(){
           $.ajax({
               url:"search.php",
               method:"post",
-              data:{search:txt},
+              data:{'search':txt},
               dataType:"text",
               success:function(data)
               {
+                  console.log(data);
                   $('#result').html(data);
               }  
           });
@@ -180,7 +200,7 @@ $('.dislike-btn').on('click', function(){
       else
       {
           
-                  $('#result').html(data);
+//                  $('#result').html(data);
               }
           });
       });
@@ -191,29 +211,28 @@ $('.dislike-btn').on('click', function(){
 $(document).ready(function (){
         
         $('#sub').click(function(e){ 
+            var title = $('#title').val();
+            
+//          var messageData =$('#summernote').summernote('code');
+//            var messageData = $('#summernote').val();
+            var plainText =$($("#summernote").summernote("code")).text();
+
+            var topicname= $('#topicname').val();
+            
             e.preventDefault();
             $.ajax({
                 method:"POST",
                 url: "postg.php",
-                data:$('form').serialize(),
-                dataType:"text",
+                data: { 
+            'title' : title, 
+            'summernote' : plainText,
+            'topic' : topicname, 
+           },
+//                data: {'form':textareaValue},
+//                data:$('#postform').serialize(),
+//                dataType:"text",
                 success: function(data){
-//                     var obj = JSON.parse(data);
-                    
-                  console.log(data);
-//                     str= "";
-//                    obj['message'].forEach(function(e){
-//                         str+= "<p>hi</p>";
-//                        
-//                        
-//                  
-//                    
-//                    });
-                    
-                      
-//                    $title=$("#title").val();
-//                    $content=$("#content").val();
-//                    $('#global_posts').html(" <div id='posts'> <p> <img src='user/user_images/' width='50', height='50' ></p><h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'></a></h3><p>Username:"+e['first_name']+" <a href='user_profile.php?topic_id=$users_id'></a><p>Topic: "+$title+"</p><p>Topic: "+$title+"</p><p>Content : "+$content+"</p><p>Posted Date:</p><br>")
+                    console.log(data);
                     
                     $('#global_posts').html(data);
                     

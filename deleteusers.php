@@ -3,10 +3,10 @@
 	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
 
    global $connection;  
-if(isset($_POST['del'])){ 
+if(isset($_GET['del'])){ 
     
-      $post_id =  $_POST['del'];
-      $del= "DELETE from posts where post_id ='$post_id' ";
+      $members_user_id =  $_GET['del'];
+      $del= "DELETE from user_group where users_id ='$members_user_id' ";
       $result =  mysqli_query($connection,$del);
       echo "success";
 

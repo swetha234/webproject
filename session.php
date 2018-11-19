@@ -859,42 +859,37 @@ function members_list($topic_id,$users_id){
     
      global $connection;
     
-    $sql= "SELECT ug.users_id,first_name,last_name,user_image FROM `users` as u,user_group as ug where ug.users_id=u.users_id and ug.topic_id=$topic_id";
+    $sql= "SELECT ug.users_id,first_name,last_name,user_image FROM `users` as u,user_group as ug where ug.users_id=u.users_id and ug.topic_id=$topic_id and ug.users_id <> 21";
      $result = mysqli_query($connection,$sql);
     while($row_members = mysqli_fetch_array($result,MYSQLI_ASSOC) ){
      $first_name = $row_members['first_name'];
            $last_name = $row_members['last_name'];
            $user_image = $row_members['user_image'];
             $members_user_id = $row_members['users_id'];
-        
-    echo"<br>
-    <p>
-    <img src='user/user_images/$user_image' width='25' height='25'/> &nbsp&nbsp&nbsp&nbsp
-    <strong><a href='my_profile.php?id=$members_user_id'> $last_name </a></strong>   ";
+        ?>
+        <div id="members">
+   <br>
+  
+     <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p> 
+               	&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><strong><a href='my_profile.php?id=$members_user_id'><?php echo $last_name ; ?></a></strong>   </span>
         
     
-       
+       <?php  
       if ($users_id== 21){
-                  echo "<i class='fa fa-trash delete' data-id='$members_user_id' style='font-size:24px; color:black; float:right;'> </i></p> ";
+                  echo "<i class='fa fa-trash delete' data-id='$members_user_id' style='font-size:24px; color:black; float:right;'> </i> ";
                 
         }
+        ?>
+</div>
                         
-                       
-        
-        
-    
-                        
-                        
-    }
+   <?php                    
+  }
 }
-    
-    
+
+ ?>
 
 
 
 
 
-
-
-
-?>

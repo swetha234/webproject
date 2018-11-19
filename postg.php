@@ -15,7 +15,7 @@
    $title = htmlspecialchars(addslashes($_POST['title']));
   
    
-   $content = htmlspecialchars(addslashes($_POST['content']));
+   $content = htmlspecialchars(addslashes($_POST['summernote']));
 
   
 
