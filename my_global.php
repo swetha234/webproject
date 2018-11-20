@@ -115,10 +115,18 @@ if(!isset($_SESSION['email'])){
                      <p><strong>Name : </strong> <a href='my_profile.php?id=$users_id'> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
                     <p><a href='my_groups.php'> My Groups</a> </p>
-                     <p><a href='my_findgroup.php'> Find a group</a> </p>
+                     <p><a href='my_findgroup.php'> Find a group</a> </p>";
+                       if($users_id == 21)
+                     {
+                        
+                    echo" <p><a href='inviteusers.php'>Invite users</a> </p>";
                      
-                     <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
+                     }
+                     
+                     echo " <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
                     </div>";
+                    
+                  
                     ?>
                 </div>
             </div>

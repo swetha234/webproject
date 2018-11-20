@@ -50,7 +50,7 @@ if(!isset($_SESSION['email'])){
             <div id="question0" class="panel-collapse collapse" style="height: 0px;">
                 <div class="panel-body">
                      <h4><span class="label label-primary">Answer</span>
-                    <p><br>Bark Buddy lets you browse through tons of puppy profiles and you can share and save your favorites. One of the coolest features is that the app recognizes the kinds of profiles you're most interested in, and it gives you more suggestions.
+                    <p><br>Pet Finder lets you browse through tons of puppy profiles and you can share and save your favorites. One of the coolest features is that the app recognizes the kinds of profiles you're most interested in, and it gives you more suggestions.
                       <br>  You can take some tips from others if your new to raising a pet. 
                     </p></h4>
                 </div>
@@ -97,7 +97,7 @@ if(!isset($_SESSION['email'])){
             <div id="question3" class="panel-collapse collapse" style="height: 0px;">
                 <div class="panel-body">
                      <h4><span class="label label-primary">Answer</span>
-                    <p><br>As soon as you login into the site you can see the most recent discussion you have made in the public and private groups. You can open the global group and post you opinions or ask doubts. You also have an option to select the topic of your choice and talk about it. 
+                    <p><br>As soon as you login into the site you can see the most recent discussion you have made in the public and private groups. You can open the global group and post your opinions or ask doubts. You also have an option to select the topic of your choice and talk about it. 
                     </p></h4>
                 </div>
             </div>
@@ -120,7 +120,7 @@ if(!isset($_SESSION['email'])){
         <div class="panel panel-default ">
             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question5">
                  <h4 class="panel-title">
-                    <a href="#" class="ing">Q:Other useful things?</a>
+                    <a href="#" class="ing">@: How to use tetxtarea?</a>
               </h4>
 
             </div>
@@ -128,7 +128,7 @@ if(!isset($_SESSION['email'])){
                 <div class="panel-body">
                      <h4><span class="label label-primary">Answer</span>
 
-                    <p><br>   qwq </p></h4>
+                    <p><br>Our textarea is made with summernote. This allows you to post all kinds of messages that include photos, URL's and codes in a pretty formatted way. </p></h4>
                 </div>
             </div>
         </div>

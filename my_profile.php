@@ -71,7 +71,9 @@ if(!isset($_SESSION['email'])){
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
                      <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
-                 </div>";
+                 </div><br>";
+                 
+                 echo " Groups: <br><br>";
                  
                  //to get total groups
         $total_groups = "SELECT count(*) as total from user_group WHERE users_id ='$users_id'";
@@ -93,7 +95,18 @@ if(!isset($_SESSION['email'])){
 
         $run_total_rating = mysqli_query($connection,$total_rating);
         $row_run_total_rating = mysqli_fetch_array($run_total_rating,MYSQLI_ASSOC);   
-        $rating_count = $row_run_total_rating['total'];      
+        $rating_count = $row_run_total_rating['total']; 
+                 
+        $get_groups = "SELECT topics.topic_title from topics INNER JOIN user_group where topics.choose='public' and topics.topic_id = user_group.topic_id and user_group.users_id = $users_id ";
+        $run_get_groups = mysqli_query($connection,$get_groups);
+        while ($row_get_groups = mysqli_fetch_array($run_get_groups)){
+            
+             $topicstile = $row_get_groups['topic_title'];
+            
+            echo $topicstile ;
+            echo "<br>";
+            
+        }
                  
                  
                  

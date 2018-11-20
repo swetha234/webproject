@@ -67,9 +67,17 @@ if(!isset($_SESSION['email'])){
                      <p><a href='my_groups.php'> My Groups </a> </p>
                      
                      <p><a href='my_findgroup.php'> Find a group</a> 
-                     </p>
-                     <p><a href='my_editprofile.php?u_id=$users_id'> Edit My Profile </a> </p>
+                     </p>";
+                       if($users_id == 21)
+                     {
+                        
+                    echo" <p><a href='inviteusers.php'>Invite users</a> </p>";
+                     
+                     }
+                     
+                     echo " <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
                     </div>";
+                    
                     ?>
                 </div>
             </div>
