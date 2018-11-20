@@ -1,7 +1,61 @@
-$(document).ready(function(){
+const getPostTemplate = (topic_name,post_id, topic_id, title, content, session) =>  {
+  const userImage = session["user_image"];
+  const userLastName = session["last_name"];
+  const userId = session["users_id"];
+  return `
+    <div id='posts'> 
+      <p>
+        <img src='user/user_images/${userImage}' width='50' height='50'/>
+      </p>
+      <h3>
+        Group Name: 
+        <a href='group_profile.php?topic_id=${topic_id}'>${topic_name}</a>
+      </h3>
+      <p>Username: <a href='my_profile.php?id=${userId}'>${userLastName}</a></p>
+      <p>Topic: ${title}</p>
+      <p><span>Content:</span><span>` + content + `</span></p>
+      <p>Posted Date: ${Date(Date.now())}</p>
+      <br> 
+      <i class='fa fa-thumbs-o-up like-btn' data-id=${post_id} data-id1=${userId}></i> <span class='likes'> 0 </span>
+    <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> 0 </span>
+      <a href='single.php?post_id=${post_id}' style='float:right;'><button> See Replies or Reply to this </button></a>
+      <i class='fa fa-trash delete' data-id='${post_id}' style='font-size:24px; color:black; float:right;'> </i>
+    </div>`;
+};
 
+
+
+$(document).ready(function(){
+    
+    $.ajax({
+        url: 'get_global_posts.php',
+        type: 'get',
+        type: "JSON",
+        success: function(data){
+            data = JSON.parse(data);
+            const result = data.result;
+            const session = data.session;
+            const posts = data.posts;
+            console.log(posts);
+            console.log(session);
+            for(i=0;i<posts.length; i++) {
+            console.log(i);
+            $('#global_posts').append(getPostTemplate(posts[i].topic_title,posts[i].post_id,posts[i].topic_id,posts[i].post_title,posts[i].post_content,session));
+            }
+            //for loop on data
+            
+        }
+        
+    });
+    
+});
+
+
+
+
+$(document).ready(function(){
+$(document).on('click','.like-btn', function(){ 
 // if the user clicks on the like button ...
-$('.like-btn').on('click', function(){
   var post_id = $(this).data('id');
   var users_id = $(this).data('id1');
     
@@ -44,7 +98,7 @@ $('.like-btn').on('click', function(){
     });
 
 // if the user clicks on the dislike button ...
-$('.dislike-btn').on('click', function(){
+$(document).on('click','.dislike-btn', function(){ 
   var post_id = $(this).data('id');
     var users_id = $(this).data('id1');
   $clicked_btn = $(this);
@@ -106,6 +160,8 @@ $('.dislike-btn').on('click', function(){
    
   }
 
+        
+        
    $.ajax({
     url: 'archive.php',
     type: 'get',
@@ -136,6 +192,15 @@ $('.dislike-btn').on('click', function(){
    }
   });
 });
+
+
+
+
+
+
+
+
+
     ///for deleting posts
     $(document).on('click','.delete', function(e){ 
   var post_id = $(this).data('id');
@@ -156,12 +221,14 @@ $('.dislike-btn').on('click', function(){
 });
 
 ///for deleting users
-    $(document).on('click','.delete', function(e){ 
-  var members_user_id = $(this).data('id');
+    $(document).on('click','.deleteusers', function(e){ 
+    var members_user_id = $(this).data('id1');
+     var topic_id = $(this).data('id2');
   $.ajax({
     url:'deleteusers.php',
-    type: 'get',
-    data:{ 'del':members_user_id},
+    type: 'post',
+    data:{ 'users_id':members_user_id,
+         'topic_id':topic_id},
     dataType: 'text',
     success: function(data){
 //      console.log(data);
@@ -197,82 +264,69 @@ $('.dislike-btn').on('click', function(){
               }  
           });
           }
-      else
-      {
-          
-//                  $('#result').html(data);
-              }
+     if(txt == ''){
+         $('#result').empty();
+     }
           });
       });
 
 
 //appending posts to global
 
-$(document).ready(function (){
-        
-        $('#sub').click(function(e){ 
-            var title = $('#title').val();
-            
-//          var messageData =$('#summernote').summernote('code');
-//            var messageData = $('#summernote').val();
-            var plainText =$($("#summernote").summernote("code")).text();
+$(document).ready(function (){  
+  $('#sub').click(function(e){ 
+      const topic_id = $('#topicname').val();
+      const topic_name = $('#topicname option:selected').text();
+      const title = $('#title').val();
+      const content = $("#summernote").val();
+      
+      e.preventDefault();
+      $.ajax({
+        method:"POST",
+        url: "postg.php",
+        type: "JSON",
+        data: { 
+          'title' : title, 
+          'content' : content,
+          'topic_id' : topic_id, 
+        },
+        success: function(data) {
 
-            var topicname= $('#topicname').val();
-            
-            e.preventDefault();
-            $.ajax({
-                method:"POST",
-                url: "postg.php",
-                data: { 
-            'title' : title, 
-            'summernote' : plainText,
-            'topic' : topicname, 
-           },
-//                data: {'form':textareaValue},
-//                data:$('#postform').serialize(),
-//                dataType:"text",
-                success: function(data){
-                    console.log(data);
-                    
-                    $('#global_posts').html(data);
-                    
-                }
-            }) ;
-            
-        });
-    });
+       const session = JSON.parse(data).session;
+            const post_id = JSON.parse(data).id;
+          $('#global_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content, session));
+        }
+      }) ;   
+  });
+});
 //appending posts to private groups
 
 $(document).ready(function (){
         
         $('.sub-group').click(function(e){ 
+    const topic_id = $('#topic_name_group').val();
+      const topic_name = this.name;
+      const title = $('#title').val();
+      const content = $("#summernote").val();
+            
+
             e.preventDefault();
             $.ajax({
                 method:"POST",
                 url: "postgroup.php",
-                data:$('form').serialize(),
-                dataType:"text",
+                type: "JSON",
+        data: { 
+          'title' : title, 
+          'content' : content,
+          'topic_id' : topic_id, 
+        },
                 success: function(data){
-//                     var obj = JSON.parse(data);
-                    
-                  console.log(data);
-//                     str= "";
-//                    obj['message'].forEach(function(e){
-//                         str+= "<p>hi</p>";
-//                        
-//                        
-//                  
-//                    
-//                    });
-                    
-                      
-//                    $title=$("#title").val();
-//                    $content=$("#content").val();
-//                    $('#global_posts').html(" <div id='posts'> <p> <img src='user/user_images/' width='50', height='50' ></p><h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'></a></h3><p>Username:"+e['first_name']+" <a href='user_profile.php?topic_id=$users_id'></a><p>Topic: "+$title+"</p><p>Topic: "+$title+"</p><p>Content : "+$content+"</p><p>Posted Date:</p><br>")
-                    
-                    $('#group_posts').html(data);
-                    
-                }
+                    console.log(data);
+console.log(topic_id,topic_name,title,content);
+       const session = JSON.parse(data).session;
+            const post_id = JSON.parse(data).id;
+          $('#group_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content, session));
+        }
             }) ;
             
         });

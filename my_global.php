@@ -15,10 +15,15 @@ if(!isset($_SESSION['email'])){
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
 <!--    font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--  <link rel="stylesheet" href="/resources/demos/style.css">-->
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--  bootstrap css-->
 <!--    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">-->
 <!--jquery-->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+    
 <!--bootstrap js-->
 <!--    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 <!--summernote css-->
@@ -74,7 +79,7 @@ if(!isset($_SESSION['email'])){
         
    <form method="get" action="search.php" id="form1" style="float:right;width: 200px;">
 <!--                <span class="input-group-addon">Search</span>-->
-                <input type = "text" name = "search_text" id = "search_text"  placeholder = "search for names..."/>
+                <input type = "text" name = "search_text" id = "search_text"  autocomplete="false" placeholder = "search for names..."/>
 <!--                <input type = "submit" name = "search" value="Go">-->
                     <br>
                     
@@ -89,7 +94,7 @@ if(!isset($_SESSION['email'])){
                 <div id="user_details">
                     <?php
                     $user = $_SESSION['email'];
-                 
+//                     $topic_id=$_GET['topic_id'];
                     
                     $get_user = "select * from users where email = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
@@ -103,10 +108,11 @@ if(!isset($_SESSION['email'])){
                     $user_image=$row['user_image'];
                     
                     
+                    
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                     <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
+                     <p><strong>Name : </strong> <a href='my_profile.php?id=$users_id'> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
                     <p><a href='my_groups.php'> My Groups</a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>
@@ -129,7 +135,10 @@ if(!isset($_SESSION['email'])){
                         $global = '1';?>     
                     </select>
                     <input type="submit" id="sub" class="sub-post" value="Post to Timeline" />
+<!--
+                 
                     
+-->
                     
                 </form>
                   </div>
@@ -138,14 +147,14 @@ if(!isset($_SESSION['email'])){
                 
                     
                     <h3>Most Recent Discussions..!</h3>
-                    <div id="global_posts">
-                    </div>
+                    <div id="global_posts"></div>
                         <?php 
-                          get_globalposts(); 
+//                          get_globalposts(); 
                           include "pagenation.php";
                         ?>
                 
             </div>
+             
         </div>
     </div> 
    

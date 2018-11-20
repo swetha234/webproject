@@ -178,10 +178,6 @@ function get_globalposts(){
 
                 while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){
                     $topic_title = $row_post_title['topic_title'];
-//                    echo ("<br>");
-//                    var_dump($topic_title);
-//                    echo ("<br>");
-//                    var_dump($users_id);
         
                     $user_details = "select * from users where users_id='$users_id'";
                     $run_user_details = mysqli_query($connection,$user_details);
@@ -427,7 +423,7 @@ function get_my_groups($users_id){
         echo "<div id='groups'>
         
      
-        <h3><a href='group_profile.php?topic_id=$topic_id'> $topic_title          </a>";
+        <h3><a href='group_profile.php?topic_id=$topic_id&topic_name=$topic_title'> $topic_title          </a>";
             if ($users_id== 21){
                 
                 if(archive($topic_id)== true){
@@ -480,7 +476,7 @@ function get_user_posts(){
         $topic_id = $row_user['topic_id'];
         $users_id = $row_user['users_id'];
         $post_title = $row_user['post_title'];
-        $content= $row_user['post_content'];
+        $content= htmlspecialchars_decode($row_user['post_content']);
         $post_date = $row_user['post_date'];
     
           $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
@@ -504,7 +500,7 @@ function get_user_posts(){
         
         echo "<div id='posts'>
         <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'> $topic_title</a></h3>
-        <p>Username: <a href='user_profile.php?topic_id=$users_id'> $last_name</a></p>
+        <p>Username: <a href='my_profile.php?id=$users_id'> $last_name</a></p>
         <p>Topic: $post_title</p>
         <p>Content : $content</p>
         <p>Posted Date: $post_date</p>
@@ -560,7 +556,7 @@ function get_group_posts($topic_id,$users_id){
          $post_id = $row_user['post_id'];
         $topic_id = $row_user['topic_id'];
         $post_title = $row_user['post_title'];
-        $content= $row_user['post_content'];
+        $content= htmlspecialchars_decode($row_user['post_content']);
         $post_date = $row_user['post_date'];
         $archive_action = $row_user['archive_action'];
     
@@ -587,8 +583,8 @@ function get_group_posts($topic_id,$users_id){
         
        <div id='posts'>
         <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p>
- <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
-        <p>Username: <a href='user_profile.php?topic_id=$users_id'><?php echo $last_name; ?></a></p>
+ <h3>Group Name : <a href='group_profile.php?topic_id=<?php echo $topic_id ?>'><?php echo $topic_title; ?></a></h3>
+        <p>Username: <a href='my_profile.php?id=<?php echo $users_id ?>'><?php echo $last_name; ?></a></p>
         <p>Topic:<?php echo $post_title; ?></p>
         <p>Content :<?php echo $content; ?></p>
         <p>Posted Date:<?php echo $post_date; ?></p>
@@ -771,13 +767,25 @@ function create_group($users_id){
         
         
         #insert into user_group table to indicate who all users are associated with this new group.
-        $insert_user_group="INSERT INTO user_group (users_id, topic_id) VALUES ('$users_id','$topic_id'),('$new_users_id','$topic_id')";
+        
+        
+            
+             $insert_user_group="INSERT INTO user_group (users_id, topic_id) VALUES ('$users_id','$topic_id'),('$new_users_id','$topic_id')";
         $run_insert_user_group=mysqli_query($connection,$insert_user_group);
         
+        if($users_id != '21')
+            
+        {
+          $insert_user_group_admin="INSERT INTO user_group (users_id, topic_id) VALUES ('21','$topic_id')";
+        $run_insert_user_group_admin=mysqli_query($connection,$insert_user_group_admin);  
+            
+        }
         
-    
-    
-    if($run_insert_user_group){
+        
+        $insertarchive = "insert into archive_info(topic_id,archive_action) values('$topic_id','unarchive')";
+        $runarchive = mysqli_query($connection,$insertarchive);
+           
+        if($run_insert_user_group){
                   echo "Group creation Successful";
             }
     
@@ -872,12 +880,12 @@ function members_list($topic_id,$users_id){
   
      <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p> 
                	&nbsp;&nbsp;&nbsp;&nbsp;
-    <span><strong><a href='my_profile.php?id=$members_user_id'><?php echo $last_name ; ?></a></strong>   </span>
+    <span><strong><a href='my_profile.php?id=<?php echo $members_user_id; ?>'><?php echo $last_name ; ?></a></strong>   </span>
         
     
        <?php  
       if ($users_id== 21){
-                  echo "<i class='fa fa-trash delete' data-id='$members_user_id' style='font-size:24px; color:black; float:right;'> </i> ";
+                  echo "<i class='fa fa-trash deleteusers' data-id1='$members_user_id' data-id2 = '$topic_id' style='font-size:24px; color:black; float:right;'> </i> ";
                 
         }
         ?>
@@ -886,6 +894,7 @@ function members_list($topic_id,$users_id){
    <?php                    
   }
 }
+
 
  ?>
 

@@ -19,6 +19,10 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 			if ($result->num_rows > 0){
                 $_SESSION['email']= $row['email'];
+                $_SESSION['users_id']=$row['users_id'];
+                $_SESSION['first_name']= $row['first_name'];
+                $_SESSION['last_name']= $row['last_name'];
+                $_SESSION['user_image']= $row['user_image'];
 				header('Location:home.php');
                 
 				}

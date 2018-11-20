@@ -18,20 +18,58 @@ if(!isset($_SESSION['email'])){
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--    font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--  <link rel="stylesheet" href="/resources/demos/style.css">-->
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--  bootstrap css-->
+<!--    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">-->
+<!--jquery-->
+    
+<!--bootstrap js-->
+<!--    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
+<!--summernote css-->
+<!--<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">-->
+<!--summernote js-->
+<!--    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>-->
+    
+<!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>  
+    
+    
+
+    
+<script type="scripts.js"></script>    
+   <script>
+	$(document).ready(function() {
+        
+		$('#summernote').summernote({
+            linkTargetBlank: false,
+  			height: 200,
+  			width: 400,                 // set editor height
+  			minHeight: 100,             // set minimum height of editor
+  			maxHeight: 600,             // set maximum height of editor
+  			focus: true                    // set focus to editable area after initializing summernote
+        
+		});
+    });
+</script>
     </head>
 <body>
 
     <!-- container starts-->
-    <div class='container'>
+    <div class='container'  style="width:100%;">
        
 
         <div id= "head_wrap">
             <div id="header">
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="members.php">Members</a></li>
+<!--                <li><a href="members.php">Members</a></li>-->
                    
                 <li><a href="logout.php">Logout</a></li>
                     <li><a href="help.php">Help</a></li>
@@ -39,13 +77,15 @@ if(!isset($_SESSION['email'])){
                 </ul>
             </div>
         </div>
-<!--
-                <form method="get" action="results.php" id="form1">
-                
-                <input type = "text" name = "user_query" placeholder = "search a topic"/>
-                <input type = "submit" name = "search" value="Search">
-                </form>
--->
+  <form method="get" action="search.php" id="form1" style="float:right;width: 200px;">
+<!--                <span class="input-group-addon">Search</span>-->
+                <input type = "text" name = "search_text" id = "search_text"  autocomplete="false" placeholder = "search for names..."/>
+<!--                <input type = "submit" name = "search" value="Go">-->
+                    <br>
+                    
+                    <div id="result"></div>
+            
+              </form>  
                     
         <div class = "content">
             <div id= "user_timeline">
@@ -53,6 +93,7 @@ if(!isset($_SESSION['email'])){
                     <?php
                     $user = $_SESSION['email'];
                     $topic_id=$_GET['topic_id'];
+                    $topic_title = $_GET['topic_name'];
                    
                     
                     $get_user = "select * from users where email = '$user'";
@@ -66,7 +107,7 @@ if(!isset($_SESSION['email'])){
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong><a href='my_profile.php'>Name :  $last_name </a></strong> </p>
+                   <p><strong>Name : </strong> <a href='my_profile.php?id=$users_id'> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
                      <p><a href='my_groups.php'> My Groups </a> </p>
                      <p><a href='my_findgroup.php'> Find a group</a> </p>
@@ -77,33 +118,49 @@ if(!isset($_SESSION['email'])){
             </div>
             <div id= "content_timeline">
                 
-              
-                <form action="group_profile.php?topic_id=<?php echo $topic_id;?>" method="post" id="f" >
+              <div>
+                <form id="postform" >
                     
                  
                 <h2> What's on your mind..?</h2>
-                    <input type="text" name="title" placeholder="Write a Title" size="73"/><br/>
-                    <textarea cols="71" rows="4" name="content" placeholder="Write a description"></textarea><br/>
-                    <input type="text" name="topic" style="display:none;"  value ="<?php echo $topic_id;
-                    $global = "NULL"; 
+                    <input type="text" id="title" name="title" placeholder="Write a Title" size="73"/><br/>
+                     <textarea id="summernote" name="summernote">
+                         </textarea>
+                  
+                    <input type="text" id = "topic_name_group"  style="display:none;"  value ="<?php echo $topic_id;
+//                    $global = "NULL"; 
                     ?>"/>
-
-                       
-                    <input type="submit" name="sub" class="sub-group" value="Post to Timeline" />
-                     
-                     
-                  <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+    
+                    <?php 
                     
-                    <br>
-                    <br>
+                    $getarchive="SELECT * from archive_info where topic_id ='$topic_id'";
+                    $result = mysqli_query($connection, $getarchive);
+                    $row=mysqli_fetch_array($result);
+                    
+                    $archive_action = $row['archive_action'];
+                    
+                    if($archive_action == 'unarchive')
+                    {
+                    
+                        echo " <input type='submit' name='$topic_title' class='sub-group' value='Post to Timeline' />";
+                    }
+                    
+                    else{
+                        
+                        echo " You can't post";
+                    }
+                    
+                    ?>
+                    
+                  </form>
+                </div>
+                       
+<!--                    <input type="submit" name="sub" class="sub-group" value="Post to Timeline" />-->
+                    
                      <div id="group_posts">
                     </div>
-                </form>
-                <?php insertPost($global); ?>
+<!--                </form>-->
+               <?php //insertPost($global); ?>
                 
                      <br><br>
                 
@@ -138,26 +195,24 @@ if(!isset($_SESSION['email'])){
     <a href='?page=1'>First Page</a>
     ";
     
-    for ($i=1; $i<=$total_pages; $i++){
-        echo"<a href='?page=$i&topic_id=$topic_id'>$i</a>";
+    for ($i=1; $i<=$total_pages-1; $i++){
+        echo"<a href='?page=$i&topic_id=$topic_id&topic_name=$topic_title'>$i</a>";
     }
     echo "<a href='?page=$total_pages&topic_id=$topic_id'>Last Page</a></center></div>";
-    
-    
- 
 
-
+if ($users_id == 21){
   
                 ?>
-                
+                    
             </div>
-           
+               
             <div id="members_div" >
             
             <h3 >Members: </h3>
                 <?php members_list($topic_id,$users_id); ?>
               
             </div>
+            <?php } ?>
          </div>
     </div> 
   <script src="scripts.js"></script>  
