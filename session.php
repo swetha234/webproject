@@ -1,11 +1,6 @@
-
 <?php 
-
-
 	//session_start();
 	$connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
-
-
         
         //function for getting topics
         function getTopics(){
@@ -22,9 +17,6 @@
             
          }
         }
-
-
-
 // if user clicks like or dislike button
 if (isset($_POST['action'])) {
   $post_id = $_POST['post_id'];
@@ -50,15 +42,11 @@ $users_id = $_POST['users_id'];
   	default:
   		break;
   }
-
   // execute query to effect changes in the database ...
   mysqli_query($connection, $sql);
   echo getRating($post_id);
   exit(0);
 }
-
-
-
 function inserttopic($topic_id){
     if (isset($_POST['join'])){
         global $connection; 
@@ -85,10 +73,6 @@ function inserttopic($topic_id){
     
     
 }
-
-
-
-
 //function for inserting posts
 function insertPost($global){
     
@@ -108,7 +92,6 @@ function insertPost($global){
         }
     }
 }
-
 //function get_posts(){
 //    global $con;
 //    $get_posts = "select * from posts ORDER by 1 DESC LIMIT";
@@ -132,7 +115,6 @@ function insertPost($global){
     
     
     
-
 function get_globalposts(){
 //    var_dump("im in get global posts function");
     global $connection;
@@ -175,19 +157,16 @@ function get_globalposts(){
             //to get topic title
             $topic_title_query = "select topic_title from topics where topic_id='$topic_id'";
             $run_post_title = mysqli_query($connection,$topic_title_query);
-
                 while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){
                     $topic_title = $row_post_title['topic_title'];
         
                     $user_details = "select * from users where users_id='$users_id'";
                     $run_user_details = mysqli_query($connection,$user_details);
                     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
-
                         $last_name = $row_user_details['last_name'];
 //                        echo ("<br>");
 //                        var_dump($last_name);
                         $user_image =$row_user_details['user_image']; 
-
 //                        echo ("<br>");
 //                        var_dump($user_image);
         
@@ -251,9 +230,6 @@ function get_globalposts(){
         }
 }
 }
-
-
-
 // Get total number of likes for a particular post
 function getLikes($post_id)
 {
@@ -264,10 +240,6 @@ function getLikes($post_id)
   $result = mysqli_fetch_array($rs);
   return $result[0];
 }
-
-
-
-
 // Get total number of dislikes for a particular post
 function getDislikes($post_id)
 {
@@ -278,7 +250,6 @@ function getDislikes($post_id)
   $result = mysqli_fetch_array($rs);
   return $result[0];
 }
-
 // Get total number of likes and dislikes for a particular post
 function getRating($post_id)
 {
@@ -297,9 +268,6 @@ function getRating($post_id)
   ];
   return json_encode($rating);
 }
-
-
-
 function userLiked($post_id, $users_id)
 {
   global $connection;
@@ -313,9 +281,6 @@ function userLiked($post_id, $users_id)
   	return false;
   }
 }
-
-
-
 // Check if user already dislikes post or not
 function userDisliked($post_id, $users_id)
 {
@@ -329,9 +294,6 @@ function userDisliked($post_id, $users_id)
   	return false;
   }
 }
-
-
-
 function get_groups($users_id){
     #echo $users_id;
     global $connection;
@@ -373,10 +335,6 @@ function get_groups($users_id){
  
        }
  }
-
-
-
-
  function insert_join(){  
      global $connection; 
     if (isset($_POST['join_submit'])){
@@ -446,7 +404,6 @@ function get_my_groups($users_id){
         }
 }
     
-
 function get_user_posts(){
     global $connection;
 //    $per_page=5;
@@ -459,7 +416,6 @@ function get_user_posts(){
 //        $page=1;
 //    }
     $user = $_SESSION['email'];
-
     $get_posts="select users_id from users where email='$user'";
     $run_posts = mysqli_query($connection,$get_posts);
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
@@ -504,7 +460,6 @@ function get_user_posts(){
         <p>Topic: $post_title</p>
         <p>Content : $content</p>
         <p>Posted Date: $post_date</p>
-
            
         
         </div></br>
@@ -662,7 +617,6 @@ function get_group_posts($topic_id,$users_id){
     }
      
 }
-
 function single_post(){
     
     if(isset($_GET['post_id'])){
@@ -740,7 +694,6 @@ function single_post(){
     }
     
 }
-
 function create_group($users_id){
      global $connection;
     if(isset($_POST['create'])){
@@ -792,15 +745,11 @@ function create_group($users_id){
     }
         
     }
-
-
-
 function get_search_results($users_id){
     #echo $users_id;
     global $connection;
      $user = $_SESSION['email'];
     if(isset($_POST['search'])){
-
     $topic_title = $_POST['user_query'];
     $get_groups="select topic_id from topics where choose='public' and topic_title ='$topic_title' and topic_id not in (select topic_id from user_group where users_id = '$users_id')";
     $run_groups = mysqli_query($connection,$get_groups);
@@ -824,19 +773,15 @@ function get_search_results($users_id){
             </form>
         </div>
 <?php
-
      echo "<button onclick='insert_join()'>Join</button>";
  
-
       }    
     
         }
-
       
 }
         
 }
-
 function archive($topic_id)
 {
     global $connection;
@@ -849,7 +794,6 @@ function archive($topic_id)
     return false;
   }
 }
-
 //function delete($post_id)
 //{
 //     global $connection;
@@ -862,7 +806,6 @@ function archive($topic_id)
 //    return false;
 //  }
 //}
-
 function members_list($topic_id,$users_id){
     
      global $connection;
@@ -894,10 +837,7 @@ function members_list($topic_id,$users_id){
    <?php                    
   }
 }
-
-
  ?>
-
 
 
 

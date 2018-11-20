@@ -135,8 +135,21 @@ if(!isset($_SESSION['email'])){
                         $global = '1';?>     
                     </select>
                     <input type="submit" id="sub" class="sub-post" value="Post to Timeline" />
-<!--
-                 
+                    <?php
+                     if ($users_id== 21){
+                
+                if(archive($users_id)== true){
+                  
+                    
+            echo " <i class='fa fa-lock arch' data-id='$users_id' style='font-size:24px; color:black; float:right;'></i>";
+                    
+                }
+                else{
+                  echo "<i class='fa fa-key arch' data-id='$users_id' style='font-size:24px; color:black; float:right;'> </i>";
+                }
+        }
+                    ?>
+                   
                     
 -->
                     
