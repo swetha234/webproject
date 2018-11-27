@@ -42,6 +42,8 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
          
           <title> PET Finder</title>
     <link rel = "stylesheet" href = "style/style.css" media ="all"/>
+         <script src='https://www.google.com/recaptcha/api.js'></script>
+
         
     <style>
          
@@ -61,6 +63,13 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
             left: 20px;
             
         }     
+        #form2{
+            
+            margin-top: -500px;
+            
+        }
+        
+      
         
          </style>
     
@@ -100,7 +109,7 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
              
              <div>
                  
-                 <img src= "images/blacklab.jpg"  style="float:left;  width:600px; height:600px">
+                 <img src= "images/blacklab.jpg"  style="float:left;  width:550px; height:600px">
                  
                
                  
@@ -111,7 +120,8 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
 
                 <div id="form2">
                       <form action = "" method="post">
-                        <h2>Sign Up Here</h2>
+                        <h2 style='margin-left:400px;'>Sign Up Here</h2>
+                          <br>
                           
                  <table>
                      <tr>
@@ -140,6 +150,17 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                          
                          <td>
                          <input type="password" name= "u_password" placeholder= "********"/>
+                         </td>
+                     </tr>
+                     
+                     
+                      <tr>
+                   
+                         
+                         <td>
+                             
+    <div class="g-recaptcha" data-sitekey="6LeTdH0UAAAAAFHoqlRYELZem7vYHJHUQGUOBWbe"></div>
+
                          </td>
                      </tr>
                      

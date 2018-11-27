@@ -10,12 +10,21 @@ function InsertUser(){
         $email = $_POST['u_email'];
         $password = $_POST['u_password'];
         $status="unverified";
-     
+      
+
         
         $get_email= "select * from users where email='$email' ";
         $run_email= mysqli_query($connection,$get_email);
         $check=mysqli_num_rows($run_email);
         
+        $secretkey = '6LeTdH0UAAAAAKBYF9m1BoyJxgw9f7GrsYvktgnO';
+        $responsekey= $_POST['g-recaptcha-response'];
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$responsekey";
+        $response = file_get_contents($url);
+        $validation = json_decode($response);
+        if($validation->success == 1){
+
+         
         if($check==1){
             echo "<script> alert('This email is already registered') </script>";
             exit();
@@ -33,6 +42,16 @@ function InsertUser(){
             }
         }
         
+            
+            
+      }
+        
+        else{
+            
+            
+             echo "<script> alert('check recaptcha') </script>";
+        }
+       
     }
 }
 
