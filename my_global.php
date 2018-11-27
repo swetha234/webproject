@@ -143,22 +143,7 @@ if(!isset($_SESSION['email'])){
                         $global = '1';?>     
                     </select>
                     <input type="submit" id="sub" class="sub-post" value="Post to Timeline" />
-                    <?php
-                     if ($users_id== 21){
-                
-                if(archive($users_id)== true){
-                  
-                    
-            echo " <i class='fa fa-lock arch' data-id='$users_id' style='font-size:24px; color:black; float:right;'></i>";
-                    
-                }
-                else{
-                  echo "<i class='fa fa-key arch' data-id='$users_id' style='font-size:24px; color:black; float:right;'> </i>";
-                }
-        }
-                    ?>
                    
-                    
 -->
                     
                 </form>
@@ -169,9 +154,44 @@ if(!isset($_SESSION['email'])){
                     
                     <h3>Most Recent Discussions..!</h3>
                     <div id="global_posts"></div>
+                
+                
                         <?php 
-//                          get_globalposts(); 
-                          include "pagenation.php";
+//                 get_globalposts(); 
+                $per_page=5;
+    
+            if(isset($_GET['page'])) {
+
+                $page = $_GET['page'];
+                }
+            else {
+                $page=1;
+            }
+                
+        $query = "select * from posts where global is not NULL ";
+        $result = mysqli_query($connection,$query);
+        $total_posts= mysqli_num_rows($result);
+        $total_pages = ceil($total_posts / $per_page);
+        
+               
+   echo"
+    <center>
+    <div id='pagenation'>
+    <a href='?page=1'>First Page</a>
+    ";
+          
+     for ($i=1; $i<=$total_pages; $i++){
+        echo"<a href='?page=$i'>$i</a>";
+    }
+    echo "<a href='?page=$total_pages'>Last Page</a></center></div>";           
+    
+                
+                
+                
+                
+                
+                         
+//                          include "pagenation.php";
                         ?>
                 
             </div>

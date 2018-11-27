@@ -1,8 +1,12 @@
-const getPostTemplate = (topic_name,post_id, topic_id, title, content, session) =>  {
-  const userImage = session["user_image"];
-  const userLastName = session["last_name"];
-  const userId = session["users_id"];
-  return `
+const getPostTemplate = (topic_name,post_id, topic_id, title, content, userImage, userLastName,userId,session) =>  {
+//  const userImage = session["user_image"];
+//  const userLastName = session["last_name"];
+  const session_userId = session["users_id"];
+    
+    
+    if (session_userId == 21)
+        {
+             return `
     <div id='posts'> 
       <p>
         <img src='user/user_images/${userImage}' width='50' height='50'/>
@@ -20,7 +24,29 @@ const getPostTemplate = (topic_name,post_id, topic_id, title, content, session) 
     <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> 0 </span>
       <a href='single.php?post_id=${post_id}' style='float:right;'><button> See Replies or Reply to this </button></a>
       <i class='fa fa-trash delete' data-id='${post_id}' style='font-size:24px; color:black; float:right;'> </i>
-    </div>`;
+    </div><br>`; 
+        }
+    else{
+    return `
+    <div id='posts'> 
+      <p>
+        <img src='user/user_images/${userImage}' width='50' height='50'/>
+      </p>
+      <h3>
+        Group Name: 
+        <a href='group_profile.php?topic_id=${topic_id}'>${topic_name}</a>
+      </h3>
+      <p>Username: <a href='my_profile.php?id=${userId}'>${userLastName}</a></p>
+      <p>Topic: ${title}</p>
+      <p><span>Content:</span><span>` + content + `</span></p>
+      <p>Posted Date: ${Date(Date.now())}</p>
+      <br> 
+      <i class='fa fa-thumbs-o-up like-btn' data-id=${post_id} data-id1=${userId}></i> <span class='likes'> 0 </span>
+    <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> 0 </span>
+      <a href='single.php?post_id=${post_id}' style='float:right;'><button> See Replies or Reply to this </button></a>
+    </div><br>`;
+    }
+
 };
 
 
@@ -36,11 +62,13 @@ $(document).ready(function(){
             const result = data.result;
             const session = data.session;
             const posts = data.posts;
-            console.log(posts);
-            console.log(session);
+//            ?const my_data = data.my_dat?a;
+//            console.log(my_data);
+//            console.log(posts);
+//            console.log(session);
             for(i=0;i<posts.length; i++) {
             console.log(i);
-            $('#global_posts').append(getPostTemplate(posts[i].topic_title,posts[i].post_id,posts[i].topic_id,posts[i].post_title,posts[i].post_content,session));
+            $('#global_posts').append(getPostTemplate(posts[i].topic_title,posts[i].post_id,posts[i].topic_id,posts[i].post_title,posts[i].post_content,posts[i].user_image,posts[i].last_name,posts[i].users_id,session));
             }
             //for loop on data
             
@@ -294,7 +322,9 @@ $(document).ready(function (){
 
        const session = JSON.parse(data).session;
             const post_id = JSON.parse(data).id;
-          $('#global_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content, session));
+                     const userImage = session['user_image'];
+         const userLastName = session["last_name"];
+        const userId = session["users_id"]; $('#global_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content,userImage, userLastName,userId,session));
         }
       }) ;   
   });
@@ -321,11 +351,14 @@ $(document).ready(function (){
           'topic_id' : topic_id, 
         },
                 success: function(data){
-                    console.log(data);
-console.log(topic_id,topic_name,title,content);
+//                    console.log(data);
+//console.log(topic_id,topic_name,title,content);
        const session = JSON.parse(data).session;
             const post_id = JSON.parse(data).id;
-          $('#group_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content, session));
+            const userImage = session['user_image'];
+         const userLastName = session["last_name"];
+        const userId = session["users_id"];
+        $('#group_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content,userImage, userLastName,userId,session));
         }
             }) ;
             

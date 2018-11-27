@@ -30,7 +30,7 @@ $connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("
     <a href='?page=1'>First Page</a>
     ";
     
-    for ($i=1; $i<=$total_pages; $i++){
+    for ($i=1; $i<=$total_pages-1; $i++){
         echo"<a href='?page=$i'>$i</a>";
     }
     echo "<a href='?page=$total_pages'>Last Page</a></center></div>";

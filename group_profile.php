@@ -192,13 +192,13 @@ if(!isset($_SESSION['email'])){
  echo"
     <center>
     <div id='pagenation'>
-    <a href='?page=1'>First Page</a>
+    <a href='?page=1&topic_id=$topic_id&topic_name=$topic_title'>First Page</a>
     ";
     
     for ($i=1; $i<=$total_pages-1; $i++){
         echo"<a href='?page=$i&topic_id=$topic_id&topic_name=$topic_title'>$i</a>";
     }
-    echo "<a href='?page=$total_pages&topic_id=$topic_id'>Last Page</a></center></div>";
+    echo "<a href='?page=$total_pages&topic_id=$topic_id&topic_name=$topic_title'>Last Page</a></center></div>";
 
 if ($users_id == 21){
   

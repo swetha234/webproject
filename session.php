@@ -164,7 +164,7 @@ function get_globalposts(){
                     $run_user_details = mysqli_query($connection,$user_details);
                     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
                         $last_name = $row_user_details['last_name'];
-//                        echo ("<br>");
+                        echo ("<br>");
 //                        var_dump($last_name);
                         $user_image =$row_user_details['user_image']; 
 //                        echo ("<br>");
@@ -511,6 +511,7 @@ function get_group_posts($topic_id,$users_id){
          $post_id = $row_user['post_id'];
         $topic_id = $row_user['topic_id'];
         $post_title = $row_user['post_title'];
+        $post_users_id = $row_user['users_id'];
         $content= htmlspecialchars_decode($row_user['post_content']);
         $post_date = $row_user['post_date'];
         $archive_action = $row_user['archive_action'];
@@ -522,7 +523,7 @@ function get_group_posts($topic_id,$users_id){
     while($row_post_title=mysqli_fetch_array($run_post_title,MYSQLI_ASSOC)){ 
         
         $topic_title = $row_post_title['topic_title'];
-        $user_details = "select * from users where users_id='$users_id'";
+        $user_details = "select * from users where users_id='$post_users_id'";
     $run_user_details = mysqli_query($connection,$user_details);
             
     while($row_user_details=mysqli_fetch_array($run_user_details,MYSQLI_ASSOC)){ 
