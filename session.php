@@ -838,8 +838,35 @@ function members_list($topic_id,$users_id){
    <?php                    
   }
 }
- ?>
+ 
+function members(){
+    
+    global $connection;
+     $users_id = $_SESSION['users_id'];
+    
+    $sql= "SELECT last_name, first_name, user_image,users_id from users WHERE users_id != 'users_id' and users_id!= '21'";
+    $result = mysqli_query($connection,$sql);
+    while($row_members = mysqli_fetch_array($result,MYSQLI_ASSOC) ){
+     $first_name = $row_members['first_name'];
+           $last_name = $row_members['last_name'];
+           $user_image = $row_members['user_image'];
+        $members_user_id = $row_members['users_id'];
+       
+        ?>
 
+    <div id="members">
+   <br>
+  
+     <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' >
+               	&nbsp;&nbsp;&nbsp;&nbsp;
+    <span><strong><a href='message.php?id=<?php echo $members_user_id; ?>'> <?php echo $last_name,$first_name ; ?></a></strong>   </span></p> 
+    <?php
+  }
+        
+}
+
+
+?>
 
 
 

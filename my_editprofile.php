@@ -17,6 +17,10 @@ if(!isset($_SESSION['email'])){
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
     
         input[type='file']{ width:180px; }
@@ -34,7 +38,7 @@ if(!isset($_SESSION['email'])){
             <div id="header">
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="members.php">Members</a></li>
+                <li><a href="members.php">Message</a></li>
                 <li><a href="logout.php">Logout</a></li>
                     <li><a href="help.php">Help</a></li>
                     
@@ -64,9 +68,23 @@ if(!isset($_SESSION['email'])){
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
+                    $dp_value = $row['dp_value'];
                     $password=$row['password'];
+                    
+                    if($dp_value != '1')
+                    {
+                            echo "
+                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>";
+                    }
+                    
+                    else{
+                        
+                        echo "
+                    <center><img src='$user_image' width='200' height='200'/></center>";
+                        
+                    }
+                
                     echo "
-                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
                     <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
@@ -93,10 +111,31 @@ if(!isset($_SESSION['email'])){
                      
                      <td colspan="6"><h2>Edit your Profile</h2></td>
                      </tr>
+<!--
                      <tr>
                          <td align= "right">Photo:</td>
                          <td>
                          <input type="file" name= "u_image"   />
+                         </td>
+                     </tr>
+-->
+                     
+                     <tr>
+                         <td align= "right">Photo:</td>
+                         
+                         <td>
+                         <div class="w3-container">
+ 
+  <div class="w3-dropdown-hover">
+    <button class="w3-button w3-black">Choose Profile Pciture</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border">
+     
+        
+      <p class="w3-bar-item w3-button default">Default</p>
+      <a href="#" class="w3-bar-item w3-button gravatar">Gravatar</a>
+          <input type="file" name= "u_image"/>
+    </div>
+                             </div></div>
                          </td>
                      </tr>
                      
@@ -149,6 +188,7 @@ if(!isset($_SESSION['email'])){
                         $u_email= $_POST['u_email'];
                         $u_image= $_FILES['u_image']["name"];
                         $image_tmp= $_FILES['u_image']["tmp_name"];
+                        $destination = 'user/user_images/'.$u_image;
                        if ($u_image == ''){
                             $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email' where users_id='$users_id'";
                         }
@@ -157,10 +197,12 @@ if(!isset($_SESSION['email'])){
                             $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email',
                         user_image='$u_image' where users_id='$users_id'";
                         }
-move_uploaded_file($image_tmp,"user/user_images/$u_image");
+                        
+move_uploaded_file($image_tmp,$destination);
                         
                        
                         echo $update;
+                      
                         $run = mysqli_query($connection, $update);
                         
                         if($run){
@@ -176,6 +218,6 @@ move_uploaded_file($image_tmp,"user/user_images/$u_image");
         </div>
     </div> 
     </div>
-    
+<script src="scripts.js"></script> 
 </body>
 </html>

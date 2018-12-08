@@ -8,23 +8,21 @@ if(!isset($_SESSION['email'])){
     
 }
 
-    
-    
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Welcome</title>
     <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
+
     </head>
+     
 <body>
 
 
     <!-- container starts-->
-    <div class='container'>
+    <div class='container' >
        
 
         <div id= "head_wrap">
@@ -32,22 +30,26 @@ if(!isset($_SESSION['email'])){
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="members.php">Message</a></li>
-                  
                 <li><a href="logout.php">Logout</a></li>
-                        <li><a href="help.php">Help</a></li>
+                <li><a href="help.php">Help</a></li>
                     
                 </ul>
             </div>
         </div>
-
+<!--
+                <form method="get" action="results.php" id="form1">
                 
+                <input type = "text" name = "user_query" placeholder = "search a topic"/>
+                <input type = "submit" name = "search" value="Search">
+                </form>
+-->
+                    
         <div class = "content">
             <div id= "user_timeline">
                 <div id="user_details">
                     <?php
                     $user = $_SESSION['email'];
-                    $topic_id=$_GET['topic_id'];
-                    $topic_title = $_GET['topic_title'];
+                  
                     $get_user = "select * from users where email = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
                     $row=mysqli_fetch_array($run_user);
@@ -59,35 +61,40 @@ if(!isset($_SESSION['email'])){
                     echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
-                    <p><strong>Name : </strong> $last_name</p> 
+                    <p><strong><a href='my_profile.php?id=$users_id'>Name : </strong> $last_name </a> </p> 
                     <p><a href='my_global.php'> Global Group </a> </p>
-                    <p><a href='my_groups.php'> My Groups </a> </p>
-                     <p><a href='my_findgroup.php'> Find a group</a> </p>
-                     
-                     
-                     <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
-                    </div>";
-                    ?>
                     
+                     <p><a href='my_groups.php'> My Groups </a> </p>
+                     
+                     <p><a href='my_findgroup.php'> Find a group</a> 
+                     </p>";
+                       if($users_id == 21)
+                     {
+                        
+                    echo" <p><a href='inviteusers.php'>Invite users</a> </p>";
+                     
+                     }
+                     
+                     echo " <p><a href='my_editprofile.php'> Edit My Profile </a> </p>
+                    </div>";
+                    
+                    ?>
                 </div>
             </div>
         
-                    <div id= "content_timeline" style="float: left;margin-top: 50px;padding-left: 390px;">
+            <div id= "content_timeline">
+
+                     <br><br>
+                   <h3> Message Users: </h3>
+                <br>
+<?php members(); ?>
+                    
                 
-                      <form action="join.php?topic_id=<?php echo $topic_id; ?>&topic_title=<?php echo $topic_title; ?>" method="post" id="f" >
-                       
-                          <h2> <?php echo $topic_title; ?></h2> <br>
-                      <input type="submit" name="join" value="Join" />
-                         
-                        </form>
-                        
-                        
-                    <?php  inserttopic($topic_id);   ?>
             </div>
         </div>
-    </div>
-      <script src="scripts.js"></script>
+    </div> 
    
-   
+    
 </body>
 </html>
+

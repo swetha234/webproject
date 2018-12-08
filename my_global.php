@@ -16,8 +16,7 @@ if(!isset($_SESSION['email'])){
 <!--    font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--  <link rel="stylesheet" href="/resources/demos/style.css">-->
-<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--  bootstrap css-->
@@ -68,7 +67,7 @@ if(!isset($_SESSION['email'])){
             <div id="header">
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="members.php">Members</a></li>
+                <li><a href="members.php">Message</a></li>
                     <li><a href="help.php">Help</a></li>
                 <li><a href="logout.php">Logout</a></li>
              

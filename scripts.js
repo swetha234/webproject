@@ -364,3 +364,84 @@ $(document).ready(function (){
             
         });
     });
+
+
+//changing to default
+
+$(document).on('click','.default', function(e){ 
+e.preventDefault();
+ $.ajax({ 
+
+    url:'profilepicture.php',
+    type: 'post',
+    data:{ 'default':0},
+    dataType: 'text',
+
+    success: function(data){
+
+
+    	console.log(data);
+    	  location.reload();
+    	
+    }
+
+
+ });
+
+});
+    
+//gravatar
+
+$(document).on('click','.gravatar', function(e){ 
+e.preventDefault();
+ $.ajax({ 
+
+    url:'profilepicture.php',
+    type: 'post',
+    data:{ 'gravatar':0},
+
+    dataType: 'text',
+
+    success: function(data){
+
+
+    	console.log(data);
+    	  location.reload();
+    	
+    }
+
+
+ });
+
+});
+
+
+//chat
+$(document).on('keyup','.msg', function(e){ 
+      var chat_userid = e.currentTarget.id;
+      e.preventDefault();
+      var msg = $(this).val();
+    
+    if(e.which ==13){
+          $.ajax({ 
+       
+       url:'ajax.php',
+       type:'post',
+       data:{'msg':{'chat_userid':chat_userid, 'msg':msg}},
+       dataType:'text',
+       success:function(data){
+           
+           console.log(data);
+           $(this).val('');
+           location.reload();
+           
+       }
+       
+       });
+        
+    }
+     
+        
+        
+    
+    });

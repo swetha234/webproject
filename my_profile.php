@@ -34,8 +34,9 @@ if(!isset($_SESSION['email'])){
             <div id="header">
                 <ul id="menu">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="members.php">Members</a></li>
+                <li><a href="members.php">Message</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                    <li><a href="help.php">Help</a></li>
                     
                 </ul>
             </div>
