@@ -89,12 +89,35 @@ if(!isset($_SESSION['email'])){
          $chat_user_id = $row_chats['msg_user_id'];
          $content = $row_chats['msg_content'];
          $msg_timestamp = $row_chats['msg_timestamp'];
+         
+         $userfrom = "select * from users where users_id='$user_id'";
+        $row_userfrom = mysqli_query($connection,$userfrom);
+        while($result_user=mysqli_fetch_array($row_userfrom)){
+            
+             $user_name = $result_user['first_name'];
+        } 
+        
+         if( $chat_user_id == $chat_userid.$susers_id){
+                    
+            echo "<br><br><p style='float:right'> $user_name : $content </p> ";
+                }
+                
+                else{
+                    
+                    echo "<br><br><p style='float:left'> $user_name : $content </p>";
+                    
+                }
         
     }
+               
                 
               echo  "</div>
             
-            <div class ='chatbox'></div>
+            <div class ='chatbox'>
+            
+            
+            
+            </div>
            
             
             <form action='' method='POST'>";

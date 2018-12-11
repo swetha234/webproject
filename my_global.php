@@ -35,6 +35,7 @@ if(!isset($_SESSION['email'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>  
     
     
+    
 
     
 <script type="scripts.js"></script>    
@@ -105,11 +106,22 @@ if(!isset($_SESSION['email'])){
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
+                    $dp_value = $row['dp_value'];
                     
+                     if($dp_value != '0')
+                    {
+                            echo "
+                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>";
+                    }
                     
+                    else{
+                        
+                        echo "
+                    <center><img src='$user_image' width='200' height='200'/></center>";
+                        
+                    }
                     
                     echo "
-                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
                      <p><strong>Name : </strong> <a href='my_profile.php?id=$users_id'> $last_name </a> </p>
                     <p><a href='my_global.php'> Global Group </a> </p>
@@ -135,15 +147,24 @@ if(!isset($_SESSION['email'])){
                 <form id="postform" >
                 <h2> What's on your mind..?</h2>
                     <input type="text" id="title" name="title" placeholder="Write a Title" size="73"/>
-                    <textarea id="summernote" name="summernote"></textarea>
+                    <textarea id="summernote" name="summernote"   >
+                   </textarea>
+                    
                     <select id="topicname" name="topic">
                         <option>Select Topic</option>
                         <?php getTopics(); 
                         $global = '1';?>     
                     </select>
+                
                     <input type="submit" id="sub" class="sub-post" value="Post to Timeline" />
-                   
--->
+                    
+                 <i class="fa fa-file-text-o upload_file" style="font-size:20px;  margin-left:20px;"></i><br><br>
+                   <form action="upload.php" enctype="multipart/form-data">
+  Upload file <input type="file" id="file" name="myFile"><br><br>
+  <input type="submit"  class="upload_file">
+</form>
+                       
+
                     
                 </form>
                   </div>
@@ -156,7 +177,7 @@ if(!isset($_SESSION['email'])){
                 
                 
                         <?php 
-//                 get_globalposts(); 
+//               get_globalposts(); 
                 $per_page=5;
     
             if(isset($_GET['page'])) {

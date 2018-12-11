@@ -18,7 +18,7 @@ if(isset($_POST['default'])){
     $sql = "update `users` set user_image = 'default.jpeg' where users_id='$user_id'";
     $r_update=mysqli_query($connection,$sql);
 
-     $sql1 = "update `users` set dp_value = 0 where users_id='$user_id'";
+     $sql1 = "update `users` set dp_value = 1 where users_id='$user_id'";
     $r_update1=mysqli_query($connection,$sql1);
  
 }
@@ -33,7 +33,7 @@ $mail_id = $_SESSION['email'];
     $sql = "update `users` set user_image = '$url' where users_id='$user_id'";
     $r_update=mysqli_query($connection,$sql);
 
-     $sql1 = "update `users` set dp_value = '1' where users_id='$user_id'";
+     $sql1 = "update `users` set dp_value = '0' where users_id='$user_id'";
     $r_update1=mysqli_query($connection,$sql1);
  
 }

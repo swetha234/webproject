@@ -497,11 +497,12 @@ function get_group_posts($topic_id,$users_id){
     $start_from= ($page-1) * $per_page;
     $user = $_SESSION['email'];
    
-    $get_posts="select users_id from users where email='$user'";
+    $get_posts="select dp_value,users_id from users where email='$user'";
     $run_posts = mysqli_query($connection,$get_posts);
     while($row_posts = mysqli_fetch_array($run_posts,MYSQLI_ASSOC) ){
     
        $users_id = $row_posts['users_id'];
+        $dp_value = $row_posts['dp_value'];
     
      //getting the user who has posted the thread
     $user= "select * from posts JOIN archive_info where posts.topic_id='$topic_id' and global is NULL and archive_info.topic_id = posts.topic_id order by posts.post_date DESC LIMIT $start_from,$per_page ";
@@ -536,9 +537,28 @@ function get_group_posts($topic_id,$users_id){
     //now displaying all at once
         
          ?>
+
+
+
+
+
+
         
        <div id='posts'>
-        <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' ></p>
+    <?php       
+        if($dp_value != '0')
+                    {
+                            echo " <p>
+                    <img src='user/user_images/$user_image' width='50' height='50'/> </p>";
+                    }
+                    
+                    else{
+                        
+                        echo " <p>
+                    <img src='$user_image' width='50' height='50'/> </p>";
+                        
+                    }   
+           ?>
  <h3>Group Name : <a href='group_profile.php?topic_id=<?php echo $topic_id ?>'><?php echo $topic_title; ?></a></h3>
         <p>Username: <a href='my_profile.php?id=<?php echo $users_id ?>'><?php echo $last_name; ?></a></p>
         <p>Topic:<?php echo $post_title; ?></p>
@@ -844,22 +864,36 @@ function members(){
     global $connection;
      $users_id = $_SESSION['users_id'];
     
-    $sql= "SELECT last_name, first_name, user_image,users_id from users WHERE users_id != 'users_id' and users_id!= '21'";
+    $sql= "SELECT last_name, first_name, user_image,users_id,dp_value from users WHERE users_id != 'users_id' and users_id!= '21'";
     $result = mysqli_query($connection,$sql);
     while($row_members = mysqli_fetch_array($result,MYSQLI_ASSOC) ){
      $first_name = $row_members['first_name'];
            $last_name = $row_members['last_name'];
            $user_image = $row_members['user_image'];
         $members_user_id = $row_members['users_id'];
+        $dp_value = $row_members['dp_value']; 
        
         ?>
 
     <div id="members">
    <br>
-  
-     <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50', height='50' >
+        <?php
+                     if($dp_value != '0')
+                    {
+                            echo "
+                    <img src='user/user_images/$user_image' width='50' height='50'/>";
+                    }
+                    
+                    else{
+                        
+                        echo "
+                   <img src='$user_image' width='50' height='50'/> ";
+                        
+                    }
+                    
+        ?>
                	&nbsp;&nbsp;&nbsp;&nbsp;
-    <span><strong><a href='message.php?id=<?php echo $members_user_id; ?>'> <?php echo $last_name,$first_name ; ?></a></strong>   </span></p> 
+    <span><strong><a href='message.php?id=<?php echo $members_user_id; ?>'> <?php echo $last_name,$first_name ; ?></a></strong>   </span> 
     <?php
   }
         

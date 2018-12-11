@@ -71,7 +71,7 @@ if(!isset($_SESSION['email'])){
                     $dp_value = $row['dp_value'];
                     $password=$row['password'];
                     
-                    if($dp_value != '1')
+                    if($dp_value != '0')
                     {
                             echo "
                     <center><img src='user/user_images/$user_image' width='200' height='200'/></center>";
@@ -127,7 +127,7 @@ if(!isset($_SESSION['email'])){
                          <div class="w3-container">
  
   <div class="w3-dropdown-hover">
-    <button class="w3-button w3-black">Choose Profile Pciture</button>
+    <button class="w3-button w3-black">Choose Profile Picture</button>
     <div class="w3-dropdown-content w3-bar-block w3-border">
      
         
@@ -189,6 +189,7 @@ if(!isset($_SESSION['email'])){
                         $u_image= $_FILES['u_image']["name"];
                         $image_tmp= $_FILES['u_image']["tmp_name"];
                         $destination = 'user/user_images/'.$u_image;
+                        echo $destination;
                        if ($u_image == ''){
                             $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email' where users_id='$users_id'";
                         }
@@ -197,7 +198,8 @@ if(!isset($_SESSION['email'])){
                             $update="update users set last_name='$u_lastname', password='$u_password', email='$u_email',
                         user_image='$u_image' where users_id='$users_id'";
                         }
-                        
+echo $image_tmp;
+echo $destination;
 move_uploaded_file($image_tmp,$destination);
                         
                        

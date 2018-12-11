@@ -1,15 +1,27 @@
-const getPostTemplate = (topic_name,post_id, topic_id, title, content, userImage, userLastName,userId,session) =>  {
+const getPostTemplate = (dp_value,topic_name,post_id, topic_id, title, content, userImage, userLastName,userId,session) =>  {
 //  const userImage = session["user_image"];
-//  const userLastName = session["last_name"];
+ //const userLastName = session["last_name"];
   const session_userId = session["users_id"];
     
+     if(dp_value != "0")
+        {
+            
+            
+             userImageNew  = 'user/user_images/'+userImage;
+        }
+
+        else{
+           
+            userImageNew = userImage;
+        }
     
     if (session_userId == 21)
         {
              return `
     <div id='posts'> 
       <p>
-        <img src='user/user_images/${userImage}' width='50' height='50'/>
+
+        <img src=${userImageNew} width='50' height='50'/>
       </p>
       <h3>
         Group Name: 
@@ -30,7 +42,7 @@ const getPostTemplate = (topic_name,post_id, topic_id, title, content, userImage
     return `
     <div id='posts'> 
       <p>
-        <img src='user/user_images/${userImage}' width='50' height='50'/>
+        <img src=${userImageNew} width='50' height='50'/>
       </p>
       <h3>
         Group Name: 
@@ -68,7 +80,7 @@ $(document).ready(function(){
 //            console.log(session);
             for(i=0;i<posts.length; i++) {
             console.log(i);
-            $('#global_posts').append(getPostTemplate(posts[i].topic_title,posts[i].post_id,posts[i].topic_id,posts[i].post_title,posts[i].post_content,posts[i].user_image,posts[i].last_name,posts[i].users_id,session));
+            $('#global_posts').append(getPostTemplate(posts[i].dp_value,posts[i].topic_title,posts[i].post_id,posts[i].topic_id,posts[i].post_title,posts[i].post_content,posts[i].user_image,posts[i].last_name,posts[i].users_id,session));
             }
             //for loop on data
             
@@ -324,7 +336,9 @@ $(document).ready(function (){
             const post_id = JSON.parse(data).id;
                      const userImage = session['user_image'];
          const userLastName = session["last_name"];
-        const userId = session["users_id"]; $('#global_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content,userImage, userLastName,userId,session));
+        const userId = session["users_id"]; 
+            const dp_value = session["dp_value"];
+         $('#global_posts').prepend(getPostTemplate(dp_value,topic_name,id=post_id, topic_id, title, content,userImage, userLastName,userId,session));
         }
       }) ;   
   });
@@ -355,10 +369,11 @@ $(document).ready(function (){
 //console.log(topic_id,topic_name,title,content);
        const session = JSON.parse(data).session;
             const post_id = JSON.parse(data).id;
-            const userImage = session['user_image'];
+            const userImage = session["user_image"];
          const userLastName = session["last_name"];
         const userId = session["users_id"];
-        $('#group_posts').prepend(getPostTemplate(topic_name,id=post_id, topic_id, title, content,userImage, userLastName,userId,session));
+        const dp_value = session["dp_value"];
+        $('#group_posts').prepend(getPostTemplate(dp_value,topic_name,id=post_id, topic_id, title, content,userImage, userLastName,userId,session));
         }
             }) ;
             
@@ -398,7 +413,7 @@ e.preventDefault();
 
     url:'profilepicture.php',
     type: 'post',
-    data:{ 'gravatar':0},
+    data:{ 'gravatar':1},
 
     dataType: 'text',
 
@@ -445,3 +460,49 @@ $(document).on('keyup','.msg', function(e){
         
     
     });
+
+//upload file
+
+$(document).on('click', '.upload_file', function(e){ 
+    e.preventDefault();
+var property= document.getElementById("file").files[0];
+  var file_name =property.name;
+  var file_extension = file_name.split(".").pop().toLowerCase();
+if(jQuery.inArray(file_extension,['pdf','docx','doc','xls','txt']) == -1)
+  {
+    alert("Invalid File");
+  }
+    
+ var file_size=property.size;
+  if(file_size > 2000000){
+
+    alert("file size is very big");
+  }
+else{
+
+    var form_data = new FormData();
+    form_data.append("file",property);
+     
+  }
+    
+ $.ajax({
+    url:'upload.php',
+    type: 'post',
+    data: form_data,
+    contentType:false,
+    cache:false,
+    processData:false,
+
+    success: function(data){
+        
+        console.log(data);
+        location.reload();
+    }
+     
+     
+ });
+
+
+
+
+});

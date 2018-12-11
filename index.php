@@ -1,7 +1,8 @@
 <?php 
-session_start();
+//session_start();
 include "session.php";
 
+require "init.php";
       
 ?>	
 
@@ -23,6 +24,7 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                 $_SESSION['first_name']= $row['first_name'];
                 $_SESSION['last_name']= $row['last_name'];
                 $_SESSION['user_image']= $row['user_image'];
+                $_SESSION['dp_value']= $row['dp_value'];
 				header('Location:home.php');
                 
 				}
@@ -98,6 +100,8 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
               			echo $Invalid;
                          ?>
                      </form>
+                     
+                <center> <p> <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=07e621826ef24f69d10c">Got Github? Signin Here! </a></p> </center>
             </div>
                  <!-- Header ends-->
              </div>
@@ -119,6 +123,8 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                  ?>
 
                 <div id="form2">
+                    
+                   
                       <form action = "" method="post">
                         <h2 style='margin-left:400px;'>Sign Up Here</h2>
                           <br>

@@ -2,11 +2,6 @@
 session_start();
 include "session.php";
 
-if(!isset($_SESSION['email'])){
-    
-    header("location: index.php");
-    
-}
 
 
 ?>
@@ -49,7 +44,7 @@ if(!isset($_SESSION['email'])){
                 <div id="user_details">
                     <?php
                     $user = $_SESSION['email'];
-                  
+                    //var_dump ($user);
                     $get_user = "select * from users where email = '$user'";
                     $run_user = mysqli_query($connection,$get_user);
                     $row=mysqli_fetch_array($run_user);
@@ -58,8 +53,22 @@ if(!isset($_SESSION['email'])){
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
+                    $dp_value = $row['dp_value'];
+                    
+                     if($dp_value != '0')
+                    {
+                            echo "
+                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>";
+                    }
+                    
+                    else{
+                        
+                        echo "
+                    <center><img src='$user_image' width='200' height='200'/></center>";
+                        
+                    }
+                    
                     echo "
-                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
                     <div id='user_mention'>
                     <p><strong><a href='my_profile.php?id=$users_id'>Name : </strong> $last_name </a> </p> 
                     <p><a href='my_global.php'> Global Group </a> </p>

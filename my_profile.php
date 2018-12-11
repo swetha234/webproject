@@ -60,16 +60,29 @@ if(!isset($_SESSION['email'])){
                     $first_name = $row['first_name'];
                     $last_name = $row['last_name'];
                     $user_image=$row['user_image'];
+                    $dp_value = $row['dp_value'];
         
-                  
+                
                     ?>
                 </div>
 
              <div id= "content_timeline">
                 <?php
+                 if($dp_value != '0')
+                 {
+                     
+                    $userimage = 'user/user_images/'.$user_image;
+                    }
+                    
+                    else{
+                         $userimage =$user_image;
+    
+                        
+                    }
+                 
                     echo "
                     <h1> Profile page: </h1>
-                    <center><img src='user/user_images/$user_image' width='200' height='200'/></center>
+                    <center><img src=$userimage width='200' height='200'/></center>
                     <div id='user_mention'>
                      <p><strong><a href='my_profile.php'>Name : </strong> $last_name </a> </p>
                  </div><br>";
