@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2018 at 08:46 PM
+-- Generation Time: Dec 11, 2018 at 07:52 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -61,6 +61,31 @@ INSERT INTO `archive_info` (`archive_id`, `topic_id`, `archive_action`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chat`
+--
+
+DROP TABLE IF EXISTS `chat`;
+CREATE TABLE `chat` (
+  `chat_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `msg_content` text NOT NULL,
+  `msg_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `msg_user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`chat_id`, `users_id`, `msg_content`, `msg_timestamp`, `msg_user_id`) VALUES
+(26, 3, 'hello\n', '2018-12-08 17:47:37', 223),
+(28, 3, 'hi\n', '2018-12-09 05:21:47', 223),
+(29, 22, 'bye\n', '2018-12-09 05:24:07', 322),
+(30, 22, 'Indiaaaaaa\n', '2018-12-09 05:24:18', 322);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -80,7 +105,9 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`comment_id`, `post_id`, `users_id`, `comment`, `date`, `comment_authur`) VALUES
 (45, 80, 1, 'Hello', '2018-10-30 13:54:41', 'Hudson'),
-(61, 119, 3, 'Hello', '2018-11-12 03:16:03', 'Hudson');
+(61, 119, 3, 'Hello', '2018-11-12 03:16:03', 'Hudson'),
+(62, 0, 0, 'efjkfjhief', '2018-12-04 06:43:25', 'Hudson'),
+(63, 0, 0, 'ghjg', '2018-12-06 00:40:57', 'Hudson');
 
 -- --------------------------------------------------------
 
@@ -104,9 +131,22 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_content`, `post_date`, `global`) VALUES
-(25, 1, 1, 'Persian Cats', 'I have cute pair of these cats.', '2018-10-14 21:54:04', NULL),
-(27, 3, 1, 'Catty ', 'Shines always !! ', '2018-10-15 00:45:32', NULL),
-(31, 3, 6, 'Fishyy', 'It lives in water', '2018-10-15 00:58:03', NULL);
+(329, 3, 0, '', 'asdsd', '2018-12-10 06:35:21', 1),
+(330, 3, 3, '', 'hey', '2018-12-10 06:35:37', NULL),
+(331, 3, 1, '', 'ugyghjkvgbh', '2018-12-10 06:40:53', 1),
+(332, 3, 3, '', 'ugyghjkvgbh', '2018-12-10 06:40:57', 1),
+(333, 3, 4, '', 'ugyghjkvgbh', '2018-12-10 06:40:59', 1),
+(334, 3, 4, '', 'ugyghjkvgbh', '2018-12-10 06:41:02', 1),
+(335, 3, 3, '', 'hjhu', '2018-12-10 06:41:09', 1),
+(336, 3, 5, '', 'hjhu', '2018-12-10 06:41:12', 1),
+(337, 3, 2, '', 'hjhu', '2018-12-10 06:41:14', 1),
+(357, 3, 1, '', '<a href=user/user_images/swetha.pdf>swetha.pdf</a>', '2018-12-10 07:13:21', 1),
+(358, 3, 1, '', '<a href=user/user_images/123.txt>123.txt</a>', '2018-12-10 07:14:47', 1),
+(359, 3, 1, '', '<a href=user/user_images/123.pdf>123.pdf</a>', '2018-12-11 07:31:42', 1),
+(360, 0, 3, 'yee', 'hello', '2018-12-11 07:41:33', 1),
+(361, 40, 1, 'hahaha', 'hello', '2018-12-11 07:46:09', 1),
+(362, 41, 4, 'hello b', 'kcr rocks', '2018-12-11 08:09:29', 1),
+(363, 43, 1, '', 'bhur6yuftudryt', '2018-12-11 09:35:34', 1);
 
 -- --------------------------------------------------------
 
@@ -170,20 +210,25 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `user_image` varchar(256) NOT NULL,
-  `status` text NOT NULL
+  `status` text NOT NULL,
+  `dp_value` int(11) NOT NULL,
+  `checkgit` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`, `status`) VALUES
-(21, 'Admin', 'Admin', 'admin@gmail.com', 'admin', 'default.jpeg', ''),
-(3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg', ''),
-(5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen', 'default.jpeg', ''),
-(1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'chick.png', ''),
-(2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg', ''),
-(4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg', '');
+INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`, `status`, `dp_value`, `checkgit`) VALUES
+(21, 'Admin', 'Admin', 'admin@gmail.com', 'admin', 'default.jpeg', '', 1, 0),
+(43, 'PaladhiDinesh', 'PaladhiDinesh', 'dinesh.paladhi@gmail.com', 'defaultpass', 'https://github.com/PaladhiDinesh.png', '', 0, 1),
+(42, 'swetha234', 'swetha234', 'hgutt001@odu.edu', 'defaultpass', 'https://github.com/swetha234.png', '', 0, 1),
+(22, 'Gutti', 'Swetha', 'hima@rsprings.gov', '1234', 'IMG_0016.JPG', 'unverified', 1, 0),
+(3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg', '', 1, 0),
+(5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen', 'default.jpeg', '', 1, 0),
+(1, 'Tow', 'Mater', 'mater@rsprings.gov', '@mater', 'chick.png', '', 1, 0),
+(2, 'Sally', 'Carrera', 'porsche@rsprings.gov', '@sally', 'default.jpeg', '', 1, 0),
+(4, 'Finn', 'McMissile', 'topsecret@agent.org', '@mcmissile', 'default.jpeg', '', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -205,7 +250,9 @@ CREATE TABLE `user_group` (
 INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 (168, 1, 2),
 (165, 3, 2),
+(169, 3, 3),
 (160, 3, 4),
+(174, 3, 5),
 (166, 4, 3),
 (123, 4, 5),
 (167, 5, 2),
@@ -213,7 +260,9 @@ INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 (139, 21, 2),
 (140, 21, 3),
 (141, 21, 4),
-(138, 21, 5);
+(138, 21, 5),
+(172, 22, 1),
+(173, 22, 4);
 
 --
 -- Indexes for dumped tables
@@ -224,6 +273,12 @@ INSERT INTO `user_group` (`id`, `users_id`, `topic_id`) VALUES
 --
 ALTER TABLE `archive_info`
   ADD PRIMARY KEY (`archive_id`);
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`chat_id`);
 
 --
 -- Indexes for table `comments`
@@ -276,16 +331,22 @@ ALTER TABLE `archive_info`
   MODIFY `archive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=364;
 
 --
 -- AUTO_INCREMENT for table `topics`
@@ -297,13 +358,13 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `users_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 
 --
 -- Constraints for dumped tables
