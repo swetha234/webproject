@@ -864,7 +864,7 @@ function members(){
     global $connection;
      $users_id = $_SESSION['users_id'];
     
-    $sql= "SELECT last_name, first_name, user_image,users_id,dp_value from users WHERE users_id != 'users_id' and users_id!= '21'";
+    $sql= "SELECT last_name, first_name, user_image,users_id,dp_value from users WHERE users_id != '$users_id' and users_id!= '21'";
     $result = mysqli_query($connection,$sql);
     while($row_members = mysqli_fetch_array($result,MYSQLI_ASSOC) ){
      $first_name = $row_members['first_name'];
