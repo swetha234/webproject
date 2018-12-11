@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2018 at 08:07 PM
+-- Generation Time: Dec 11, 2018 at 08:10 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `pet_finder`
 --
+CREATE DATABASE IF NOT EXISTS `pet_finder` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `pet_finder`;
 
 -- --------------------------------------------------------
 
