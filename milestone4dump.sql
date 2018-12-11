@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2018 at 08:03 PM
+-- Generation Time: Dec 11, 2018 at 08:07 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `archive_info`
 --
 
+DROP TABLE IF EXISTS `archive_info`;
 CREATE TABLE `archive_info` (
   `archive_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -61,6 +62,7 @@ INSERT INTO `archive_info` (`archive_id`, `topic_id`, `archive_action`) VALUES
 -- Table structure for table `chat`
 --
 
+DROP TABLE IF EXISTS `chat`;
 CREATE TABLE `chat` (
   `chat_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -85,6 +87,7 @@ INSERT INTO `chat` (`chat_id`, `users_id`, `msg_content`, `msg_timestamp`, `msg_
 -- Table structure for table `comments`
 --
 
+DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `comment_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
@@ -110,6 +113,7 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `users_id`, `comment`, `date`, 
 -- Table structure for table `posts`
 --
 
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `post_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -126,6 +130,7 @@ CREATE TABLE `posts` (
 -- Table structure for table `rating`
 --
 
+DROP TABLE IF EXISTS `rating`;
 CREATE TABLE `rating` (
   `users_id` int(100) NOT NULL,
   `post_id` int(100) NOT NULL,
@@ -149,6 +154,7 @@ INSERT INTO `rating` (`users_id`, `post_id`, `rating_action`) VALUES
 -- Table structure for table `topics`
 --
 
+DROP TABLE IF EXISTS `topics`;
 CREATE TABLE `topics` (
   `topic_id` int(11) NOT NULL,
   `topic_title` text NOT NULL,
@@ -172,6 +178,7 @@ INSERT INTO `topics` (`topic_id`, `topic_title`, `choose`) VALUES
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `users_id` int(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
@@ -203,6 +210,7 @@ INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`,
 -- Table structure for table `user_group`
 --
 
+DROP TABLE IF EXISTS `user_group`;
 CREATE TABLE `user_group` (
   `id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
