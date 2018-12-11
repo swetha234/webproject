@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2018 at 07:52 PM
+-- Generation Time: Dec 11, 2018 at 08:03 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.1.21
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `pet_finder`
 --
-CREATE DATABASE IF NOT EXISTS `pet_finder` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `pet_finder`;
 
 -- --------------------------------------------------------
 
@@ -30,7 +28,6 @@ USE `pet_finder`;
 -- Table structure for table `archive_info`
 --
 
-DROP TABLE IF EXISTS `archive_info`;
 CREATE TABLE `archive_info` (
   `archive_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -64,7 +61,6 @@ INSERT INTO `archive_info` (`archive_id`, `topic_id`, `archive_action`) VALUES
 -- Table structure for table `chat`
 --
 
-DROP TABLE IF EXISTS `chat`;
 CREATE TABLE `chat` (
   `chat_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -89,7 +85,6 @@ INSERT INTO `chat` (`chat_id`, `users_id`, `msg_content`, `msg_timestamp`, `msg_
 -- Table structure for table `comments`
 --
 
-DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `comment_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
@@ -115,7 +110,6 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `users_id`, `comment`, `date`, 
 -- Table structure for table `posts`
 --
 
-DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `post_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -126,35 +120,12 @@ CREATE TABLE `posts` (
   `global` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`post_id`, `users_id`, `topic_id`, `post_title`, `post_content`, `post_date`, `global`) VALUES
-(329, 3, 0, '', 'asdsd', '2018-12-10 06:35:21', 1),
-(330, 3, 3, '', 'hey', '2018-12-10 06:35:37', NULL),
-(331, 3, 1, '', 'ugyghjkvgbh', '2018-12-10 06:40:53', 1),
-(332, 3, 3, '', 'ugyghjkvgbh', '2018-12-10 06:40:57', 1),
-(333, 3, 4, '', 'ugyghjkvgbh', '2018-12-10 06:40:59', 1),
-(334, 3, 4, '', 'ugyghjkvgbh', '2018-12-10 06:41:02', 1),
-(335, 3, 3, '', 'hjhu', '2018-12-10 06:41:09', 1),
-(336, 3, 5, '', 'hjhu', '2018-12-10 06:41:12', 1),
-(337, 3, 2, '', 'hjhu', '2018-12-10 06:41:14', 1),
-(357, 3, 1, '', '<a href=user/user_images/swetha.pdf>swetha.pdf</a>', '2018-12-10 07:13:21', 1),
-(358, 3, 1, '', '<a href=user/user_images/123.txt>123.txt</a>', '2018-12-10 07:14:47', 1),
-(359, 3, 1, '', '<a href=user/user_images/123.pdf>123.pdf</a>', '2018-12-11 07:31:42', 1),
-(360, 0, 3, 'yee', 'hello', '2018-12-11 07:41:33', 1),
-(361, 40, 1, 'hahaha', 'hello', '2018-12-11 07:46:09', 1),
-(362, 41, 4, 'hello b', 'kcr rocks', '2018-12-11 08:09:29', 1),
-(363, 43, 1, '', 'bhur6yuftudryt', '2018-12-11 09:35:34', 1);
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rating`
 --
 
-DROP TABLE IF EXISTS `rating`;
 CREATE TABLE `rating` (
   `users_id` int(100) NOT NULL,
   `post_id` int(100) NOT NULL,
@@ -178,7 +149,6 @@ INSERT INTO `rating` (`users_id`, `post_id`, `rating_action`) VALUES
 -- Table structure for table `topics`
 --
 
-DROP TABLE IF EXISTS `topics`;
 CREATE TABLE `topics` (
   `topic_id` int(11) NOT NULL,
   `topic_title` text NOT NULL,
@@ -202,7 +172,6 @@ INSERT INTO `topics` (`topic_id`, `topic_title`, `choose`) VALUES
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `users_id` int(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
@@ -221,8 +190,6 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`, `user_image`, `status`, `dp_value`, `checkgit`) VALUES
 (21, 'Admin', 'Admin', 'admin@gmail.com', 'admin', 'default.jpeg', '', 1, 0),
-(43, 'PaladhiDinesh', 'PaladhiDinesh', 'dinesh.paladhi@gmail.com', 'defaultpass', 'https://github.com/PaladhiDinesh.png', '', 0, 1),
-(42, 'swetha234', 'swetha234', 'hgutt001@odu.edu', 'defaultpass', 'https://github.com/swetha234.png', '', 0, 1),
 (22, 'Gutti', 'Swetha', 'hima@rsprings.gov', '1234', 'IMG_0016.JPG', 'unverified', 1, 0),
 (3, 'Doc', 'Hudson', 'hornet@rsprings.gov', '@doc', 'default.jpeg', '', 1, 0),
 (5, 'Lightning', 'McQueen', 'kachow@rusteze.com', '@mcqueen', 'default.jpeg', '', 1, 0),
@@ -236,7 +203,6 @@ INSERT INTO `users` (`users_id`, `first_name`, `last_name`, `email`, `password`,
 -- Table structure for table `user_group`
 --
 
-DROP TABLE IF EXISTS `user_group`;
 CREATE TABLE `user_group` (
   `id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -346,7 +312,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=364;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=365;
 
 --
 -- AUTO_INCREMENT for table `topics`
