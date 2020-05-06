@@ -118,22 +118,18 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
 
                     <img src="images/blacklab.jpg" />
 
-                    <table>
-
-                        <h2 style="color: black"> Sign Up Here</h2>
+                    <table style="padding-left: 7% ">
+                        <h2 style="color: black; padding-left:7%; padding-top:2%;"> Sign Up Here</h2>
                         <br>
-
-                        <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=07e621826ef24f69d10c" style="color:black"> Got Github? <b>Sign In</b> Here! </a>
+                        <a style="padding-left:7%" href="https://github.com/login/oauth/authorize?scope=user:email&client_id=07e621826ef24f69d10c" style="color:black"> Got Github? <b>Sign In</b> Here! </a>
                         <tr>
                             <td style=" color:black"><label><b>First Name :</b></label></td>
                             <td><input type="text" name="u_firstname" placeholder="Enter name"></td><br>
                         </tr>
-
                         <tr>
                             <td style="color:black"><label><b>Last Name : </b></label></td>
                             <td><input type="text" name="u_lastname" placeholder="Enter Email"></td><br>
                         </tr>
-
                         <tr>
                             <td style="color:black"><label><b>Email : </b></label></td>
                             <td><input type="email" name="u_email" placeholder="Enter password"></td><br>
@@ -142,7 +138,6 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                             <td style="color:black"><label><b>Password :</b></label></td>
                             <td><input type="password" name="u_password" placeholder="Re enter password">
                         </tr>
-
                         <tr>
                             <td colspan="10">
                                 <button name="signup"> Sign Up</button>
