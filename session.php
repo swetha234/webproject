@@ -1,6 +1,6 @@
 <?php
 //session_start();
-$connection = mysqli_connect("localhost", "admin", "monarchs", "pet_finder") or die("Connection Failed");
+require("connection.php");
 
 //function for getting topics
 function getTopics()
@@ -143,27 +143,32 @@ function get_globalposts()
 
 ?>
 
-                    <div id='posts'>
-                        <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50' , height='50'></p>
-                        <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
-                        <p>Username: <a href='my_profile.php?id=<?php echo $users_id; ?>'><?php echo $last_name; ?></a></p>
-                        <p>Topic:<?php echo $post_title; ?></p>
-                        <p>Content :<?php echo $content; ?></p>
-                        <p>Posted Date:<?php echo $post_date; ?></p>
-                        <!-- if user likes post, style button differently -->
-                        <i <?php if (userLiked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-up like-btn' <?php else : ?> class='fa fa-thumbs-o-up like-btn' <?php endif ?> data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id_global; ?>'></i>
+<div id='posts'>
+    <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50' , height='50'></p>
+    <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
+    <p>Username: <a href='my_profile.php?id=<?php echo $users_id; ?>'><?php echo $last_name; ?></a></p>
+    <p>Topic:<?php echo $post_title; ?></p>
+    <p>Content :<?php echo $content; ?></p>
+    <p>Posted Date:<?php echo $post_date; ?></p>
+    <!-- if user likes post, style button differently -->
+    <i <?php if (userLiked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-up like-btn' <?php else : ?>
+        class='fa fa-thumbs-o-up like-btn' <?php endif ?> data-id='<?php echo $post_id; ?>'
+        data-id1='<?php echo $users_id_global; ?>'></i>
 
-                        <span class='likes'><?php echo getLikes($post_id); ?></span>
+    <span class='likes'><?php echo getLikes($post_id); ?></span>
 
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <!-- if user dislikes post, style button differently -->
-                        <i <?php if (userDisliked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-down dislike-btn' <?php else : ?> class='fa fa-thumbs-o-down dislike-btn' <?php endif ?> data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id_global; ?>'></i>
-                        <span class='dislikes'><?php echo getDislikes($post_id); ?></span>
-                        <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>
+    <!-- if user dislikes post, style button differently -->
+    <i <?php if (userDisliked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-down dislike-btn' <?php else : ?>
+        class='fa fa-thumbs-o-down dislike-btn' <?php endif ?> data-id='<?php echo $post_id; ?>'
+        data-id1='<?php echo $users_id_global; ?>'></i>
+    <span class='dislikes'><?php echo getDislikes($post_id); ?></span>
+    <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to
+            this</button></a>
 
-                        <!-- for deleting -->
-                        <?php
+    <!-- for deleting -->
+    <?php
                         if ($users_id_global == 21) {
 
 
@@ -173,10 +178,10 @@ function get_globalposts()
 
                         ?>
 
-                    </div><br>
+</div><br>
 
 
-            <?php
+<?php
 
 
 
@@ -192,6 +197,7 @@ function getLikes($post_id)
     $sql = "SELECT COUNT(*) FROM rating 
   		  WHERE post_id = $post_id AND rating_action='like'";
     $rs = mysqli_query($connection, $sql);
+    var_dump("Helloooooo");
     $result = mysqli_fetch_array($rs);
     return $result[0];
 }
@@ -267,16 +273,18 @@ function get_groups($users_id)
 
             $topic_title = $row_topic_name['topic_title'];
             ?>
-            <div id='groups'>
-                <form action='join.php' method='get'>
+<div id='groups'>
+    <form action='join.php' method='get'>
 
-                    <h3><a href='join.php?topic_id=<?php echo $topic_id; ?>&topic_title=<?php echo $topic_title; ?>'><?php echo $topic_title;  ?></a></h3>
+        <h3><a
+                href='join.php?topic_id=<?php echo $topic_id; ?>&topic_title=<?php echo $topic_title; ?>'><?php echo $topic_title;  ?></a>
+        </h3>
 
-                    <br>
-                </form>
-            </div>
+        <br>
+    </form>
+</div>
 
-            <?php
+<?php
 
         }
         //        include("pagination.php");
@@ -466,8 +474,8 @@ function get_group_posts($topic_id, $users_id)
 
 
 
-                <div id='posts'>
-                    <?php
+<div id='posts'>
+    <?php
                     if ($dp_value != '0') {
                         echo " <p>
                     <img src='user/user_images/$user_image' width='50' height='50'/> </p>";
@@ -477,33 +485,42 @@ function get_group_posts($topic_id, $users_id)
                     <img src='$user_image' width='50' height='50'/> </p>";
                     }
                     ?>
-                    <h3>Group Name : <a href='group_profile.php?topic_id=<?php echo $topic_id ?>'><?php echo $topic_title; ?></a></h3>
-                    <p>Username: <a href='my_profile.php?id=<?php echo $users_id ?>'><?php echo $last_name; ?></a></p>
-                    <p>Topic:<?php echo $post_title; ?></p>
-                    <p>Content :<?php echo $content; ?></p>
-                    <p>Posted Date:<?php echo $post_date; ?></p>
-                    <!-- if user likes post, style button differently -->
+    <h3>Group Name : <a href='group_profile.php?topic_id=<?php echo $topic_id ?>'><?php echo $topic_title; ?></a></h3>
+    <p>Username: <a href='my_profile.php?id=<?php echo $users_id ?>'><?php echo $last_name; ?></a></p>
+    <p>Topic:<?php echo $post_title; ?></p>
+    <p>Content :<?php echo $content; ?></p>
+    <p>Posted Date:<?php echo $post_date; ?></p>
+    <!-- if user likes post, style button differently -->
 
-                    <i <?php
+    <i <?php
                         if ($archive_action == "unarchive") :
 
-                            if (userLiked($post_id, $users_id)) : ?> class='fa fa-thumbs-up like-btn' <?php else : ?> class='fa fa-thumbs-o-up like-btn' <?php endif ?> <?php else :
-                                                                                                                                                                        if (userLiked($post_id, $users_id)) : ?> class='fa fa-thumbs-up' <?php else : ?> class='fa fa-thumbs-o-up' <?php endif ?> <?php endif ?> data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id; ?>'></i>
+                            if (userLiked($post_id, $users_id)) : ?> class='fa fa-thumbs-up like-btn' <?php else : ?>
+        class='fa fa-thumbs-o-up like-btn' <?php endif ?>
+        <?php else :
+                                                                                                                                                                        if (userLiked($post_id, $users_id)) : ?>
+        class='fa fa-thumbs-up' <?php else : ?> class='fa fa-thumbs-o-up' <?php endif ?> <?php endif ?>
+        data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id; ?>'></i>
 
-                    <span class='likes'><?php echo getLikes($post_id); ?></span>
+    <span class='likes'><?php echo getLikes($post_id); ?></span>
 
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <!-- if user dislikes post, style button differently -->
-                    <i <?php
+    <!-- if user dislikes post, style button differently -->
+    <i <?php
                         if ($archive_action == "unarchive") :
 
-                            if (userDisliked($post_id, $users_id)) : ?> class='fa fa-thumbs-down dislike-btn' <?php else : ?> class='fa fa-thumbs-o-down dislike-btn' <?php endif ?> <?php else :
-                                                                                                                                                                                        if (userDisliked($post_id, $users_id)) : ?> class='fa fa-thumbs-down' <?php else : ?> class='fa fa-thumbs-o-down' <?php endif ?> <?php endif ?> data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id; ?>'></i>
-                    <span class='dislikes'><?php echo getDislikes($post_id); ?></span>
-                    <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>
+                            if (userDisliked($post_id, $users_id)) : ?> class='fa fa-thumbs-down dislike-btn'
+        <?php else : ?> class='fa fa-thumbs-o-down dislike-btn' <?php endif ?>
+        <?php else :
+                                                                                                                                                                                        if (userDisliked($post_id, $users_id)) : ?>
+        class='fa fa-thumbs-down' <?php else : ?> class='fa fa-thumbs-o-down' <?php endif ?> <?php endif ?>
+        data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id; ?>'></i>
+    <span class='dislikes'><?php echo getDislikes($post_id); ?></span>
+    <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to
+            this</button></a>
 
-                    <?php
+    <?php
                     if ($users_id == 21) {
 
 
@@ -511,10 +528,10 @@ function get_group_posts($topic_id, $users_id)
                         echo "<i class='fa fa-trash delete' data-id='$post_id' style='font-size:24px; color:black; float:right;'> </i>";
                     }
                     ?>
-                </div><br>
+</div><br>
 
 
-            <?php
+<?php
 
 
             }
@@ -655,15 +672,15 @@ function get_search_results($users_id)
 
                 $topic_title = $row_topic_name['topic_title'];
             ?>
-                <div id='groups'>
-                    <form action='my_groups.php' method='get'>
-                        <input type='checkbox' name='vehicle1' id='myCheck' value='<?php echo $topic_title ?> '>
-                        <h3><a href='group_profile.php?topic_id=<?php echo $topic_id; ?>'><?php echo $topic_title  ?></a></h3>
+<div id='groups'>
+    <form action='my_groups.php' method='get'>
+        <input type='checkbox' name='vehicle1' id='myCheck' value='<?php echo $topic_title ?> '>
+        <h3><a href='group_profile.php?topic_id=<?php echo $topic_id; ?>'><?php echo $topic_title  ?></a></h3>
 
-                        <br>
-                    </form>
-                </div>
-        <?php
+        <br>
+    </form>
+</div>
+<?php
                 echo "<button onclick='insert_join()'>Join</button>";
             }
         }
@@ -705,22 +722,23 @@ function members_list($topic_id, $users_id)
         $user_image = $row_members['user_image'];
         $members_user_id = $row_members['users_id'];
         ?>
-        <div id="members">
-            <br>
+<div id="members">
+    <br>
 
-            <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50' , height='50'></p>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span><strong><a href='my_profile.php?id=<?php echo $members_user_id; ?>'><?php echo $last_name; ?></a></strong> </span>
+    <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50' , height='50'></p>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <span><strong><a href='my_profile.php?id=<?php echo $members_user_id; ?>'><?php echo $last_name; ?></a></strong>
+    </span>
 
 
-            <?php
+    <?php
             if ($users_id == 21) {
                 echo "<i class='fa fa-trash deleteusers' data-id1='$members_user_id' data-id2 = '$topic_id' style='font-size:24px; color:black; float:right;'> </i> ";
             }
             ?>
-        </div>
+</div>
 
-    <?php
+<?php
     }
 }
 
@@ -741,9 +759,9 @@ function members()
 
     ?>
 
-        <div id="members">
-            <br>
-            <?php
+<div id="members">
+    <br>
+    <?php
             if ($dp_value != '0') {
                 echo "
                     <img src='user/user_images/$user_image' width='50' height='50'/>";
@@ -754,8 +772,9 @@ function members()
             }
 
             ?>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <span><strong><a href='message.php?id=<?php echo $members_user_id; ?>'> <?php echo $last_name, $first_name; ?></a></strong> </span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <span><strong><a href='message.php?id=<?php echo $members_user_id; ?>'>
+                <?php echo $last_name, $first_name; ?></a></strong> </span>
     <?php
     }
 }

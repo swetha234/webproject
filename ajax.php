@@ -1,6 +1,6 @@
 <?php
 session_start();
-$connection = mysqli_connect("localhost", "admin", "monarchs", "pet_finder") or die("Connection Failed");
+require("connection.php");
 global $connection;
 if (isset($_POST['msg'])) {
 
@@ -17,5 +17,5 @@ if (isset($_POST['msg'])) {
 
   $run_query = mysqli_query($connection, $query);
 
-  echo success;
+  echo "success";
 }

@@ -1,6 +1,6 @@
 <?php 
   session_start();
-  $connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("Connection Failed");
+  require("connection.php");
   global $connection;
 
   insertPost($connection, $_POST['topic_id'], $_POST['title'], $_POST['content']);
@@ -22,4 +22,3 @@
         array('result' => $result, 'session' => $_SESSION, 'id' => mysqli_insert_id($connection))
     );
   }
-?>
