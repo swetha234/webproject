@@ -25,4 +25,3 @@
     echo json_encode(
         array('result' => $result, 'session' => $_SESSION, 'posts' => $posts)
     );
-?>

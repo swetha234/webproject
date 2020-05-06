@@ -7,8 +7,6 @@ if(!isset($_SESSION['email'])){
     
 }
 
-
-
 if(isset($_POST['default'])){ 
 
  $mail_id = $_SESSION['email'];
@@ -37,5 +35,3 @@ $mail_id = $_SESSION['email'];
     $r_update1=mysqli_query($connection,$sql1);
  
 }
-
-?>
