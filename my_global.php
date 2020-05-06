@@ -40,18 +40,18 @@ if (!isset($_SESSION['email'])) {
 
     <script type="scripts.js"></script>
     <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
 
-            $('#summernote').summernote({
-                linkTargetBlank: false,
-                height: 200,
-                width: 400, // set editor height
-                minHeight: 100, // set minimum height of editor
-                maxHeight: 600, // set maximum height of editor
-                focus: true // set focus to editable area after initializing summernote
+        $('#summernote').summernote({
+            linkTargetBlank: false,
+            height: 200,
+            width: 400, // set editor height
+            minHeight: 100, // set minimum height of editor
+            maxHeight: 600, // set maximum height of editor
+            focus: true // set focus to editable area after initializing summernote
 
-            });
         });
+    });
     </script>
 </head>
 
@@ -80,7 +80,8 @@ if (!isset($_SESSION['email'])) {
 
         <form method="get" action="search.php" id="form1" style="float:right;width: 200px;">
             <!--                <span class="input-group-addon">Search</span>-->
-            <input type="text" name="search_text" id="search_text" autocomplete="false" placeholder="search for names..." />
+            <input type="text" name="search_text" id="search_text" autocomplete="false"
+                placeholder="search for names..." />
             <!--                <input type = "submit" name = "search" value="Go">-->
             <br>
 

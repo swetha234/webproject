@@ -45,25 +45,32 @@ while ($row_posts = mysqli_fetch_array($run_posts, MYSQLI_ASSOC)) {
 
 ?>
 
-                <div id='posts'>
-                    <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50' , height='50'></p>
-                    <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
-                    <p>Username: <a href='user_profile.php?topic_id=$users_id'><?php echo $last_name; ?></a></p>
-                    <p>Topic:<?php echo $post_title; ?></p>
-                    <p>Content :<?php echo $content; ?></p>
-                    <p>Posted Date:<?php echo $post_date; ?></p>
-                    <!-- if user likes post, style button differently -->
-                    <i <?php if (userLiked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-up like-btn' <?php else : ?> class='fa fa-thumbs-o-up like-btn' <?php endif ?> data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id_global; ?>'></i>
+<div id='posts'>
+    <p> <img src='user/user_images/<?php echo $user_image; ?>' width='50' , height='50'></p>
+    <h3>Group Name : <a href='group_profile.php?topic_id=$topic_id'><?php echo $topic_title; ?></a></h3>
+    <p>Username: <a href='user_profile.php?topic_id=$users_id'><?php echo $last_name; ?></a></p>
+    <p>Topic:<?php echo $post_title; ?></p>
+    <p>Content :<?php echo $content; ?></p>
+    <p>Posted Date:<?php echo $post_date; ?></p>
 
-                    <span class='likes'><?php echo getLikes($post_id); ?></span>
+    <!-- if user likes post, style button differently -->
+    <i <?php if (userLiked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-up like-btn' <?php else : ?>
+        class='fa fa-thumbs-o-up like-btn' <?php endif ?> data-id='<?php echo $post_id; ?>'
+        data-id1='<?php echo $users_id_global; ?>'></i>
 
-                    &nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <!-- if user dislikes post, style button differently -->
-                    <i <?php if (userDisliked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-down dislike-btn' <?php else : ?> class='fa fa-thumbs-o-down dislike-btn' <?php endif ?> data-id='<?php echo $post_id; ?>' data-id1='<?php echo $users_id_global; ?>'></i>
-                    <span class='dislikes'><?php echo getDislikes($post_id); ?></span>
-                    <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to this</button></a>
-                </div><br>
+    <span class='likes'><?php echo getLikes($post_id); ?></span>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;
+
+    <!-- if user dislikes post, style button differently -->
+    <i <?php if (userDisliked($post_id, $users_id_global)) : ?> class='fa fa-thumbs-down dislike-btn' <?php else : ?>
+        class='fa fa-thumbs-o-down dislike-btn' <?php endif ?> data-id='<?php echo $post_id; ?>'
+        data-id1='<?php echo $users_id_global; ?>'></i>
+    <span class='dislikes'><?php echo getDislikes($post_id); ?></span>
+    <a href='single.php?post_id=<?php echo $post_id; ?>' style='float:right;'><button> See Replies or Reply to
+            this</button></a>
+</div><br>
 
 <?php
 

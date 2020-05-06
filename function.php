@@ -1,6 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost", "admin", "monarchs", "pet_finder") or die("Connection Failed");
-
+require("connection.php");
 function InsertUser()
 {
     global $connection;
