@@ -22,4 +22,3 @@
         array('result' => $result, 'session' => $_SESSION, 'id' => mysqli_insert_id($connection))
     );
   }
-?>

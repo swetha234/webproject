@@ -26,9 +26,6 @@ if (isset($_GET['action'])) {
       break;
   }
 
-  // // execute query to effect changes in the database ...
-  // mysqli_query($dbc, $sql);
-  // echo getRating($post_id);
+  
   exit(0);
 }
-?>

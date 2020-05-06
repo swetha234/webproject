@@ -33,9 +33,6 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
 }
 
 ?>
-
-
-
 <html>
 
 <head>
@@ -63,12 +60,6 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
             left: 20px;
 
         }
-
-        /* .form2 {
-
-            margin-top: -500px;
-
-        } */
     </style>
 
 
@@ -92,8 +83,6 @@ if (isset($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password
                 <strong>Password:</strong>
                 <input type="password" id="password" name="password" placeholder="********" required="required" />
                 <button id="login" name="login">Login</button>
-
-
 
                 <?php
                 echo $Invalid;

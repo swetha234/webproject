@@ -28,5 +28,3 @@ $connection=mysqli_connect("localhost","admin","monarchs","pet_finder") or die("
          echo"fail";
      }
  }
-
-?>

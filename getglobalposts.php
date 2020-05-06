@@ -1,6 +1,4 @@
 <?php
-
-
 global $connection;
 $per_page = 5;
 if (isset($_GET['page'])) {
