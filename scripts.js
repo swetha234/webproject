@@ -8,6 +8,8 @@ const getPostTemplate = (
 	userImage,
 	userLastName,
 	userId,
+	likes,
+	dislikes,
 	session
 ) => {
 	const session_userId = session['users_id'];
@@ -37,8 +39,8 @@ const getPostTemplate = (
 			`</span></p>
       <p>Posted Date: ${Date(Date.now())}</p>
       <br> 
-      <i class='fa fa-thumbs-o-up like-btn' data-id=${post_id} data-id1=${userId}></i> <span class='likes'> 0 </span>
-    <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> 0 </span>
+      <i class='fa fa-thumbs-o-up like-btn' data-id=${post_id} data-id1=${userId}></i> <span class='likes'>${likes}  </span>
+    <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> ${dislikes} </span>
       <a href='single.php?post_id=${post_id}' style='float:right;'><button> See Replies or Reply to this </button></a>
       <i class='fa fa-trash delete' data-id='${post_id}' style='font-size:24px; color:black; float:right;'> </i>
     </div><br>`
@@ -61,8 +63,8 @@ const getPostTemplate = (
 			`</span></p>
       <p>Posted Date: ${Date(Date.now())}</p>
       <br> 
-      <i class='fa fa-thumbs-o-up like-btn' data-id=${post_id} data-id1=${userId}></i> <span class='likes'> 0 </span>
-    <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> 0 </span>
+      <i class='fa fa-thumbs-o-up like-btn' data-id=${post_id} data-id1=${userId}></i> <span class='likes'> ${likes} </span>
+    <i class='fa fa-thumbs-o-down dislike-btn' data-id=${post_id} data-id1=${userId}></i> <span class='dislikes'> ${dislikes} </span>
       <a href='single.php?post_id=${post_id}' style='float:right;'><button> See Replies or Reply to this </button></a>
     </div><br>`
 		);
@@ -91,8 +93,10 @@ $(document).ready(function() {
 						posts[i].post_title,
 						posts[i].post_content,
 						posts[i].user_image,
-						posts[i].last_name,
+						posts[i].last_najme,
 						posts[i].users_id,
+						posts[i].likes,
+						posts[i].dislikes,
 						session
 					)
 				);
