@@ -93,7 +93,7 @@ $(document).ready(function() {
 						posts[i].post_title,
 						posts[i].post_content,
 						posts[i].user_image,
-						posts[i].last_najme,
+						posts[i].last_name,
 						posts[i].users_id,
 						posts[i].likes,
 						posts[i].dislikes,
