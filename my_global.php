@@ -173,7 +173,7 @@ if (!isset($_SESSION['email'])) {
 
 
                 <?php
-                //               get_globalposts(); 
+                // get_globalposts();
                 $per_page = 5;
 
                 if (isset($_GET['page'])) {

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$connection = mysqli_connect("localhost", "admin", "monarchs", "pet_finder") or die("Connection Failed");
+require("connection.php");
 
 global $connection;
 global $connection;

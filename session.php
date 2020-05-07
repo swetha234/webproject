@@ -197,7 +197,6 @@ function getLikes($post_id)
     $sql = "SELECT COUNT(*) FROM rating 
   		  WHERE post_id = $post_id AND rating_action='like'";
     $rs = mysqli_query($connection, $sql);
-    var_dump("Helloooooo");
     $result = mysqli_fetch_array($rs);
     return $result[0];
 }
